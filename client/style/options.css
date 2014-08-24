@@ -1,0 +1,71 @@
+div{
+    font-size: 13px;
+	font-family:"宋体";
+}
+a {
+    color: #4183C4;
+}
+.top .title{
+    font-size:18px;
+    line-height: 30px;
+}
+.center .list{
+    margin-bottom: 5px;
+}
+.center .email-div{
+    text-indent: 2em;
+}
+.center .save{
+    margin-top: 5px;
+    text-indent: 0px;
+    margin-left: 2em;
+}
+.center .button{
+    background-color: #60B044;
+    background-image: linear-gradient(#8ADD6D, #60B044);
+    background-repeat: repeat-x;
+    border-color: #5CA941;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    line-height: 24px;
+    padding: 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.center .faq{
+    margin-top:15px;
+    font-size: 14px;
+    color: #5CA941;
+}
+.msg{
+	margin-left: 20px;
+	color: #789;
+}
+.bottom{
+    margin-top:20px;
+}
+.gk7-douban-result-msg{
+	position: fixed;
+	top: 30px;
+	right: 30px;
+	background-color: #f5f5f5;
+	padding: 20px;
+	border: 1px solid #d8d8d8;
+	color: #4183c4;
+	width: 120px;
+	word-break: break-all;
+}
+.gk7-douban-result-msg .close{
+	right: 1px;
+	top: 1px;
+	position: absolute;
+	color: #ff0000;
+	cursor: pointer;
+}
