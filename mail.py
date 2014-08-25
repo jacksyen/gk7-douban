@@ -13,8 +13,8 @@ class SendMail:
     def __init__(self):
         self.server = smtplib.SMTP('smtp.qq.com', '587')
         self.server.starttls()
-        self.server.login('461166828@qq.com', 'Syen19890828')
-        self.from_mail = '461166828@qq.com'
+        self.server.login('418296229@qq.com', 'Eva19890828')
+        self.from_mail = '418296229@qq.com'
 
     def close(self):
         if not self.server:

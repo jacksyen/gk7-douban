@@ -45,3 +45,5 @@ docs/_build/
 
 log/*
 *.db
+*.sh
+*.out
