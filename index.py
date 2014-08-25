@@ -16,9 +16,18 @@ from page import HTML
 
 urls = (
     '/','index',
+    '/send', 'send',
 )
 
 class index:
+
+    def GET(self):
+        return json.dumps({'msg':'not services'})
+
+    def POST(self):
+        return json.dumps({'msg':'not services'})
+        
+class send:
 
     def __init__(self):
         self.conn = SQLite.conn()
