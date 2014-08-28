@@ -54,7 +54,7 @@ function send(request, callback){
   articleData['bookData'] = Base64.encode(prec.dec(splitData[1]));
   articleData['bookTitle'] = splitData[0];
   $.ajax({
-    url: 'http://103.243.25.214:8000/send',
+    url: 'http://107.170.242.4:8000/send',
     data: articleData,
     dataType: 'json',
     type: 'POST'
