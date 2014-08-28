@@ -1,4 +1,6 @@
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 
 import sys
 import web
@@ -18,6 +20,8 @@ urls = (
     '/','index',
     '/send', 'send',
 )
+app = web.application(urls, globals())
+
 
 class index:
 
@@ -25,8 +29,8 @@ class index:
         return json.dumps({'msg':'not services'})
 
     def POST(self):
-        return json.dumps({'msg':'not services'})
-        
+        return json.dumps({'msg':'not servicindex'})
+
 class send:
 
     def __init__(self):
@@ -91,14 +95,10 @@ class send:
         return json.dumps(result)
 
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     logger.info(u'-----------系统启动-----------')
     # 设置系统编码
     reload(sys)
     sys.setdefaultencoding('utf-8')
-
-    #SQLite.init()
-    app = web.application(urls, globals())
+    web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()
