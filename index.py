@@ -19,8 +19,8 @@ urls = (
     '/','index',
     '/send', 'send',
 )
+web.config.debug = False
 app = web.application(urls, globals())
-
 
 class index:
 
@@ -39,7 +39,7 @@ class send:
     def __del__(self):
         if self.conn:
             SQLite.close(self.conn)
-            
+
     def GET(self):
         return self.execute()
 
