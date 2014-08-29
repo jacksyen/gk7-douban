@@ -48,3 +48,5 @@ log/*
 *.sh
 *.out
 \#*
+*.html
+data/

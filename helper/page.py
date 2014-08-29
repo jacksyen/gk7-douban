@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
-import markup
+
+import os
+import sys
+import tools.markup as markup
+
+# 设置系统编码
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class HTML:
 
@@ -50,7 +57,10 @@ class HTML:
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
 
         # 写入文件
-        filename = '%s.html' %self.title
+        path = 'data'
+        if not os.path.exists(path):
+            os.mkdir(path)
+        filename = '%s/%s.html' %(path, self.title)
         output = open(filename, 'w')
         output.write(str(self.page))
         output.close()
