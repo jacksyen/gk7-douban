@@ -11,10 +11,10 @@ from log import logger
 class SendMail:
 
     def __init__(self):
-        self.server = smtplib.SMTP('smtp.qq.com', '587')
+        self.server = smtplib.SMTP('smtp.gmail.com', '25')
         self.server.starttls()
-        self.server.login('418296229@qq.com', 'Eva19890828')
-        self.from_mail = '418296229@qq.com'
+        self.server.login('hyqiu.syen@gmail.com', 'Eva19890828')
+        self.from_mail = 'hyqiu.syen@gmail.com'
 
     def close(self):
         if not self.server:
