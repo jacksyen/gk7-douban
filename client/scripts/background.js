@@ -53,6 +53,7 @@ function send(request, callback){
   var splitData = request.bookData.split(':');
   articleData['bookData'] = Base64.encode(prec.dec(splitData[1]));
   articleData['bookTitle'] = splitData[0];
+  articleData['toMail'] = localStorage.TO_MAIL;
   $.ajax({
     url: 'http://107.170.242.4:8000/send',
     data: articleData,
