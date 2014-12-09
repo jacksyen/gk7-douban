@@ -22,3 +22,5 @@
 + 客户端提示优化
 
 ##Change log
++ 推送至email先存储在sqlite表中，例如定时巡检发送邮件
++ 图书信息存储在sqlite中

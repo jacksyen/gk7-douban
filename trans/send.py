@@ -42,9 +42,12 @@ class Send:
         result = {}
         args = web.input()
         logger.info(u'入参:%s' %args)
-
         try:
+            # 图书数据
             book_data = args.get('bookData')
+            # 推送的email地址
+            to_email = args.get('toMail')
+
             # 处理数据
             data = base64.b64decode(book_data)#.split(':')[1]
             data_json = json.loads(data)
@@ -61,10 +64,8 @@ class Send:
             convert_filename = 'data/%s.mobi' %book_title
             self.convert(filename, convert_filename)
 
-            # 发送邮件
-            mail = SendMail()
-            mail.send(convert_filename, 'jacksyen@kindle.com', book_title, book_author)
-            mail.close()
+            # 将待发送邮件存储至数据库
+            SendMail.add(convert_filename, to_email, book_title, book_author)
 
             result['status'] = 'SUCCESS'
             result['msg'] = u'推送成功，请稍侯查看您的kindle'
