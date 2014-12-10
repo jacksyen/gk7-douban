@@ -1,1 +1,1 @@
-__all__ = ['log', 'dbase', 'mail', 'page', 'util']
+__all__ = ['log', 'dbase', 'mail', 'page', 'util', 'init']

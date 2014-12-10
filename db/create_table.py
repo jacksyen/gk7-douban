@@ -5,7 +5,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
 创建数据库表信息（如果不存在）
 """
-from webglobal.global import Global
+from webglobal.globals import Global
 
 class Create:
 
@@ -25,7 +25,7 @@ class Create:
     '''
     @staticmethod
     def gk7_douban_wait_emails():
-        return 'CREATE TABLE IF NOT EXISTS %s(email_to_user text, email_attach_file text, email_title text, email_auth text, email_send_status text, addtime datetime, updatetime datetime' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME)
+        return 'CREATE TABLE IF NOT EXISTS %s(email_to_user text, email_attach_file text, email_title text, email_auth text, email_send_status text, addtime datetime, updatetime datetime)' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME)
 
     '''
     获取所有书籍表sql

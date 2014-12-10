@@ -24,3 +24,7 @@
 ##Change log
 + 推送至email先存储在sqlite表中，例如定时巡检发送邮件
 + 图书信息存储在sqlite中
++ 格式转换使用calibre中的`ebook-convert`命令
++ 使用python sh模块调用系统命令
+
+

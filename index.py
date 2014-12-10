@@ -10,7 +10,7 @@ import threading
 from tools.CloudConvert import CloudConvert
 
 from helper.log import logger
-from helper.dbase import SQLite
+from helper.init import Init_DB
 from helper.mail import SendMail
 from helper.page import HTML
 
@@ -39,6 +39,8 @@ class Index:
 
 if __name__ == "__main__":
     logger.info(u'-----------系统启动-----------')
+    # 初始化数据库和表信息
+    Init_DB.init()
 
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()

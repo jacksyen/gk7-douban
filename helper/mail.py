@@ -7,8 +7,8 @@ from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 
 from dbase import SQLite
-from webglobal.global import Global
-from webglobal.global import Global_EMAILS_STATUS
+from webglobal.globals import Global
+from webglobal.globals import Global_EMAILS_STATUS
 
 from log import logger
 
