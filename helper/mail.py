@@ -6,11 +6,9 @@ from email.header import Header
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 
-from dbase import SQLite
-from webglobal.globals import Global
-from webglobal.globals import Global_EMAILS_STATUS
-
 from log import logger
+from dbase import SQLite
+from webglobal.globals import Global, Global_Status
 
 class SendMail:
 
@@ -31,22 +29,6 @@ class SendMail:
         if not self.server:
             self.server.quit()
             self.server.close()
-
-    '''
-    将信息添加至待发送邮件数据表
-    filename: 附件名
-    tomail: 发送到的email
-    title: 标题
-    author: 头部作者
-    '''
-    @staticmethod
-    def add(filename, tomail, title, author):
-        conn =  SQLite.conn()
-        db = conn.cursor()
-        db.execute('INSERT INTO %s(email_to_user, email_attach_file, email_title, email_auth, email_send_status, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(tomail, filename, title, auth, Global_EMAILS_STATUS.WAIT, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
-        if db.rowcount <= 0:
-            logger.error(u'添加至邮件表错误，email: %s，标题：%s' %(tomail, title))
-        conn.commit()
 
     def send(self, filename, tomail, title, author):
         # 构造附件
