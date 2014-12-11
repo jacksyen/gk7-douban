@@ -9,11 +9,17 @@ class Global:
 
     GLOBAL_DB_FILE = 'gk7-douban-read-send-kindle.db'
 
+    ## 书籍信息表
     GLOBAL_DB_TBL_BOOK_NAME = 'gk7_douban_books'
 
+    ## 全局配置表
     GLOBAL_DB_TBL_GLOBAL_NAME = 'gk7_douban_global'
 
+    ## 等待发送邮件表
     GLOBAL_DB_TBL_WAIT_EMAILS_NAME = 'gk7_douban_wait_emails'
+
+    ## 书籍html等待转换表
+    GLOBAL_DB_TBL_WAIT_HTMLS = 'gk7_douban_wait_htmls'
 
 
     ## email配置
@@ -33,12 +39,17 @@ class Global:
         pass
 
 '''
-邮件发送状态
+全局状态
++ 邮件表
++ htmls转换表
 '''
-class Global_EMAILS_STATUS:
+class Global_Status:
 
     WAIT = 'wait'
 
     COMPLETE = 'complete'
 
     ERROR = 'error'
+
+
+

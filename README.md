@@ -1,6 +1,11 @@
 #豆瓣阅读推送至kindle，chrome插件及服务端#
 
 ##使用说明
+```
+python
+sudo pip install web.py
+sudo pip install sh
+```
 
 
 ##实现逻辑
@@ -10,7 +15,7 @@
 2. 客户端使用post请求至服务器
 3. 服务器接收请求，使用base64解密，获取json数据
 4. 根据kindle html规法生成html文件
-5. 调用CloudConvert服务将html文件转换成mobi文件，并下载至服务器中
+5. 将待转换的数据信息存储在表中
 6. 使用邮件服务发送至用户kindle邮件中
 7. 返回状态
 
@@ -26,5 +31,3 @@
 + 图书信息存储在sqlite中
 + 格式转换使用calibre中的`ebook-convert`命令
 + 使用python sh模块调用系统命令
-
-

@@ -11,9 +11,9 @@
 # Created: 三 12月 10 22:37:17 2014 (+0800)
 # Version: 
 # Package-Requires: ()
-# Last-Updated: 三 12月 10 22:54:39 2014 (+0800)
-#           By: jacksyen
-#     Update #: 12
+# Last-Updated: 周四 十二月 11 11:03:43 2014 (+0800)
+#           By: Administrator
+#     Update #: 17
 # URL: 
 # Doc URL: 
 # Keywords: 
@@ -63,6 +63,8 @@ class Init_DB:
         cursor.execute(Create.gk7_douban_global())
         ## 创建书籍表
         cursor.execute(Create.gk7_douban_books())
+        ## 书籍待转换表
+        cursor.execute(Create.gk7_douban_wait_htmls())
         ## 创建等待发送邮件表
         cursor.execute(Create.gk7_douban_wait_emails())
         conn.commit()

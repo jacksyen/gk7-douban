@@ -7,8 +7,6 @@ import json
 import base64
 import threading
 
-from tools.CloudConvert import CloudConvert
-
 from helper.log import logger
 from helper.init import Init_DB
 from helper.mail import SendMail

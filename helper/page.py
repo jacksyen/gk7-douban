@@ -20,6 +20,10 @@ class HTML:
         self.page.init(title='%s' %self.title, charset='UTF-8', author=self.author)
 
 
+    '''
+    创建html
+    返回文件绝对路径
+    '''
     def create(self, data_json, data_contents):
         ## 标题
         self.page.h1((self.title,), class_='bookTitle')
@@ -60,7 +64,7 @@ class HTML:
         path = 'data'
         if not os.path.exists(path):
             os.mkdir(path)
-        filename = '%s/%s.html' %(path, self.title)
+        filename = '%s/%s.html' %(os.path.abspath(path), self.title)
         output = open(filename, 'w')
         output.write(str(self.page))
         output.close()
