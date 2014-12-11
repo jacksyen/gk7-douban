@@ -8,22 +8,22 @@ from email.MIMEMultipart import MIMEMultipart
 
 from log import logger
 from dbase import SQLite
+from db.tbl_globals import Tbl_Global
 from webglobal.globals import Global, Global_Status
 
 class SendMail:
 
     def __init__(self):
-        conn = SQLite.conn()
-        db = conn.cursor()
-        db.execute('SELECT * FROM %s' %Global.GLOBAL_DB_TBL_GLOBAL_NAME)
-        global_info = db.fetchone()
-        if global_info == None:
+        global_info = Tbl_Global()
+        global_email_info = global_info.get_global_email()
+        if global_email_info == None:
             logger.error(u'查询%s返回空' %Global.GLOBAL_DB_TBL_GLOBAL_NAME)
-        self.server = smtplib.SMTP(global_info['smtp'], global_info['smtp_port'])
+            # TODO
+        self.server = smtplib.SMTP(global_email_info['smtp'], global_email_info['smtp_port'])
         self.server.starttls()
-        self.server.login(global_info['email_user'], global_info['email_pwd'])
-        self.from_mail = global_info['email_user']
-        self.encode = global_info['email_encode']
+        self.server.login(global_email_info['email_user'], global_email_info['email_pwd'])
+        self.from_mail = global_email_info['email_user']
+        self.encode = global_email_info['email_encode']
 
     def close(self):
         if not self.server:
