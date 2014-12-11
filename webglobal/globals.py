@@ -21,6 +21,8 @@ class Global:
     ## 书籍html等待转换表
     GLOBAL_DB_TBL_WAIT_HTMLS = 'gk7_douban_wait_htmls'
 
+    GLOBAL_OUT_DATA_DIRS = '%s/out-data/' %(os.path.abspath('.'))
+
 
     ## email配置
     GLOBAL_EMAIL_SMTP = 'smtp.gmail.com'

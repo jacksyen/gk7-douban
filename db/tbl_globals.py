@@ -25,3 +25,10 @@ class Tbl_Global:
         if result == None:
             self.db.execute('INSERT INTO %s(smtp, smtp_port, email_user, email_pwd, email_encode, addtime, updatetime) VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_GLOBAL_NAME, Global.GLOBAL_EMAIL_SMTP, Global.GLOBAL_EMAIL_SMTP_PORT, Global.GLOBAL_EMAIL_USER, Global.GLOBAL_EMAIL_PWD, Global.GLOBAL_EMAIL_ENCODE, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
             self.conn.commit()
+
+    '''
+    获取邮件配置信息
+    '''
+    def get_global_email(self):
+        self.db.execute('SELECT smtp, smtp_port, email_user, email_pwd, email_encode, addtime FROM %s' %Global.GLOBAL_DB_TBL_GLOBAL_NAME)
+        return self.db.fetchone()

@@ -29,3 +29,11 @@ class Tbl_Wait_Emails:
     def add(self, request_id, tomail, title, auth):
         self.db.execute('INSERT INTO %s(email_to_user, email_title, email_auth, email_send_status, request_id, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, tomail, title, auth, Global_Status.WAIT, request_id, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
+
+    '''
+    根据请求ID获取待发送邮件信息
+    request_id: 请求ID
+    '''
+    def get(self, request_id):
+        self.db.execute('SELECT email_to_user, email_title, email_auth, email_send_status, addtime, updatetime FROM %s WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, request_id))
+        return self.db.fetchone()
