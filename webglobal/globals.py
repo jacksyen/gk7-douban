@@ -5,6 +5,8 @@ author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
 全局变量存储
 """
+import os
+
 class Global:
 
     GLOBAL_DB_FILE = 'gk7-douban-read-send-kindle.db'
@@ -21,7 +23,10 @@ class Global:
     ## 书籍html等待转换表
     GLOBAL_DB_TBL_WAIT_HTMLS = 'gk7_douban_wait_htmls'
 
-    GLOBAL_OUT_DATA_DIRS = '%s/out-data/' %(os.path.abspath('.'))
+    GLOBAL_OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
+
+    # 输出文件格式
+    GLOBAL_OUT_FILE_FORMAT = 'mobi'
 
 
     ## email配置
@@ -54,4 +59,10 @@ class Global_Status:
     ERROR = 'error'
 
 
+'''
+全局日志配置
+'''
+class global_logs:
+
+    LOG_DIRS = '%s/logs' %(os.path.abspath('.'))
 

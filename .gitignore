@@ -43,10 +43,11 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-log/*
+logs/*
 *.db
 *.sh
 *.out
 \#*
 *.html
 data/
+out-data/

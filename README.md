@@ -2,9 +2,7 @@
 
 ##使用说明
 ```
-python
 sudo pip install web.py
-sudo pip install sh
 ```
 
 
@@ -16,18 +14,22 @@ sudo pip install sh
 3. 服务器接收请求，使用base64解密，获取json数据
 4. 根据kindle html规法生成html文件
 5. 将待转换的数据信息存储在表中
-6. 使用邮件服务发送至用户kindle邮件中
+6. 将待发送的邮件信息存储在表中
+
+7. 开启异步进程，转换书籍并发送邮件
 7. 返回状态
+** 7: 并行 **
 
 ##待优化
 + 文件路径规范
-+ 邮件服务用户存储
 + 豆瓣文章ID存储
-+ CloundConvert服务调用次数存储
-+ 客户端提示优化
++ 客户端优化[提示优化，并发控制]
++ 服务端日志
+
 
 ##Change log
 + 推送至email先存储在sqlite表中，例如定时巡检发送邮件
 + 图书信息存储在sqlite中
 + 格式转换使用calibre中的`ebook-convert`命令
-+ 使用python sh模块调用系统命令
++ 使用python subprocess模块调用系统命令
++ 书籍转换和邮件发送 变为异步进程调用

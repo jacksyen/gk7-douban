@@ -35,5 +35,23 @@ class Tbl_Wait_Emails:
     request_id: 请求ID
     '''
     def get(self, request_id):
-        self.db.execute('SELECT email_to_user, email_title, email_auth, email_send_status, addtime, updatetime FROM %s WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, request_id))
+        self.db.execute('SELECT email_to_user, email_attach_file, email_title, email_auth, email_send_status, addtime, updatetime FROM %s WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, request_id))
         return self.db.fetchone()
+
+    '''
+    根据请求ID修改发送邮件状态
+    request_id: 请求ID
+    send_status: 发送状态
+    '''
+    def update_status(self, request_id, send_status):
+        self.db.execute('UPDATE %s SET email_send_status = ?, updatetime = ? WHERE request_id = ?' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME), (send_status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.conn.commit()
+
+    '''
+    根据请求ID修改待发送邮件附件信息
+    request_id: 请求ID
+    attach_file: 发送状态
+    '''
+    def update_attach_file(self, request_id, attach_file):
+        self.db.execute('UPDATE %s SET email_attach_file = ?, updatetime = ? WHERE request_id = ?' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME), (attach_file, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.conn.commit()
