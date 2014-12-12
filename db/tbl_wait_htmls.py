@@ -38,10 +38,10 @@ class Tbl_Wait_Htmls:
         return self.db.fetchone()
 
     '''
-    根据请求ID更新书籍转换状态
+    根据请求ID更新书籍转换状态,添加书籍转换完成的绝对路径
     status: 转换状态
     request_id: 请求ID
     '''
-    def update_status(self, status, request_id):
-        self.db.execute('UPDATE %s SET book_convert_status = "%s", updatetime = "%s" WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+    def update_status(self, status, request_id, book_convert_path=None):
+        self.db.execute('UPDATE %s SET book_convert_status = "%s", book_convert_path = ?, updatetime = "%s" WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id), (book_convert_path,))
         self.conn.commit()
