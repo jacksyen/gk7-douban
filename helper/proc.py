@@ -21,9 +21,10 @@ class proc_helper:
     利用ebook-convert命令[基于calibre]
     input_file_path: 输入文件绝对路径
     out_file_dir: 输出文件目录绝对路径[如果不存在，则创建]
+    author: 作者
     '''
     @staticmethod
-    def convert(input_file_path, out_file_dir):
+    def convert(input_file_path, out_file_dir, author):
         if not os.path.exists(out_file_dir):
             os.mkdir(out_file_dir)
         # 文件名
@@ -31,7 +32,7 @@ class proc_helper:
         # 输出文件绝对路径
         out_file_path = '%s/%s.%s' %(out_file_dir, file_name[0: file_name.rfind('.')], Global.GLOBAL_OUT_FILE_FORMAT)
         print out_file_path
-        code = call(['ebook-convert', input_file_path, out_file_path])
+        code = call(['ebook-convert', input_file_path, out_file_path, '--authors %s' %author])
         if code != 0:
             logger.error(u'转换%s文件失败', input_file_path)
             return None

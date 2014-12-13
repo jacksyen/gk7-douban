@@ -19,10 +19,12 @@ class SyncThread(threading.Thread):
 
     '''
     request_id: 请求ID
+    book_auth: 书籍作者
     '''
-    def __init__(self, request_id):
+    def __init__(self, request_id, book_author):
         threading.Thread.__init__(self)
         self.request_id = request_id
+        self.book_author = book_author
 
     def run(self):
         try:
@@ -34,7 +36,7 @@ class SyncThread(threading.Thread):
                 exit(-1)
             
             ## 调用转换功能
-            out_file_path = proc_helper.convert(wait_html_info['book_html_path'], Global.GLOBAL_OUT_DATA_DIRS)
+            out_file_path = proc_helper.convert(wait_html_info['book_html_path'], Global.GLOBAL_OUT_DATA_DIRS, self.book_author)
             if out_file_path == None:
                 # 转换失败
                 logger.error(u'转换失败，请求ID：%s', self.request_id)

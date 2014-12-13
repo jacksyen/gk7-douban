@@ -63,7 +63,7 @@ class Send:
             wait_emails.add(request_id, to_email, book_title, book_author)
 
             # 开启异步进程，转换书籍并发送邮件
-            thread = SyncThread(request_id)
+            thread = SyncThread(request_id, book_author)
             thread.start()
 
             result['status'] = 'SUCCESS'
