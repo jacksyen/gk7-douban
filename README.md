@@ -18,6 +18,7 @@ sudo pip install web.py
 
 7. 开启异步进程，转换书籍并发送邮件
 8. 返回状态
+
 **7和8: 并行**
 
 ##待优化
@@ -33,3 +34,4 @@ sudo pip install web.py
 + 格式转换使用calibre中的`ebook-convert`命令
 + 使用python subprocess模块调用系统命令
 + 书籍转换和邮件发送 变为异步进程调用
++ 书籍转换时添加作者信息
