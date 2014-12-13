@@ -35,7 +35,7 @@ class Create:
     '''
     @staticmethod
     def gk7_douban_books():
-        return 'CREATE TABLE IF NOT EXISTS %s(book_number text, book_convert_id text, book_title text, book_subtitle text, book_author text, book_file_path text, addtime datetime, updatetime datetime)' %(Global.GLOBAL_DB_TBL_BOOK_NAME)
+        return 'CREATE TABLE IF NOT EXISTS %s(book_number text, request_id text, book_title text, book_subtitle text, book_author text, book_file_path text, addtime datetime, updatetime datetime)' %(Global.GLOBAL_DB_TBL_BOOK_NAME)
 
     '''
     书籍html等待转换表
