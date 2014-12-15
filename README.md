@@ -35,3 +35,6 @@ sudo pip install web.py
 + 使用python subprocess模块调用系统命令
 + 书籍转换和邮件发送 变为异步进程调用
 + 书籍转换时添加作者信息
+
+##解决问题
++ HTTP传输数据大太，导致处理比较慢[传输数据压缩；nginx处理,前端等待提示优化]
