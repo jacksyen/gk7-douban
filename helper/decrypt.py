@@ -4,32 +4,29 @@
 author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
 解密豆瓣阅读文章
-TODO
-暂时功能未实现
 """
 import re
+import aop
 
 class decrypt:
-
-
 
     '''
     解密字符串
     decrypt_str: 加密后的字符串
     '''
     @staticmethod
+    @aop.exec_time_consum
     def parse(decrypt_str):
-        def xtoy (a):
-            rs = ''
+        def xtoy(a):
             i = 0
+            ll = []
             while i<len(a):
                 c = a[i]
                 i = i + 1
-                if i<len(a):
-                    num = 256* c + a[i]
-                    if num < 256:
-                        rs = rs + chr(num)
-            return rs
+                if i < len(a):
+                    ll.append(256* c + a[i])
+                i = i + 1
+            return ''.join(map(unichr, ll))
 
         _hex_chs = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$_~'
 
@@ -49,11 +46,6 @@ class decrypt:
         i = c = 0
         # 替换字符串
         decrypt_str = _str_reg.sub('', decrypt_str)
-        wi = open('sa', 'w')
-        wi.write(decrypt_str)
-        wi.flush()
-        wi.close()
-
         while i<len(decrypt_str):
             n1 = n2 = n3 = n4 = 0
             if tbl.has_key(decrypt_str[i]):
@@ -73,18 +65,8 @@ class decrypt:
             i = i + 1
 
             sa.append(n1 << 2 | n2 >> 4)
-
             sa.append((15 & n2) << 4 | n3 >> 2)
-
             sa.append((3 & n3) << 6 | n4)
-
-
-        print '..................'
-        #print sa
-        print '..................'
-        #print decrypt_str
-        print '..................'
-
         e2 = decrypt_str[-2:]
         ## 这里没有判断类型是否相等，因为pad始终是None
         if e2[0] == pad:

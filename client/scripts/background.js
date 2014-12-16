@@ -51,12 +51,13 @@ function send(request, callback){
     var articleData = {};
     var prec = pretty();
     var splitData = request.bookData.split(':');
-    articleData['bookData'] = Base64.encode(prec.dec(splitData[1]));
+    var book_data = splitData[1].replace(/\n/g, '');
+    articleData['bookData'] = book_data;
     articleData['bookTitle'] = splitData[0];
     articleData['toMail'] = localStorage.TO_MAIL;
     $.ajax({
-	//url: 'http://107.170.242.4:8000/send',
-        url: 'http://localhost:8000/send',
+	url: 'http://107.170.242.4:8000/send',
+        //url: 'http://localhost:8000/send',
         //url: 'http://192.168.3.167:8000/send',
 	data: articleData,
 	dataType: 'json',
@@ -65,6 +66,6 @@ function send(request, callback){
     }).done(function(response){
 	callback(response);
     }).fail(function(){
-	//callback({status:'FAIL', msg:'推送请求失败，请稍候再试，或联系：hyqiu.syen@gmail.com'});
+	callback({status:'FAIL', msg:'推送请求失败，请稍候再试，或联系：hyqiu.syen@gmail.com'});
     });
 }
