@@ -31,7 +31,7 @@ class Send:
     def POST(self):
         return self.execute(web.input())
 
-    @aop.exec_time
+    @aop.exec_out_time
     def execute(self, args):
         result = {}
         try:
@@ -39,11 +39,8 @@ class Send:
             book_data = args.get('bookData')
             # 推送的email地址
             to_email = args.get('toMail')
-
             # 请求ID
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
-            logger.info(u'请求开始，ID:%s', request_id)
-
             # 处理数据
             data = decrypt.parse(book_data)
             data_json = json.loads(data)
@@ -66,7 +63,7 @@ class Send:
 
             # 开启异步进程，转换书籍并发送邮件
             thread = SyncThread(request_id, book_author)
-            #thread.start()
+            thread.start()
 
             result['status'] = 'SUCCESS'
             result['msg'] = u'推送成功，请稍侯查看您的kindle'

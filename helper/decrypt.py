@@ -6,6 +6,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 解密豆瓣阅读文章
 """
 import re
+import aop
 
 class decrypt:
 
@@ -14,6 +15,7 @@ class decrypt:
     decrypt_str: 加密后的字符串
     '''
     @staticmethod
+    @aop.exec_time_consum
     def parse(decrypt_str):
         def xtoy(a):
             i = 0
