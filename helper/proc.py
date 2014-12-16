@@ -9,6 +9,7 @@ import os
 
 from log import logger
 from subprocess import call
+import helper.aop as aop
 from webglobal.globals import Global
 
 class proc_helper:
@@ -24,6 +25,7 @@ class proc_helper:
     author: 作者
     '''
     @staticmethod
+    @aop.exec_time
     def convert(input_file_path, out_file_dir, author):
         if not os.path.exists(out_file_dir):
             os.mkdir(out_file_dir)
