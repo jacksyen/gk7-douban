@@ -3,6 +3,7 @@
 import os
 import sys
 import tools.markup as markup
+import aop
 
 # 设置系统编码
 reload(sys)
@@ -24,6 +25,7 @@ class HTML:
     创建html
     返回文件绝对路径
     '''
+    @aop.exec_out_time
     def create(self, data_json, data_contents):
         ## 标题
         self.page.h1((self.title,), class_='bookTitle')

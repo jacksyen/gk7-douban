@@ -8,6 +8,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 import uuid
 from helper.dbase import SQLite
 from helper.util import DateUtil
+import helper.aop as aop
 from webglobal.globals import Global, Global_Status
 
 class Tbl_Wait_Htmls:
@@ -25,6 +26,7 @@ class Tbl_Wait_Htmls:
     request_id: 请求id
     book_html_path: 书籍html绝对路径
     '''
+    @aop.exec_time
     def add(self, request_id, book_html_path):
         self.db.execute('INSERT INTO %s(book_convert_id, request_id , book_html_path, book_convert_status, addtime, updatetime) VALUES("%s", "%s", "%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, str(uuid.uuid1()), request_id, book_html_path, Global_Status.WAIT, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
@@ -33,6 +35,7 @@ class Tbl_Wait_Htmls:
     根据请求ID获取待转换书籍信息
     request_id: 请求ID
     '''
+    @aop.exec_time
     def get(self, request_id):
         self.db.execute('SELECT book_convert_id, book_html_path FROM %s WHERE request_id = "%s"' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, request_id))
         return self.db.fetchone()
@@ -42,6 +45,7 @@ class Tbl_Wait_Htmls:
     status: 转换状态
     request_id: 请求ID
     '''
+    @aop.exec_time
     def update_status(self, status, request_id, book_convert_path=None):
         self.db.execute('UPDATE %s SET book_convert_status = "%s", book_convert_path = ?, updatetime = "%s" WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id), (book_convert_path,))
         self.conn.commit()
