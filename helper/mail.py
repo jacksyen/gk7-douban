@@ -13,6 +13,7 @@ from email.MIMEMultipart import MIMEMultipart
 
 from log import logger
 from dbase import SQLite
+import helper.aop as aop
 from db.tbl_globals import Tbl_Global
 from webglobal.globals import Global, Global_Status
 
@@ -44,6 +45,7 @@ class SendMail:
     title: 标题
     author: 作者
     '''
+    @aop.exec_time
     def send(self, file_path, tomail, title, author):
         file_name = file_path.split('/')[-1]
         # 构造附件

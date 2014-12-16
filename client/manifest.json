@@ -6,7 +6,7 @@
   "icons": {
       "48": "images/icon48.png"
    },
-  "background": {"scripts": ["scripts/jquery-1.8.3.min.js", "scripts/base64.min.js", "scripts/gk-dencypt.js", "scripts/background.js"]},
+  "background": {"scripts": ["scripts/jquery-1.8.3.min.js", "scripts/background.js"]},
   "page_action": {
       "default_icon": {
          "19": "images/icon19.png"

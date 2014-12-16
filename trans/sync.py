@@ -11,6 +11,7 @@ import threading
 from helper.log import logger
 from helper.mail import SendMail
 from helper.proc import proc_helper
+import helper.aop as aop
 from webglobal.globals import Global, Global_Status
 from db.tbl_wait_htmls import Tbl_Wait_Htmls
 from db.tbl_wait_emails import Tbl_Wait_Emails
@@ -25,7 +26,8 @@ class SyncThread(threading.Thread):
         threading.Thread.__init__(self)
         self.request_id = request_id
         self.book_author = book_author
-
+    
+    @aop.exec_time
     def run(self):
         try:
             # 读取待转换的书籍信息

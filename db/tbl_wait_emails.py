@@ -8,6 +8,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 
 from helper.dbase import SQLite
 from helper.util import DateUtil
+import helper.aop as aop
 from webglobal.globals import Global, Global_Status
 
 class Tbl_Wait_Emails:
@@ -26,6 +27,7 @@ class Tbl_Wait_Emails:
     title: 标题
     author: 头部作者
     '''
+    @aop.exec_time
     def add(self, request_id, tomail, title, auth):
         self.db.execute('INSERT INTO %s(email_to_user, email_title, email_auth, email_send_status, request_id, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, tomail, title, auth, Global_Status.WAIT, request_id, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
@@ -34,6 +36,7 @@ class Tbl_Wait_Emails:
     根据请求ID获取待发送邮件信息
     request_id: 请求ID
     '''
+    @aop.exec_time
     def get(self, request_id):
         self.db.execute('SELECT email_to_user, email_attach_file, email_title, email_auth, email_send_status, addtime, updatetime FROM %s WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, request_id))
         return self.db.fetchone()
@@ -43,6 +46,7 @@ class Tbl_Wait_Emails:
     request_id: 请求ID
     send_status: 发送状态
     '''
+    @aop.exec_time
     def update_status(self, request_id, send_status):
         self.db.execute('UPDATE %s SET email_send_status = ?, updatetime = ? WHERE request_id = ?' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME), (send_status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
@@ -52,6 +56,7 @@ class Tbl_Wait_Emails:
     request_id: 请求ID
     attach_file: 发送状态
     '''
+    @aop.exec_time
     def update_attach_file(self, request_id, attach_file):
         self.db.execute('UPDATE %s SET email_attach_file = ?, updatetime = ? WHERE request_id = ?' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME), (attach_file, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
