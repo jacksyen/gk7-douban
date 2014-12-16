@@ -55,15 +55,16 @@ function send(request, callback){
     articleData['bookTitle'] = splitData[0];
     articleData['toMail'] = localStorage.TO_MAIL;
     $.ajax({
-	url: 'http://107.170.242.4:8000/send',
-        //url: 'http://localhost:8000/send',
+	//url: 'http://107.170.242.4:8000/send',
+        url: 'http://localhost:8000/send',
         //url: 'http://192.168.3.167:8000/send',
 	data: articleData,
 	dataType: 'json',
-	type: 'POST'
+	type: 'POST',
+	timeout: 30*1000,// 30秒超时
     }).done(function(response){
 	callback(response);
     }).fail(function(){
-	callback({status:'FAIL', msg:'推送请求失败，请稍候再试，或联系：hyqiu.syen@gmail.com'});
+	//callback({status:'FAIL', msg:'推送请求失败，请稍候再试，或联系：hyqiu.syen@gmail.com'});
     });
 }
