@@ -42,11 +42,11 @@ function showResultMsg(result){
     var ele = $(html).hide().appendTo('body').fadeIn(1000);
     
     if(result.status != 'PROC'){
-	//$('.gk7-douban-result-msg').fadeTo(4000, 0.50, function (){
-	  //  ele.remove();
-    //});
+	$('.gk7-douban-result-msg').fadeTo(4000, 0.50, function (){
+	    ele.remove();
+	});
     }else{
-	// 处理中
+	// 处理中 TODO 添加进度条
 	
     }
     // 添加关闭事件
