@@ -1,11 +1,25 @@
 # -*- coding:utf-8 -*-
 import os
-import time
+import time, datetime
 import logging
 import logging.handlers
 
 from webglobal.globals import global_logs
 
+'''
+自定义日志时间格式
+'''
+class custom_format(logging.Formatter):
+
+    converter=datetime.datetime.fromtimestamp
+    def formatTime(self, record, datefmt=None):
+        ct = self.converter(record.created)
+        if datefmt:
+            s = ct.strftime(datefmt)
+        else:
+            t = ct.strftime("%Y-%m-%d %H:%M:%S")
+            s = "%s,%03d" % (t, record.msecs)
+        return s
 '''
 日志记录
 '''
@@ -24,7 +38,9 @@ class logger:
         logging.basicConfig(level=logging.INFO)
         filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='d', interval=1, backupCount=0)
         filehandler.suffix = '-%Y-%m-%d.log'
-        filehandler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s', '%Y-%m-%d %H:%M:%S'))
+
+        formatter = custom_format('%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d,%H:%M:%S.%f')
+        filehandler.setFormatter(formatter)
         logg = logging.getLogger('')
         logg.addHandler(filehandler)
         return logg,filehandler
