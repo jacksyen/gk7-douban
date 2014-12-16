@@ -34,7 +34,7 @@ class SyncThread(threading.Thread):
             if wait_html_info == None:
                 logger.error(u'未找到待转换的书籍信息，请求ID：%s', self.request_id)
                 exit(-1)
-            
+
             ## 调用转换功能
             out_file_path = proc_helper.convert(wait_html_info['book_html_path'], Global.GLOBAL_OUT_DATA_DIRS, self.book_author)
             if out_file_path == None:
@@ -42,10 +42,10 @@ class SyncThread(threading.Thread):
                 logger.error(u'转换失败，请求ID：%s', self.request_id)
                 wait_html.update_status(Global_Status.ERROR, self.request_id)
                 exit(-1)
-            
+
             # 转换成功，修改状态，添加书籍输出路径
             wait_html.update_status(Global_Status.COMPLETE, self.request_id, out_file_path)
-        
+
             wait_email = Tbl_Wait_Emails()
             # 修改待发送邮件附件信息
             wait_email.update_attach_file(self.request_id, out_file_path)
