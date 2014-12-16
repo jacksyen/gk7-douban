@@ -10,6 +10,8 @@ from helper.log import logger
 from helper.dbase import SQLite
 from helper.mail import SendMail
 from helper.page import HTML
+import helper.aop as aop
+from helper.decrypt import decrypt
 from db.tbl_wait_htmls import Tbl_Wait_Htmls
 from db.tbl_wait_emails import Tbl_Wait_Emails
 
@@ -24,26 +26,23 @@ class Send:
             SQLite.close(self.conn)
 
     def GET(self):
-        return self.execute()
+        return self.execute(web.input())
 
     def POST(self):
-        return self.execute()
+        return self.execute(web.input())
 
-    def execute(self):
+    @aop.exec_out_time
+    def execute(self, args):
         result = {}
-        args = web.input()
         try:
             # 图书数据
             book_data = args.get('bookData')
             # 推送的email地址
             to_email = args.get('toMail')
-
             # 请求ID
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
-            logger.info(u'请求开始，ID:%s', request_id)
-
             # 处理数据
-            data = base64.b64decode(book_data)#.split(':')[1]
+            data = decrypt.parse(book_data)
             data_json = json.loads(data)
             data_posts = data_json.get('posts')[0]
 
@@ -71,5 +70,4 @@ class Send:
         except Exception, err:
             result['status'] = 'ABNORMAL'
             result['msg'] = u'推送异常,%s，请联系:hyqiu.syen@gmail.com' %err
-        logger.info(u'出参：%s', str(result))
         return json.dumps(result)
