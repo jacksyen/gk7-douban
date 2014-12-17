@@ -39,7 +39,7 @@ class logger:
         filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='d', interval=1, backupCount=0)
         filehandler.suffix = '-%Y-%m-%d.log'
 
-        formatter = custom_format('%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d,%H:%M:%S.%f')
+        formatter = custom_format('%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S.%03d')
         filehandler.setFormatter(formatter)
         logg = logging.getLogger('')
         logg.addHandler(filehandler)
