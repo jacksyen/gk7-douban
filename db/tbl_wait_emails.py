@@ -48,7 +48,7 @@ class Tbl_Wait_Emails:
     '''
     @aop.exec_time
     def update_status(self, request_id, send_status):
-        self.db.execute('UPDATE %s SET email_send_status = ?, updatetime = ? WHERE request_id = ?' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME), (send_status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.db.execute('UPDATE %s SET email_send_status = "%s", updatetime = "%s" WHERE request_id = "%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, send_status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
 
     '''
@@ -58,5 +58,5 @@ class Tbl_Wait_Emails:
     '''
     @aop.exec_time
     def update_attach_file(self, request_id, attach_file):
-        self.db.execute('UPDATE %s SET email_attach_file = ?, updatetime = ? WHERE request_id = ?' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME), (attach_file, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.db.execute('UPDATE %s SET email_attach_file = "%s", updatetime = "%s" WHERE request_id = "%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, attach_file, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()

@@ -55,8 +55,8 @@ function send(request, callback){
     articleData['bookTitle'] = splitData[0];
     articleData['toMail'] = localStorage.TO_MAIL;
     $.ajax({
-	url: 'http://107.170.242.4:8000/send',
-        //url: 'http://localhost:8000/send',
+	//url: 'http://107.170.242.4:8000/send',
+        url: 'http://localhost:8000/send',
         //url: 'http://192.168.3.167:8000/send',
 	data: articleData,
 	dataType: 'json',
