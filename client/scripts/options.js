@@ -8,7 +8,7 @@ $(document).ready(function (){
 	}
     }
     
-    $('.button').click(function (){
+    $('#btn-save').click(function (){
 	localStorage.TO_MAIL = $('#userEmail').val() + '@' + $('#emailDomain').val();
 	$('.msg').html('保存成功');
 	$('.msg').fadeTo(3000, 0.50, function (){
