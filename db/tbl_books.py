@@ -14,9 +14,9 @@ author by jacksyen[hyqiu.syen@gmail.com]
 # Created: 六 12月 13 11:06:21 2014 (+0800)
 # Version: 
 # Package-Requires: ()
-# Last-Updated: 六 12月 13 11:24:14 2014 (+0800)
+# Last-Updated: 三 12月 17 22:24:33 2014 (+0800)
 #           By: jacksyen
-#     Update #: 9
+#     Update #: 12
 # URL: 
 # Doc URL: 
 # Keywords: 
@@ -67,7 +67,7 @@ class tbl_books:
     
     '''
     def add(self, request_id, book_title, book_subtitle, book_auth):
-        self.db.execute('INSERT INTO %s(request_id, book_title, book_subtitle, book_author, addtime, updatetime) VALUES (?, ?, ?, ?, ?, ?, ?)' %Global.GLOBAL_DB_TBL_BOOK_NAME, request_id, booke_title, book_subtitle, book_auth, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'))
+        self.db.execute('INSERT INTO %s(request_id, book_title, book_subtitle, book_author, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_BOOK_NAME, request_id, booke_title, book_subtitle, book_auth, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
 
 
