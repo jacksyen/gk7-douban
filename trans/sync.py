@@ -38,7 +38,7 @@ class SyncThread(threading.Thread):
                 exit(-1)
 
             ## 调用转换功能
-            out_file_path = proc_helper.convert(wait_html_info['book_html_path'], Global.GLOBAL_OUT_DATA_DIRS, self.book_author)
+            out_file_path = proc_helper.convert(str(wait_html_info['book_html_path']), Global.GLOBAL_OUT_DATA_DIRS, self.book_author)
             if out_file_path == None:
                 # 转换失败
                 logger.error(u'转换失败，请求ID：%s', self.request_id)
@@ -59,7 +59,7 @@ class SyncThread(threading.Thread):
 
             # 发送邮件
             mail = SendMail()
-            send_request = mail.send(wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+            send_request = mail.send(str(wait_email_info['email_attach_file']), str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
 
             # 修改待发送邮件信息状态
             if send_request:
