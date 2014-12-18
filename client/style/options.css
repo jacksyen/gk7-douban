@@ -70,7 +70,8 @@ a {
     cursor: pointer;
 }
 .gk7-douban-result-msg .content{
-    margin: 5px 30px 0px 10px; /*script change to remove iframe upload */
+    /*margin: 5px 30px 0px 10px; script change to remove iframe upload */
+    margin: 20px;
 }
 .content a{
     color: #b33;
