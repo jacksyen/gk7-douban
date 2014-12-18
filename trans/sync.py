@@ -59,7 +59,7 @@ class SyncThread(threading.Thread):
 
             # 发送邮件
             mail = SendMail()
-            send_request = mail.send(str(wait_email_info['email_attach_file']), str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+            send_request = mail.send(wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
 
             # 修改待发送邮件信息状态
             if send_request:
