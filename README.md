@@ -26,6 +26,7 @@ sudo pip install web.py
 + 豆瓣文章ID存储
 + 客户端并发控制
 + HTTP传输数据大太，导致处理比较慢[传输数据压缩；nginx处理]
++ 客户端邮件设置优化
 
 ##Change log
 + 推送至email先存储在sqlite表中，例如定时巡检发送邮件
