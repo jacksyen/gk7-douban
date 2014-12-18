@@ -15,10 +15,9 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 	chrome.tabs.create({ url: 'options.html' });
 	return;
     }
-    sendResultMessage(tab.id, {status:'PROC', msg:'处理中..'});
-    
-    chrome.tabs.sendMessage(tab.id, {callback: 'sendToKindle'}, function(response) {
-	// 发送数据
+    //var request_id = new Date().getTime();
+    chrome.tabs.sendMessage(tab.id, {status: 'BEGIN', msg: '文章较长,处理时间大约一分钟左右,请稍候..'}, function(response) {
+        // 发送数据
 	send(response, function(data) {
 	    sendResultMessage(tab.id, data);
 	});
@@ -30,7 +29,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
    发送结果信息
 **/
 function sendResultMessage(tabId, data){
-    chrome.tabs.sendMessage(tabId, {callback: 'sendToResult', data: data}, function (response){
+    chrome.tabs.sendMessage(tabId, data, function (response){
 	
     });
 
@@ -54,14 +53,15 @@ function send(request, callback){
     articleData['bookData'] = book_data;
     articleData['bookTitle'] = splitData[0];
     articleData['toMail'] = localStorage.TO_MAIL;
+    articleData['requestId'] = request.requestId;
     $.ajax({
-	url: 'http://107.170.242.4:8000/send',
+	url: 'http://gk7.pw:8000/send',
         //url: 'http://localhost:8000/send',
         //url: 'http://192.168.3.167:8000/send',
 	data: articleData,
 	dataType: 'json',
 	type: 'POST',
-	timeout: 30*1000// 30秒超时
+	timeout: 60*1000// 60秒超时
     }).done(function(response){
 	callback(response);
     }).fail(function(){
