@@ -66,3 +66,7 @@ class global_logs:
 
     LOG_DIRS = '%s/logs' %(os.path.abspath('.'))
 
+class GlobalThread:
+
+    POOL_NUMBER = 4
+
