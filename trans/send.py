@@ -43,6 +43,7 @@ class Send:
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
             # 处理数据
             data = decrypt.parse(book_data)
+            logger.info(data)
             data_json = json.loads(data)
             data_posts = data_json.get('posts')[0]
 
@@ -51,7 +52,7 @@ class Send:
             book_subtitle = str(data_posts.get('subtitle'))
             book_author = str(data_posts.get('orig_author'))
             page = HTML(book_title, book_subtitle, book_author)
-            book_html_path = page.create(data_json, data_posts.get('contents'))
+            book_html_path = page.create(str(data_json.get('abstract')), data_posts.get('contents'))
 
             # 将待转换的书籍html信息存储在数据库中
             wait_htmls = Tbl_Wait_Htmls()

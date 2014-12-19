@@ -24,9 +24,11 @@ class HTML:
     '''
     创建html
     返回文件绝对路径
+    data_abstract: 前言
+    data_contents: 书籍内容
     '''
     @aop.exec_out_time
-    def create(self, data_json, data_contents):
+    def create(self, data_abstract, data_contents):
         ## 标题
         self.page.h1((self.title,), class_='bookTitle')
         self.page.h2((self.subtitle,))
@@ -34,7 +36,7 @@ class HTML:
         self.page.p((self.author,), style='text-align:right')
 
         ## 前言 or 导航
-        intr_item = (str(data_json.get('abstract')),)
+        intr_item = (data_abstract,)
         self.page.div(class_ = 'introduction')
         self.page.p(intr_item, style='text-indent: 2em;')
         self.page.div.close()
@@ -45,6 +47,15 @@ class HTML:
             if cxt_type == 'pagebreak':
                 continue
             # 具体内容
+            if cxt_type == 'illus': ## 图片页
+                self.page.div(class_='section')
+                # 获取最大图片信息
+                orig = cxt.get('data').get('size').get('orig')
+                orig_src = orig.get('src')
+                cxt_images = (orig_str[orig_src.rfind('/')+1:], )
+                self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_images)
+                self.page.div.close()
+                continue;
             cxt_data_text = cxt.get('data').get('text')
             if cxt_type == 'headline':
                 self.page.h2((str(cxt_data_text),), class_='chapter')
