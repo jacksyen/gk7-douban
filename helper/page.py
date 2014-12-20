@@ -4,17 +4,23 @@ import os
 import sys
 import tools.markup as markup
 import aop
+from webglobal.globals import Global
 
 # 设置系统编码
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class HTML:
-
-    def __init__(self, book_title, book_subtitle, book_author):
+    
+    '''
+    '%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, self.author, self.title)
+    '''
+    def __init__(self, book_title, book_subtitle, book_author, images_dir):
         self.title = book_title
         self.subtitle = book_subtitle
         self.author = book_author
+        # 图片目录(格式：主目录/作者/书名标题)
+        self.images_dir = images_dir
         # 创建HTML Page
         self.page = markup.page()
         # 初始化html
@@ -41,47 +47,60 @@ class HTML:
         self.page.p(intr_item, style='text-indent: 2em;')
         self.page.div.close()
 
+        ## 书籍所有图片远程路径集合
+        book_images_remote_path = []
+
         ## 内容
         for cxt in data_contents:
             cxt_type = cxt.get('type')
             if cxt_type == 'pagebreak':
                 continue
             # 具体内容
+            cxt_data = cxt.get('data')
             if cxt_type == 'illus': ## 图片页
-                self.page.div(class_='section')
+                self.page.div()#class_='section'
                 # 获取最大图片信息
-                orig = cxt.get('data').get('size').get('orig')
-                orig_src = orig.get('src')
-                cxt_images = (orig_str[orig_src.rfind('/')+1:], )
-                self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_images)
+                orig = cxt_data.get('size').get('orig')
+                # 获取中等[medium]图片信息
+                medium = cxt_data.get('size').get('medium')
+                # 图片src
+                medium_src = str(medium.get('src'))
+                # 图片路径(格式：主目录/作者/书名标题/图片名称)
+                cxt_image_path = '%s/%s' %(self.images_dir, medium_src[medium_src.rfind('/')+1:])
+                self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_image_path)
+                # 添加图片备注
+                legend = str(cxt_data.get('legend'))
+                if legend:
+                    self.page.label(legend, style='color:#555; font-size:.75em; line-height:1.5;')
                 self.page.div.close()
-                continue;
-            cxt_data_text = cxt.get('data').get('text')
+                # 添加至所有图片远程路径集合
+                book_images_remote_path.append(medium_src)
+                continue
+            cxt_data_text = cxt_data.get('text')
             if cxt_type == 'headline':
                 self.page.h2((str(cxt_data_text),), class_='chapter')
             elif cxt_type == 'paragraph':
                 # 多条内容，带注释
                 if isinstance(cxt_data_text, list):
                     plaintexts, footnotes = self.get_data_text_list(cxt_data_text)
-                    self.page.p((plaintexts,), style='text-indent: 2em;')
+                    self.page.p((plaintexts,), style='text-indent: 2em; line-height:2;')
                     if len(footnotes) > 0:
                         self.page.p(tuple(footnotes), style='color:#333;font-size:13px;')
                 else:
                     chapter_item = (str(cxt_data_text),)
-                    self.page.p(chapter_item, style='text-indent: 2em;')
+                    self.page.p(chapter_item, style='text-indent: 2em; line-height:2;')
 
         ## 片尾
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
 
         # 写入文件
-        path = 'data'
-        if not os.path.exists(path):
-            os.mkdir(path)
-        filename = '%s/%s.html' %(os.path.abspath(path), self.title)
+        if not os.path.exists(Global.GLOBAL_DATA_DIRS):
+            os.mkdir(Global.GLOBAL_DATA_DIRS)
+        filename = '%s/%s.html' %(os.path.abspath(Global.GLOBAL_DATA_DIRS), self.title)
         output = open(filename, 'w')
         output.write(str(self.page))
         output.close()
-        return filename
+        return filename, book_images_remote_path
 
 
     '''
