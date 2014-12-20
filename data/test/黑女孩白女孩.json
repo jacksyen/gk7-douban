@@ -1,0 +1,1426 @@
+{
+    "abstract": "2012年秋天，某个百无聊赖的时间，我又一次点开名为”艺术“的个人收藏夹。里面躺着近百个艺术家网站。我一边啃苹果，一边随意浏览着。突然，一个大胆的念头出现在我脑海里：为什么不去和艺术家聊聊天呢？
+就这样，我开始了自己的巡礼。欧洲、亚洲、美洲，我肆无忌惮地发出一封封英文邀请信，甚至发给那些根本不讲英语的国家。结果让我自己都不敢相信。50%的艺术家回信了，于是诞生了这套作品。",
+    "hasFormula": false,
+    "authorId": "2938440",
+    "sample": true,
+    "posts": [
+        {
+            "orig_title": "",
+            "subtitle": "法国插画家Anne Julie Aubry",
+            "title": "黑女孩白女孩",
+            "contents": [
+                {
+                    "id": 1107345,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 666,
+                                "width": 500,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14534.jpg"
+                            },
+                            "tiny": {
+                                "height": 241,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14534.jpg"
+                            },
+                            "medium": {
+                                "height": 482,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14534.jpg"
+                            },
+                            "small": {
+                                "height": 482,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14534.jpg"
+                            }
+                        },
+                        "seq": 14534,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107346,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": true,
+                            "p_align": "left",
+                            "p_quote": true,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮·朱莉·奥布里（Anne Julie Aubry）"
+                    }
+                },
+                {
+                    "id": 1107347,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": true,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "数码绘画"
+                    }
+                },
+                {
+                    "id": 1107348,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": true,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": [
+                            {
+                                "kind": "plaintext",
+                                "content": "安妮生于1980年，家乡是法国东部小镇Neufchateau"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "位于法国洛林区的一个古老小镇，历史可追溯到罗马时代。12世纪时，诗人Hugues Metellus专门为这个小镇写了一首诗，叫《美丽富饶的森林都市》。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "，从小学习绘画，2001年毕业于法国Épinal美术学院插画专业，2005年成为独立插画师，作品见于法国和世界各地的图书、杂志及各类时尚饰品，并在美国举办过9场个人画展。"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": 1107349,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": true,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮的画分为两种：黑安妮和白安妮。黑安妮走恐怖暗黑路线，灵感多来自成人世界。白安妮则明亮多彩，是她童年的一种折射。安妮笔下的主人公基本上都是美丽的女孩，她们处在一种梦幻般的氛围中，显得疏离、忧郁、松弛而优雅。"
+                    }
+                },
+                {
+                    "id": 1107350,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": true,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "如果用一句话形容安妮，那么她是一个遥远的梦想者，一个追寻着未知物的梦游者，一个穿越阴影的旅人。她热爱谜、迷宫和童话。当夜晚降临，她和她笔下的少女们就消失在蜻蜓和火花的神秘王国里……"
+                    }
+                },
+                {
+                    "id": 1107351,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 819,
+                                "width": 1024,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14535.jpg"
+                            },
+                            "tiny": {
+                                "height": 144,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14535.jpg"
+                            },
+                            "medium": {
+                                "height": 289,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14535.jpg"
+                            },
+                            "small": {
+                                "height": 289,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14535.jpg"
+                            },
+                            "large": {
+                                "height": 435,
+                                "width": 544,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14535.jpg"
+                            }
+                        },
+                        "seq": 14535,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107352,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 800,
+                                "height": 1061,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14536.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 240,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14536.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 480,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14536.jpg"
+                            },
+                            "large": {
+                                "height": 676,
+                                "width": 509,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14536.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 480,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14536.jpg"
+                            }
+                        },
+                        "seq": 14536,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": "蝶"
+                    }
+                },
+                {
+                    "id": 1107353,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 921,
+                                "width": 650,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14537.jpg"
+                            },
+                            "tiny": {
+                                "height": 256,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14537.jpg"
+                            },
+                            "medium": {
+                                "height": 512,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14537.jpg"
+                            },
+                            "large": {
+                                "width": 477,
+                                "height": 676,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14537.jpg"
+                            },
+                            "small": {
+                                "height": 512,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14537.jpg"
+                            }
+                        },
+                        "seq": 14537,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": "梦"
+                    }
+                },
+                {
+                    "id": 1107354,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 1024,
+                                "height": 618,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14538.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 109,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14538.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 218,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14538.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 218,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14538.jpg"
+                            },
+                            "large": {
+                                "width": 544,
+                                "height": 328,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14538.jpg"
+                            }
+                        },
+                        "seq": 14538,
+                        "dimension": "H",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107355,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 480,
+                                "width": 600,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14539.jpg"
+                            },
+                            "tiny": {
+                                "height": 144,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14539.jpg"
+                            },
+                            "medium": {
+                                "height": 289,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14539.jpg"
+                            },
+                            "small": {
+                                "height": 289,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14539.jpg"
+                            },
+                            "large": {
+                                "height": 435,
+                                "width": 544,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14539.jpg"
+                            }
+                        },
+                        "seq": 14539,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": "花开了"
+                    }
+                },
+                {
+                    "id": 1107356,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 1024,
+                                "height": 819,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14540.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 144,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14540.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 289,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14540.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 289,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14540.jpg"
+                            },
+                            "large": {
+                                "width": 544,
+                                "height": 435,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14540.jpg"
+                            }
+                        },
+                        "seq": 14540,
+                        "dimension": "H",
+                        "layout": "C",
+                        "legend": "笼"
+                    }
+                },
+                {
+                    "id": 1107357,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107358,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：舒华你好，我要先为我蹩脚的英语道歉，我尽力表达自己！"
+                    }
+                },
+                {
+                    "id": 1107359,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：应该是我谢谢你，很抱歉我不会法语，只能用英语和你交谈，那我们就都用简单句吧（笑）。当我第一次浏览你的网站时，很惊讶看见你对自己作品的分类，你把它们分为“幻想系列”和“暗黑系列”，我从来没有见到一个艺术家这样给自己的作品分类，你觉得这两类作品在你的创作中各占有什么样的地位？"
+                    }
+                },
+                {
+                    "id": 1107360,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：其实，对我自己来说，这两个世界并没有太大区别，因为它们都是我的一部分。我只是觉得这样分类可以帮助别人按照各自不同的感受和喜好来搜索我的作品。我知道有些人比较偏爱暗黑冷酷型的，而另一些人喜欢明亮温暖型，我想让人们能够直接找到符合他们口味的作品。"
+                    }
+                },
+                {
+                    "id": 1107361,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107362,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：你自己呢，有偏爱吗？"
+                    }
+                },
+                {
+                    "id": 1107363,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：我自己更喜欢暗黑和忧郁风格，我觉得能够表达更深层更优美的东西，对人的内心深处有更大的共鸣效果。不过我的情绪总是在变化，也许一个星期后你再问同样的问题，我的回答会截然相反（笑）。"
+                    }
+                },
+                {
+                    "id": 1107364,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107365,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：你在个人介绍中说，暗黑风格的灵感来自于你的成人世界，而明亮温暖风格则来自于童年记忆，这是为什么？"
+                    }
+                },
+                {
+                    "id": 1107366,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：大多数暗黑系作品出自我个人的伤痛或失意。想要清楚地解释我的内心世界很难，但我总是和其他人有些不一样，我从来没有很多朋友，对成人之间的事物也摸不着头脑。我想，艺术对我来说是一种治疗。但是，我不希望加深人们心中的伤痛。我希望我的画能让人看到希望和宁静。这是我最想要的。"
+                    }
+                },
+                {
+                    "id": 1107367,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107368,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：你笔下的女孩子总让人感觉非常怜惜，也让人不由自主地好奇，她们在想什么？或者说，当你在画她们的时候，你想表达什么？"
+                    }
+                },
+                {
+                    "id": 1107369,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：人们常常告诉我，我画的人物表情总是让他们感受到很多情绪，不过我真的没法解释。我只是……在画而已，努力营造一种气氛。我没有什么隐藏在画作背后的秘密，又或者的确有，但我自己还没有意识到。要谈论不受自己控制的事情很困难。"
+                    }
+                },
+                {
+                    "id": 1107370,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107371,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：那些女孩子大多很瘦，有着黑色头发和苍白皮肤，你是按照自己的的形象来描绘的吗？"
+                    }
+                },
+                {
+                    "id": 1107372,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：我不能肯定这些是不是自画像……黑头发和白皮肤的确像我自己，但我并不瘦，还蛮有曲线的（笑）。不过，它们都诞生自我的情绪和内心，所以也许和我自己的确有不可避免的相似之处。"
+                    }
+                },
+                {
+                    "id": 1107373,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 941,
+                                "width": 1024,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14541.jpg"
+                            },
+                            "tiny": {
+                                "height": 166,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14541.jpg"
+                            },
+                            "medium": {
+                                "height": 332,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14541.jpg"
+                            },
+                            "small": {
+                                "height": 332,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14541.jpg"
+                            },
+                            "large": {
+                                "height": 499,
+                                "width": 544,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14541.jpg"
+                            }
+                        },
+                        "seq": 14541,
+                        "dimension": "H",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107374,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107375,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：我个人觉得你的画中有不少具有象征意义的典型要素，比如鸟、钥匙、昆虫等等，你是单纯地喜欢这些事物还是的确有某种含义？"
+                    }
+                },
+                {
+                    "id": 1107376,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：的确是有含义的。鸟，蝴蝶，蜻蜓，钥匙和钥匙孔……树木、雪花和风……所有这些对我都有特殊的意义。我还有其他一些意象会在未来逐步加入画作中。你可以通过这些碎片来理解我，但今天我不想透露。也许将来某一天我会一股脑儿地讲出来，但现在，此刻，我还是想把这些含义留给我自己。"
+                    }
+                },
+                {
+                    "id": 1107377,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 819,
+                                "width": 1024,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14542.jpg"
+                            },
+                            "tiny": {
+                                "height": 144,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14542.jpg"
+                            },
+                            "medium": {
+                                "height": 289,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14542.jpg"
+                            },
+                            "small": {
+                                "height": 289,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14542.jpg"
+                            },
+                            "large": {
+                                "height": 435,
+                                "width": 544,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14542.jpg"
+                            }
+                        },
+                        "seq": 14542,
+                        "dimension": "H",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107378,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107379,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：那你的灵感一般从哪里来呢？"
+                    }
+                },
+                {
+                    "id": 1107380,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：我有很多很多灵感源泉！我第一个想到的是，我的梦。有时我自己都很奇怪，为什么能做那么多稀奇古怪但结构复杂的梦，潜意识真是神奇，我永远无法解释！我的梦成就了我的想象力。我还从自己的情绪和日常生活中寻找灵感。不管是开心还是悲伤，我总是能立即联想到一幅画。我的小女儿也是灵感源泉，给我的画增加了许多色彩。大自然和各种不起眼的小生命，比如蜻蜓和蝴蝶，花籽和树叶，这些都常常出现在我的画里。我还喜欢音乐、歌词、电影……我总是试图从身边所有事物中看出隐藏的美来。"
+                    }
+                },
+                {
+                    "id": 1107381,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107382,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：能列举几个影响你的艺术家或艺术潮流吗？"
+                    }
+                },
+                {
+                    "id": 1107383,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": [
+                            {
+                                "kind": "plaintext",
+                                "content": "安妮：我热爱法国印象派和原生态艺术"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "原生态艺术（Art Brut Movement）又称界外艺术（Outsider Art Movement），指艺术界之外的人所做的非主流的艺术作品,界外艺术家多半是自学的，包括未受过训练的空想家、唯心论者、怪人、隐土、民间艺人、精神病患、罪犯和其他在社会夹缝或者边缘的人，他们创作目的不为金钱，跟艺术市场无关，也没有受到文化、时尚、艺术规则的影响。这个概念在1972年被提出，来源于“原生态艺术”（“art brut”），对二十世纪后期的现代艺术产生深刻的影响。代表人物是美国流浪汉亨利·达戈，终生与穷苦、疾病、孤独为伴，他以“垃圾”为创作来源，60多年来坚持写作和绘画。他一生都没有用过“艺术”这个词，也没有跟除他自己之外的任何“艺术家”打过交道，但他死后却被誉为美国最著名的界外艺术家。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "，还喜欢夏加尔"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "马克·夏加尔（Marc chagall，1887－1985）：俄裔法国画家，现代绘画史上的伟人，游离于印象派、立体派、抽象表现主义等一切流派的牧歌作者。他的画中呈现出梦幻、象征性的手法与色彩，“超现实派”一词就是为了形容他的作品而创造出来的。夏卡尔的画充满惊人想象，如绿色的牛、马在天上飞，躺在紫丁香花丛中的爱侣，同时向左和向右的两幅面孔，倒立或飞走的头颅或中世纪的神秘雕塑。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "、葛饰北斋"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "葛饰北斋（KatsushikaHokusai，1760─1849）：日本江户时代的浮世绘画家，他的绘画风格对后来的欧洲画坛影响很大，德加、马奈、梵高、高更等许多印象派绘画大师都临摹过他的作品。他还是入选“千禧年影响世界的一百位名人”中的唯一一位日本人，代表作《神奈川海边的大浪》。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "和亨利·卢梭"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "亨利·卢梭（Henri Rousseau,1844－1910)：伟大的法国印象派画家。他用那纯真无瑕的眼睛去观察世界和感受生活的真谛，这使他的画具有强烈而鲜明的个性。卢梭画的主题包罗万象，除了巴黎市郊，还有手法率真直接的人像，瑰丽的寓言性作品，花卉、尤其是一批富异国情调的大幅幻想式作品，这些作品是他常逛巴黎的公园、植物园、动物园所激发出来的。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "。我还特别喜欢《爱丽丝梦游仙境》，对里面的想象世界深深着迷。此外，恐怖电影是我最喜欢的电影类型了！从血腥暴力的到心理恐怖的，我都喜欢。不过我也喜欢动画片，最近正在看皮克斯动画"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "皮克斯动画工厂（Pixar Animation Studios）：由史蒂夫·乔布斯在1986年创办，总部位于美国加州，制作电脑动画长篇、短篇以及一些商业电脑动画。其动画色彩鲜艳，人物形象设计独特、性格丰富，代表作有《海底总动员》、《怪兽电力公司》、《赛车总动员》、《料理鼠王》、《飞屋环游记》、《玩具总动员》等。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "系列和所有的经典迪斯尼动画。"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": 1107384,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107385,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：你的画受到这么多影响，是不是画风一直在改变？"
+                    }
+                },
+                {
+                    "id": 1107386,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：我的画风的确一直在变，不过似乎和我个人生活更相关。我笔下的女孩也跟着我一起长大，从女童到少女，现在大多是年轻女子。生了女儿后，我也画了一些母亲形象。"
+                    }
+                },
+                {
+                    "id": 1107387,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107388,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：你完成一幅画大概要多久，有哪些步骤呢？"
+                    }
+                },
+                {
+                    "id": 1107389,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：从一天到一周不等。我会先在心里形成一个念头和情绪，选择合适的色彩，然后开始绘制背景，不断地调试各种颜色和笔刷（在Photoshop里），这个阶段耗时最多！我可能会尝试十几个版本的色彩、质地和肌理。当我满意后，开始设计人物形象，先用粗线条勾勒身形和脸庞。我喜欢慢慢画眼睛，从眼神来决定她们的状态，是高兴还是悲伤。人物完成后，我就开始添加细节，选用什么素材全看我当时的心情……我喜欢当人们看见我的画时会说，“我对这幅画很有感觉”或者“这个女孩就是我！”"
+                    }
+                },
+                {
+                    "id": 1107390,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 977,
+                                "width": 1024,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14543.jpg"
+                            },
+                            "tiny": {
+                                "height": 172,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14543.jpg"
+                            },
+                            "medium": {
+                                "height": 345,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14543.jpg"
+                            },
+                            "small": {
+                                "height": 345,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14543.jpg"
+                            },
+                            "large": {
+                                "height": 519,
+                                "width": 544,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14543.jpg"
+                            }
+                        },
+                        "seq": 14543,
+                        "dimension": "H",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107391,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 1024,
+                                "height": 959,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14544.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 169,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14544.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 339,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14544.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 339,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14544.jpg"
+                            },
+                            "large": {
+                                "width": 544,
+                                "height": 509,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14544.jpg"
+                            }
+                        },
+                        "seq": 14544,
+                        "dimension": "H",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107392,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107393,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：你觉得最能传递情绪的方式是什么？"
+                    }
+                },
+                {
+                    "id": 1107394,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：色彩。所以我总是花最多的时间在选择色彩上。这里没有什么秘密：黑色深色表达神秘和忧郁，粉红和红色带来喜欢或爱！"
+                    }
+                },
+                {
+                    "id": 1107395,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": ""
+                    }
+                },
+                {
+                    "id": 1107396,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我：能分享一些你满意的作品吗？我非常喜欢听作品背后的故事（笑）。"
+                    }
+                },
+                {
+                    "id": 1107397,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "安妮：在所有作品中，我最喜欢的是《坠落（The Fall）》。我是在2006年画的这幅画，那时我处于非常糟糕的状态中。我试图在这幅画里表达我所有的悲伤和失落。这是为什么我画了这个从光中掉落的女孩，跌进一只只黑色的手中。那些手，对我自己来说，象征着黑暗和危险。你会在其中失落自己。"
+                    }
+                },
+                {
+                    "id": 1107398,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 800,
+                                "height": 1180,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14545.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 266,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14545.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 533,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14545.jpg"
+                            },
+                            "large": {
+                                "height": 676,
+                                "width": 458,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14545.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 533,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14545.jpg"
+                            }
+                        },
+                        "seq": 14545,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107399,
+                    "type": "pagebreak"
+                },
+                {
+                    "id": 1107400,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "另一幅我特别喜欢的画是《曾经（Once Upon a Time）》。一个偶然的下午，这个构思闯进我的脑海，我不知道自己以前怎么从没想到过。这是一幅能够自己表达自己的画。画中女孩可能就是我自己。我从这幅画中看见了一个讲故事的人。"
+                    }
+                },
+                {
+                    "id": 1107401,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 1024,
+                                "height": 1448,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14546.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 255,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14546.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 511,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14546.jpg"
+                            },
+                            "large": {
+                                "height": 676,
+                                "width": 478,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14546.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 511,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14546.jpg"
+                            }
+                        },
+                        "seq": 14546,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107402,
+                    "type": "pagebreak"
+                },
+                {
+                    "id": 1107403,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "我也很喜欢《心的女王（The Queen of Hearts）》，这是我第一次画《爱丽丝漫游仙境》里的人物，我最爱的一本书。我怀着激动的心情创造了这个带有邪恶表情的王后。"
+                    }
+                },
+                {
+                    "id": 1107404,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "width": 800,
+                                "height": 1066,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14547.jpg"
+                            },
+                            "tiny": {
+                                "width": 181,
+                                "height": 241,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14547.jpg"
+                            },
+                            "medium": {
+                                "width": 362,
+                                "height": 482,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14547.jpg"
+                            },
+                            "large": {
+                                "height": 676,
+                                "width": 507,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14547.jpg"
+                            },
+                            "small": {
+                                "width": 362,
+                                "height": 482,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14547.jpg"
+                            }
+                        },
+                        "seq": 14547,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107405,
+                    "type": "pagebreak"
+                },
+                {
+                    "id": 1107406,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": [
+                            {
+                                "kind": "plaintext",
+                                "content": "另一个在我心目中占有特殊位置的形象是《奥菲丽娅（Ofelia）》，这是我受到电影《潘神的迷宫（Pan’s Labyrinth）》"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "《潘神的迷宫》：西班牙魔幻电影，2006年公映，导演为吉尔莫·德尔·托罗，故事讲述了一个12岁女孩子奥菲丽娅被孤独感和目睹暴行的痛苦困扰，沉浸在自己的幻想中，有一天发现了废弃的迷宫和潘神……"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "的启发。奥菲丽娅在现实世界和幻想世界中不断穿梭，在被遗弃的迷宫里遇到半人半兽的神秘生物。我喜欢这部电影，也像所有喜欢魔幻的人推荐它。我想表达出奥菲丽娅在追寻魔幻时的孤独和恐惧。"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": 1107407,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 1000,
+                                "width": 800,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14548.jpg"
+                            },
+                            "tiny": {
+                                "height": 226,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14548.jpg"
+                            },
+                            "medium": {
+                                "height": 452,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14548.jpg"
+                            },
+                            "large": {
+                                "width": 540,
+                                "height": 676,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-large/public/14548.jpg"
+                            },
+                            "small": {
+                                "height": 452,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14548.jpg"
+                            }
+                        },
+                        "seq": 14548,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107408,
+                    "type": "pagebreak"
+                },
+                {
+                    "id": 1107409,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": [
+                            {
+                                "kind": "plaintext",
+                                "content": "黑巫女（The Black Witch）》也是一幅对我来说比较特殊的画。这个灵感来源自电影《星辰（Stardust）》"
+                            },
+                            {
+                                "kind": "footnote",
+                                "content": "《星辰》：美国魔幻电影，2007年公映，导演为马修·沃恩，故事讲述了一个年轻人为了追求心爱姑娘而寻找坠落流星的故事。"
+                            },
+                            {
+                                "kind": "plaintext",
+                                "content": "，里面有个叫Lamia的巫女。这部电影的视觉效果非常华丽，让我的想象力沸腾了。我想用自己的笔赋予那个巫女生命。"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": 1107410,
+                    "type": "illus",
+                    "expandable": true,
+                    "data": {
+                        "size": {
+                            "orig": {
+                                "height": 640,
+                                "width": 466,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-largeshow/public/14549.jpg"
+                            },
+                            "tiny": {
+                                "height": 248,
+                                "width": 181,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-tiny/public/14549.jpg"
+                            },
+                            "medium": {
+                                "height": 497,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14549.jpg"
+                            },
+                            "small": {
+                                "height": 497,
+                                "width": 362,
+                                "src": "http://img3.douban.com/view/ark_works_pic/common-small/public/14549.jpg"
+                            }
+                        },
+                        "seq": 14549,
+                        "dimension": "M",
+                        "layout": "C",
+                        "legend": ""
+                    }
+                },
+                {
+                    "id": 1107411,
+                    "type": "pagebreak"
+                },
+                {
+                    "id": 1107412,
+                    "type": "paragraph",
+                    "data": {
+                        "format": {
+                            "t_indent": false,
+                            "p_bold": false,
+                            "p_align": "left",
+                            "p_quote": false,
+                            "p_center": false,
+                            "p_indent": false
+                        },
+                        "text": "《花仙子（The Flower Fairy）》这幅画充分表现了我对花朵、童话和色彩的热爱。对我来说，简直是一场色彩的盛宴，非常愉快和放松。这幅画的灵感来自于一个大风天和开满鲜花的春季。"
+                    }
+                }
+            ],
+            "orig_author": "戴舒华",
+            "translator": ""
+        }
+    ],
+    "price": "2.00"
+}

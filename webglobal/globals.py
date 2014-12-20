@@ -14,6 +14,9 @@ class Global:
     ## 书籍信息表
     GLOBAL_DB_TBL_BOOK_NAME = 'gk7_douban_books'
 
+    ## 书籍图片路径表
+    GLOBAL_DB_TBL_BOOK_IMG_NAME = 'gk7_douban_book_img'
+
     ## 全局配置表
     GLOBAL_DB_TBL_GLOBAL_NAME = 'gk7_douban_global'
 
@@ -23,10 +26,15 @@ class Global:
     ## 书籍html等待转换表
     GLOBAL_DB_TBL_WAIT_HTMLS = 'gk7_douban_wait_htmls'
 
+    GLOBAL_DATA_DIRS = '%s/data' %(os.path.abspath('.'))
+
     GLOBAL_OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
 
     # 输出文件格式
     GLOBAL_OUT_FILE_FORMAT = 'mobi'
+
+    # 书籍路径表分割字符
+    GLOBAL_DB_BOOK_IMG_PATH_SPLIT = ';'
 
 
     ## email配置
