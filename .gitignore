@@ -49,5 +49,6 @@ logs/*
 *.out
 \#*
 *.html
-data/
-out-data/
+data/*
+out-data/*
+*.bak
