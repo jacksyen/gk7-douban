@@ -29,13 +29,29 @@ class Create:
 
     '''
     获取所有书籍表sql
-    book_number: 书籍id
-    book_convert_id: 书籍原始转换id
+    book_number: (格式：作者ID_书名标题)
     book_title: 标题
+    book_subtitle: 副标题
+    book_author: 作者
+    book_file_path: 书籍绝对路径(转换后的)
+    addtime: 添加时间
+    updatetime: 更新时间
     '''
     @staticmethod
     def gk7_douban_books():
-        return 'CREATE TABLE IF NOT EXISTS %s(book_number text, request_id text, book_title text, book_subtitle text, book_author text, book_file_path text, addtime datetime, updatetime datetime)' %(Global.GLOBAL_DB_TBL_BOOK_NAME)
+        return 'CREATE TABLE IF NOT EXISTS %s(book_number text PRIMARY KEY, book_title text, book_subtitle text, book_author text, book_file_path text, addtime datetime, updatetime datetime)' %(Global.GLOBAL_DB_TBL_BOOK_NAME)
+
+    '''
+    获取书籍关联的图片路径表SQL
+    book_number: (格式：作者ID_书名标题)
+    book_images_local_path: 书籍图片本地路径集合
+    book_images_remote_path: 书籍图片远程路径集合
+    addtime: 添加时间
+    updatetime: 更新时间
+    '''
+    @staticmethod
+    def gk7_douban_book_img():
+        return 'CREATE TABLE IF NOT EXISTS %s(book_number text, book_images_local_path text, book_images_remote_path text, addtime datetime, updatetime datetime)' %(Global.GLOBAL_DB_TBL_BOOK_IMG_NAME)
 
     '''
     书籍html等待转换表
