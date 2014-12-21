@@ -32,3 +32,4 @@ sudo pip install web.py
 + 服务端存储书籍信息，如果存在一样的图书，直接推送
 + 书籍图片多线程抓取
 + 优化图书排版
++ 图书章节按照[class=pagebreak]分割
