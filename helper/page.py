@@ -56,10 +56,11 @@ class HTML:
         ## 内容
         for cxt in data_contents:
             cxt_type = cxt.get('type')
-            if cxt_type == 'pagebreak':
-                continue
             # 具体内容
             cxt_data = cxt.get('data')
+            if cxt_type == 'pagebreak': ## 分页符号
+                self.page.p(('',), class_=Global.GLOBAL_BOOK_PAGE_SPLIT)
+                continue
             if cxt_type == 'illus': ## 图片页
                 self.page.div()#class_='section'
                 # 获取最大图片信息
