@@ -36,6 +36,7 @@ class Global:
     # 书籍路径表分割字符
     GLOBAL_DB_BOOK_IMG_PATH_SPLIT = ';'
 
+    GLOBAL_BOOK_PAGE_SPLIT = 'pagebreak'
 
     ## email配置
     GLOBAL_EMAIL_SMTP = 'smtp.gmail.com'

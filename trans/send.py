@@ -48,7 +48,6 @@ class Send:
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
             # 处理数据
             data = decrypt.parse(book_data)
-            logger.info(data)
             data_json = json.loads(data)
             data_posts = data_json.get('posts')[0]
 
@@ -75,8 +74,9 @@ class Send:
             if book_info:
                 # 修改待发送邮件附件信息
                 attach_file = str(book_info['book_file_path'])
-                # 如果为空处理 TODO
-                
+                # 如果为空处理
+                if not attach_file:
+                    return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,书籍文件未找到，请联系:hyqiu.syen@gmail.com'})
                 
                 wait_emails.update_attach_file(request_id, attach_file)
                 # 发送邮件并修改待发送邮件状态
