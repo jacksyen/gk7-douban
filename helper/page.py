@@ -40,7 +40,7 @@ class HTML:
         self.page.h2((self.subtitle,))
         book_author = [self.author]
         if self.translator:
-            book_author.append(self.translator.join(u'&nbsp;译'))
+            book_author.append(self.translator.join(u' 译'))
         ## 作者
         self.page.p(tuple(book_author), style='text-align:left')
 
@@ -81,8 +81,8 @@ class HTML:
                 continue
             cxt_data_text = cxt_data.get('text')
             # 为空判断
-            #if cxt_data_text == '' or len(cxt_data_text) == 0:
-            #   cxt_data_text = '&nbsp'
+            if cxt_data_text == '' or len(cxt_data_text) == 0:
+                cxt_data_text = '&nbsp'
             if cxt_type == 'headline':
                 self.page.h2((str(cxt_data_text),), class_='chapter', style='text-align:center; line-height:2; font-size:13px; min-height: 2em;')
             elif cxt_type == 'paragraph':
