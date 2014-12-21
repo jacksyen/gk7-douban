@@ -58,6 +58,8 @@ class Send:
             book_subtitle = str(data_posts.get('subtitle'))
             # 图书作者
             book_author = str(data_posts.get('orig_author'))
+            # 图书译者
+            book_translator = str(data_posts.get('translator'))
 
             # 将待发送邮件存储至数据库
             wait_emails = Tbl_Wait_Emails()
@@ -74,7 +76,7 @@ class Send:
                 # 修改待发送邮件附件信息
                 attach_file = str(book_info['book_file_path'])
                 # 如果为空处理 TODO
-
+                
                 
                 wait_emails.update_attach_file(request_id, attach_file)
                 # 发送邮件并修改待发送邮件状态
@@ -85,8 +87,8 @@ class Send:
             # 创建HTML
             # 图片目录[绝对路径](格式：主目录/作者/书名标题)
             images_dir = '%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, book_author, book_title)
-            page = HTML(book_title, book_subtitle, book_author, images_dir)
-            book_html_path, book_images_remote_path = page.create(str(data_json.get('abstract')), data_posts.get('contents'))
+            page = HTML(book_title, book_subtitle, book_author, images_dir, book_translator)
+            book_html_path, book_images_remote_path = page.create(data_posts.get('contents'))
 
             # 存储书籍信息
             books.add(book_number, book_title, book_subtitle, book_author)
@@ -103,8 +105,9 @@ class Send:
             thread = SyncThread(request_id, book_author, book_number, images_dir)
             thread._children = weakref.WeakKeyDictionary()
             thread.start()
+            if len(book_images_remote_path):
+                return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，书籍中存在图片，推送的时间更长一些，请稍侯查看您的kindle'})
             return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})
-            
         except Exception, err:
             return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com' %err})
     
