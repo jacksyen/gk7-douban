@@ -15,10 +15,11 @@ class HTML:
     '''
     '%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, self.author, self.title)
     '''
-    def __init__(self, book_title, book_subtitle, book_author, images_dir):
+    def __init__(self, book_title, book_subtitle, book_author, images_dir, translator):
         self.title = book_title
         self.subtitle = book_subtitle
         self.author = book_author
+        self.translator = translator
         # 图片目录(格式：主目录/作者/书名标题)
         self.images_dir = images_dir
         # 创建HTML Page
@@ -30,22 +31,24 @@ class HTML:
     '''
     创建html
     返回文件绝对路径
-    data_abstract: 前言
     data_contents: 书籍内容
     '''
     @aop.exec_out_time
-    def create(self, data_abstract, data_contents):
+    def create(self, data_contents):
         ## 标题
         self.page.h1((self.title,), class_='bookTitle')
         self.page.h2((self.subtitle,))
+        book_author = [self.author]
+        if self.translator:
+            book_author.append(self.translator.join(u'&nbsp;译'))
         ## 作者
-        self.page.p((self.author,), style='text-align:right')
+        self.page.p(tuple(book_author), style='text-align:left')
 
         ## 前言 or 导航
-        intr_item = (data_abstract,)
-        self.page.div(class_ = 'introduction')
-        self.page.p(intr_item, style='text-indent: 2em;')
-        self.page.div.close()
+        #intr_item = (data_abstract,)
+        #self.page.div(class_ = 'introduction')
+        #self.page.p(intr_item, style='text-indent: 2em;')
+        #self.page.div.close()
 
         ## 书籍所有图片远程路径集合
         book_images_remote_path = []
@@ -77,18 +80,23 @@ class HTML:
                 book_images_remote_path.append(medium_src)
                 continue
             cxt_data_text = cxt_data.get('text')
+            # 为空判断
+            #if cxt_data_text == '' or len(cxt_data_text) == 0:
+            #   cxt_data_text = '&nbsp'
             if cxt_type == 'headline':
-                self.page.h2((str(cxt_data_text),), class_='chapter')
+                self.page.h2((str(cxt_data_text),), class_='chapter', style='text-align:center; line-height:2; font-size:13px; min-height: 2em;')
             elif cxt_type == 'paragraph':
+                text_format = cxt_data.get('format')
                 # 多条内容，带注释
                 if isinstance(cxt_data_text, list):
                     plaintexts, footnotes = self.get_data_text_list(cxt_data_text)
-                    self.page.p((plaintexts,), style='text-indent: 2em; line-height:2;')
+                    self.page.p((plaintexts,), style=self.get_text_style(text_format))
                     if len(footnotes) > 0:
                         self.page.p(tuple(footnotes), style='color:#333;font-size:13px;')
                 else:
+                    
                     chapter_item = (str(cxt_data_text),)
-                    self.page.p(chapter_item, style='text-indent: 2em; line-height:2;')
+                    self.page.p(chapter_item, style=self.get_text_style(text_format))
 
         ## 片尾
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
@@ -102,6 +110,16 @@ class HTML:
         output.close()
         return filename, book_images_remote_path
 
+    
+    '''
+    获取<p>中的文字样式
+    text_format: 豆瓣对应的文本格式
+    '''
+    def get_text_style(self, text_format):
+        text_base_style = 'text-indent: 2em; line-height:2; min-height: 2em; text-align:%s' %(text_format.get('p_align'))
+        if text_format.get('p_bold') == 'true':
+            text_base_style = text_base_style.join('font-weight:bold;')
+        return text_base_style
 
     '''
     获取内容集合，包含注释
