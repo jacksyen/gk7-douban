@@ -75,7 +75,7 @@ class Send:
                 # 修改待发送邮件附件信息
                 attach_file = str(book_info['book_file_path'])
                 # 如果为空处理
-                if not attach_file:
+                if attach_file == '' or len(attach_file) == 0:
                     return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,书籍文件未找到，请联系:hyqiu.syen@gmail.com'})
                 
                 wait_emails.update_attach_file(request_id, attach_file)
