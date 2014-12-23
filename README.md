@@ -68,16 +68,17 @@ cond_book_img(no)->op_book_wait_html
 #### 异步进程 ####
 
 ## 安装 ##
-需要python2.7+
 
 ### 依赖 ###
-+ web.py
-+ calibre
++ `git`
++ `python` 2.6 or later(but not 3.x)
++ `web.py`
++ `calibre`
 
 ### git检出 ###
 + dev: 开发分支
 + master: 主干分支，发布后由dev合并
-```
+```bash
 git clone https://github.com/jacksyen/gk7-douban.git
 git checkout dev
 ```
@@ -85,19 +86,19 @@ git checkout dev
 ### ubuntu下使用服务端 ###
 首先必须安装好依赖
 1. 修改全局配置
-```
+```bash
 sed -i "s/GLOBAL_EMAIL_USER = 'hyqiu.syen@gmail.com'/GLOBAL_EMAIL_USER = '你的gmail邮箱地址'/g" webglobal/globals.py
 sed -i "s/GLOBAL_EMAIL_PWD = ''/GLOBAL_EMAIL_PWD = '你的gmail密码'/g" webglobal/globals.py
 ```
 2. 启动：
-```
+```bash
 sudo python index.py 8000
 ```
 
 ### chrome下加载开发插件 ###
 
 1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在send函数中修改url地址，和上面服务器端启动的IP/端口对应
-2. 在chrome浏览器中的地址栏中输入：[chrome://extensions/](chrome://extensions/)，点击**加载正在开发的扩展程序**，选择`client`文件夹即可
+2. 在chrome浏览器中的地址栏中输入：[扩展程序](chrome://extensions/)，点击**加载正在开发的扩展程序**，选择`client`文件夹即可
 
 ## 版本历史 ##
 
