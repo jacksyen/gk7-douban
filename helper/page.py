@@ -26,6 +26,8 @@ class HTML:
         self.page = markup.page()
         # 初始化html
         self.page.init(title='%s' %self.title, charset='UTF-8', author=self.author)
+        # 图片类型
+        self.cxt_pic_type = ['medium', 'orig', 'small', 'tiny', 'large']
 
 
     '''
@@ -66,7 +68,9 @@ class HTML:
                 # 获取最大图片信息
                 orig = cxt_data.get('size').get('orig')
                 # 获取中等[medium]图片信息
-                medium = cxt_data.get('size').get('medium')
+                medium = self.get_cxt_pic(cxt_data)
+                if medium == None:
+                    logger.error(u'获取图片信息失败')
                 # 图片src
                 medium_src = str(medium.get('src'))
                 # 图片路径(格式：主目录/作者/书名标题/图片名称)
@@ -142,3 +146,15 @@ class HTML:
             elif kind == 'footnote':
                 footnotes.append(desc + content)
         return plaintexts, footnotes    
+
+    '''
+    获取图片信息
+    cxt_data: 图片数据
+    '''
+    def get_cxt_pic(self, cxt_data, pic_type_num=0):
+        pic_info = cxt_data.get('size').get(self.cxt_pic_type[pic_type_num])
+        if pic_type_num == (len(self.cxt_pic_type) - 1):
+            return None
+        if not pic_info:
+            pic_info = self.get_cxt_pic(cxt_data, pic_type_num=pic_type_num+1)
+        return pic_info
