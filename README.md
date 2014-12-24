@@ -79,7 +79,7 @@ sudo python index.py 8000
 
 ### chrome下加载开发插件 ###
 
-1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在 **send** 函数中修改 **url **地址，和上面服务器端启动的IP/端口对应
+1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在 **send** 函数中修改 **url** 地址，和上面服务器端启动的IP/端口对应
 2. 在chrome浏览器中的地址栏中输入：[chrome://extensions/](chrome://extensions/)，点击 **加载正在开发的扩展程序**，选择`client`文件夹即可
 
 ## 版本历史 ##
