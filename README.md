@@ -1,9 +1,12 @@
-# 豆瓣阅读推送至kindle，chrome插件及服务端
+# 豆瓣阅读推送至kindle
+chrome插件及服务端
+
+---------
 
 ##Table of Contents
 
 - [目录说明](#目录说明)
-- [实现逻辑](#实现逻辑)
+- [开发逻辑](#开发逻辑)
   - [客户端](#客户端)
   - [服务端](#服务端)
     - [主流程](#主流程)
@@ -16,7 +19,6 @@
 - [版本历史](#版本历史)
   - [v2.3](#v2.3)
 - [待优化](#待优化)
-- [捐助](#捐助)
 
 ## 目录说明 ##
 ```
@@ -31,39 +33,15 @@
 |---- index.py 程序入口
 ```
 
-## 实现逻辑 ##
+## 开发逻辑 ##
 
 ### 客户端 ###
 
 ### 服务端 ###
 
 #### 主流程 ####
+![main_proc](https://raw.githubusercontent.com/jacksyen/gk7-douban/dev/resources/main_.png)
 
-```flow
-st=>start: 客户端请求
-e=>end
-op=>operation: 解析请求字符串
-op_emails=>operation: 存储待发送邮件
-cond=>condition: 判断书籍是否存在?
-cond_book_file=>condition: 判断书籍文件是否存在?
-op_yes_book_file=>operation: 更新待发送邮件附件信息
-op_yes_book_file_send=>operation: 发送邮件
-op_update_email=>operation: 更新待发送邮件状态
-op_page=>operation: 创建书籍HTML页面
-op_save_book=>operation: 存储书籍信息
-cond_book_img=>condition: 书籍是否存在图片
-op_yes_book_img=>operation: 存储书籍图片信息
-op_book_wait_html=>operation: 存储书籍待转换信息
-op_sync_thread=>operation: 启动异步线程
-
-st->op->op_emails->cond
-cond(no)->op_page->op_save_book->cond_book_img
-cond(yes)->cond_book_file
-cond_book_file(yes)->op_yes_book_file->op_yes_book_file_send->op_update_email->e
-cond_book_file(no)->e
-cond_book_img(yes)->op_yes_book_img->op_book_wait_html->op_sync_thread->e
-cond_book_img(no)->op_book_wait_html
-```
 
 #### 异步进程 ####
 
@@ -101,8 +79,8 @@ sudo python index.py 8000
 
 ### chrome下加载开发插件 ###
 
-1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在send函数中修改url地址，和上面服务器端启动的IP/端口对应
-2. 在chrome浏览器中的地址栏中输入：[chrome://extensions/](chrome://extensions/)，点击**加载正在开发的扩展程序**，选择`client`文件夹即可
+1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在 **send** 函数中修改 **url **地址，和上面服务器端启动的IP/端口对应
+2. 在chrome浏览器中的地址栏中输入：[chrome://extensions/](chrome://extensions/)，点击 **加载正在开发的扩展程序**，选择`client`文件夹即可
 
 ## 版本历史 ##
 
@@ -116,8 +94,3 @@ sudo python index.py 8000
 + 文件路径规范
 + 客户端并发控制
 + HTTP传输数据大太，导致处理客户端请求太慢
-
-## 捐助 ##
-
-如果觉得该项目帮助到了您，大侠有意捐助的话，请支付宝扫一扫
-![gk7-alipay](http://blog.gk7.pw/donation.png)
