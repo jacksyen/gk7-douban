@@ -3,7 +3,6 @@
 ##Table of Contents
 
 - [目录说明](#目录说明)
-- [est](#est)
 - [实现逻辑](#实现逻辑)
   - [客户端](#客户端)
   - [服务端](#服务端)
@@ -18,10 +17,6 @@
   - [v2.3](#v2.3)
 - [待优化](#待优化)
 - [捐助](#捐助)
-- 
-
-
-## est
 
 ## 目录说明 ##
 ```
@@ -43,6 +38,7 @@
 ### 服务端 ###
 
 #### 主流程 ####
+
 ```flow
 st=>start: 客户端请求
 e=>end
@@ -74,12 +70,14 @@ cond_book_img(no)->op_book_wait_html
 ## 安装 ##
 
 ### 依赖 ###
+
 + `git`
 + `python` 2.6 or later(but not 3.x)
 + `web.py`
 + `calibre`
 
 ### git检出 ###
+
 + dev: 开发分支
 + master: 主干分支，发布后由dev合并
 ```bash
@@ -88,13 +86,15 @@ git checkout dev
 ```
 
 ### ubuntu下使用服务端 ###
+
 首先必须安装好依赖
-1. 修改全局配置
+
+* 修改全局配置
 ```bash
 sed -i "s/GLOBAL_EMAIL_USER = 'hyqiu.syen@gmail.com'/GLOBAL_EMAIL_USER = '你的gmail邮箱地址'/g" webglobal/globals.py
 sed -i "s/GLOBAL_EMAIL_PWD = ''/GLOBAL_EMAIL_PWD = '你的gmail密码'/g" webglobal/globals.py
 ```
-2. 启动：
+* 启动：
 ```bash
 sudo python index.py 8000
 ```
@@ -102,22 +102,22 @@ sudo python index.py 8000
 ### chrome下加载开发插件 ###
 
 1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在send函数中修改url地址，和上面服务器端启动的IP/端口对应
-2. 在chrome浏览器中的地址栏中输入：[扩展程序](chrome://extensions/)，点击**加载正在开发的扩展程序**，选择`client`文件夹即可
+2. 在chrome浏览器中的地址栏中输入：[chrome://extensions/](chrome://extensions/)，点击**加载正在开发的扩展程序**，选择`client`文件夹即可
 
 ## 版本历史 ##
 
-### v2.3 ###
+### v2.3.1 ###
 + 服务端存储书籍信息，如果存在一样的图书，直接推送
 + 书籍图片多线程抓取
-+ 优化图书排版
-+ 图书章节按照[class=pagebreak]分割
++ 图书章节按照`[class=pagebreak]`分割
 + 客户端CSS优化，不干涉主页面
 
 ## 待优化 ##
 + 文件路径规范
-+ 豆瓣文章ID存储
 + 客户端并发控制
-+ HTTP传输数据大太，导致处理比较慢[传输数据压缩；nginx处理]
-+ 客户端邮件设置优化
++ HTTP传输数据大太，导致处理客户端请求太慢
 
 ## 捐助 ##
+
+如果觉得该项目帮助到了您，大侠有意捐助的话，请支付宝扫一扫
+![gk7-alipay](http://blog.gk7.pw/donation.png)
