@@ -450,5 +450,33 @@
         <text>%u6293%u53D6%u4E66%u7C4D%u56FE%u7247%u3001%u8F6C%u6362%u4E66%u7C4D%u3001%u53D1%u9001%u90AE%u4EF6%uFF0C%u8BE6%u89C1%u4E0B%u56FE%uFF1A%u5F02%u6B65%u6D41%u7A0B</text>
       </controlProperties>
     </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::HRule" x="729" y="471" w="78" h="-1" measuredW="100" measuredH="10" zOrder="42" locked="false" isInGroup="-1"/>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::VRule" x="800" y="474" w="-1" h="478" measuredW="10" measuredH="100" zOrder="43" locked="false" isInGroup="-1"/>
+    <control controlID="61" controlTypeID="__group__" x="927" y="628" w="23" h="50" measuredW="23" measuredH="50" zOrder="44" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="813" controlTypeID="com.balsamiq.mockups::VRule" x="8" y="0" w="-1" h="45" measuredW="10" measuredH="100" zOrder="0" locked="false" isInGroup="61"/>
+        <control controlID="814" controlTypeID="com.balsamiq.mockups::Arrow" x="0" y="32" w="13" h="17" measuredW="150" measuredH="100" zOrder="1" locked="false" isInGroup="61">
+          <controlProperties>
+            <curvature>0</curvature>
+            <direction>top</direction>
+            <leftArrow>false</leftArrow>
+            <rightArrow>false</rightArrow>
+          </controlProperties>
+        </control>
+        <control controlID="815" controlTypeID="com.balsamiq.mockups::Arrow" x="7" y="32" w="16" h="18" measuredW="150" measuredH="100" zOrder="2" locked="false" isInGroup="61">
+          <controlProperties>
+            <curvature>0</curvature>
+            <direction>bottom</direction>
+            <leftArrow>false</leftArrow>
+            <rightArrow>false</rightArrow>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="766" y="455" w="-1" h="-1" measuredW="16" measuredH="21" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>No</text>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>
