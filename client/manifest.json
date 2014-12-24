@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "gk7-豆瓣阅读推送",
     "description": "豆瓣阅读推送",
-    "version": "2.2.1",
+    "version": "2.3",
     "icons": {
         "48": "images/icon48.png"
     },
@@ -18,7 +18,7 @@
     "permissions": [ "\u003Call_urls>", "tabs" ],
     "content_scripts":[{
         "matches":["http://read.douban.com/reader/ebook/*"],
-	"css": [ "style/options.css"],
+	"css": [ "style/popup.css"],
         "js":["scripts/jquery-1.8.3.min.js", "scripts/jquery.cookie.js", "scripts/content_script.js"]
     }]
 }

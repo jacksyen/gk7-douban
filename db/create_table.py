@@ -4,6 +4,30 @@
 author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
 创建数据库表信息（如果不存在）
+
+|Table: gk7_douban_global
+|--------------------------
+| Column_name   Datatype    Pk    Description
+| smtp          text              邮箱SMTP服务器地址
+| smtp_port     text              邮箱SMTP服务器端口
+| email_user    text              邮箱用户地址
+| email_pwd     text              邮箱用户密码
+| email_encode  text              邮件编码
+| addtime       datetime          增加日期
+| updatetime    datetime          更新日期
+--------------------------------------------
+
+|Table: gk7_douban_wait_emails
+|--------------------------
+| Column_name        Datatype    Pk    Description
+| email_to_user      text              待发送邮箱
+| email_attach_file  text
+| email_user         text              邮箱用户地址
+| email_pwd          text              邮箱用户密码
+| email_encode       text              邮件编码
+| addtime            datetime          增加日期
+| updatetime         datetime          更新日期
+--------------------------------------------
 """
 from webglobal.globals import Global
 

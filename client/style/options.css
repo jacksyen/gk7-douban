@@ -51,33 +51,3 @@ a {
 .bottom{
     margin-top:20px;
 }
-.gk7-douban-result-msg{
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    background-color: #f5f5f5;
-    padding: 1px;
-    border: 1px solid #d8d8d8;
-    color: #4183c4;
-    width: 260px;
-    word-break: break-all;
-}
-.gk7-douban-result-msg .close{
-    right: 1px;
-    top: 1px;
-    position: absolute;
-    color: #ff0000;
-    cursor: pointer;
-}
-.gk7-douban-result-msg .content{
-    /*margin: 5px 30px 0px 10px; script change to remove iframe upload */
-    margin: 20px;
-}
-.content a{
-    color: #b33;
-}
-#gk7-douban-send{
-    height:90px;
-    width: 260px;
-    border: 0px;
-}

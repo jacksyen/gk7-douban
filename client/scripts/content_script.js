@@ -38,9 +38,11 @@ function showResultMsg(result){
     // 删除iframe进度条
     //frames["gk7-douban-send"].remove();
     html.find('.content').html(result.msg);//.css('margin', '20px');
-    $('.gk7-douban-result-msg').fadeTo(4000, 0.50, function (){
-	html.remove();
-    });
+    if(result.status != 'PROC'){
+        $('.gk7-douban-result-msg').fadeTo(5000, 0.50, function (){
+	    html.remove();
+        });
+    }
 }
 
 /**
@@ -101,23 +103,64 @@ function getReadData(book_id, callback){
         type: 'POST',
         async: false,
         success: function (data){
-            var book_data = [
-	        data.title,
-	        data.data,
-	        data.purchase_time,
-	        data.is_sample,
-	        data.is_gift,
-	        data.has_formula,
-	        data.has_added,
-	        data.price
-	    ];
-	    callback(book_data.join(':'));
+            call_result(data, callback);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            var result = {};
-	    result['msg'] = '获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com';
-	    result['status'] = 'FAIL';
-	    showResultMsg(result);
+            get_error_msg('第一次获取文章信息失败，正在更换连接...', 'PROC');
+            // 重新换链接抓取文章数据
+            tryGetReadData(book_id, callback);
+        }
+    });
+}
+
+function get_error_msg(msg, status){
+    var result = {};
+    result['msg'] = msg
+    result['status'] = status;
+    showResultMsg(result);
+}
+
+/**
+  * 获取数据成功返回数据
+  * data: 返回数据
+  * callback: 回调函数
+  */
+function call_result(data, callback){
+    var book_data = [
+	data.title,
+	data.data,
+	data.purchase_time,
+	data.is_sample,
+	data.is_gift,
+	data.has_formula,
+	data.has_added,
+	data.price
+    ];
+    callback(book_data.join(':'));
+}
+
+/**
+  * 重新获取文章数据
+  * book_id: 文章ID
+  * callback: 回调函数
+  */
+function tryGetReadData(book_id, callback){
+    // 更换抓取数据链接
+    $.ajax({
+        url: 'http://read.douban.com/j/article_v2/gallery/get_reader_data',
+        data: {
+            works_id: book_id,
+            reader_data_version: 'v8'
+        },
+        dataType: 'json',
+        type: 'POST',
+        async: false,
+        headers: {'X-CSRF-Token': $.cookie('ck')},
+        success: function (data){
+            call_result(data, callback);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            get_error_msg('获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com', 'FAIL');
         }
     });
 }
