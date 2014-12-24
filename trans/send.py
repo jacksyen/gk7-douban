@@ -109,6 +109,7 @@ class Send:
                 return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，书籍中存在图片，推送的时间更长一些，请稍侯查看您的kindle'})
             return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})
         except Exception, err:
+            logger.error(u'推送异常,错误信息：%s，入参：%s' %(err, args))
             return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com' %err})
     
     
