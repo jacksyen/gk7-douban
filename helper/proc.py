@@ -28,7 +28,7 @@ class proc_helper:
     @aop.exec_time
     def convert(input_file_path, out_file_dir, author):
         if not os.path.exists(out_file_dir):
-            os.mkdir(out_file_dir)
+            os.makedirs(out_file_dir)
         # 文件名
         file_name = input_file_path.split('/')[-1]
         # 输出文件绝对路径
