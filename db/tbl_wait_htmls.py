@@ -47,5 +47,5 @@ class Tbl_Wait_Htmls:
     '''
     @aop.exec_time
     def update_status(self, status, request_id, book_convert_path=None):
-        self.db.execute('UPDATE %s SET book_convert_status = "%s", book_convert_path = "%s", updatetime = "%s" WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), book_convert_path, request_id))
+        self.db.execute('UPDATE %s SET book_convert_status = "%s", book_convert_path = "%s", updatetime = "%s" WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_HTMLS, status, book_convert_path, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
