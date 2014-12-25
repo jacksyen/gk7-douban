@@ -45,7 +45,7 @@ class Tbl_Books:
     '''
     @aop.exec_time
     def get(self, book_number, book_size):
-        self.db.execute('SELECT book_id, book_title, book_subtitle, book_author, book_file_path, addtime, updatetime FROM %s WHERE book_number ="%s" AND book_size = %d' %(Global.GLOBAL_DB_TBL_BOOK_NAME, book_number, book_size))
+        self.db.execute('SELECT book_id, book_title, book_subtitle, book_author, book_file_path, addtime, updatetime FROM %s WHERE book_number ="%s" AND book_size = %d AND book_file_path !=""' %(Global.GLOBAL_DB_TBL_BOOK_NAME, book_number, book_size))
         return self.db.fetchone()
 
     '''
