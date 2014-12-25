@@ -44,6 +44,8 @@ class Send:
             book_data = args.get('bookData')
             # 推送的email地址
             to_email = args.get('toMail')
+            if not book_data or not to_email:
+                return json.dumps({'status': 'WARN', 'msg': u'参数不能为空，请联系:hyqiu.syen@gmail.com'})
             # 请求ID
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
             # 处理数据
@@ -64,45 +66,47 @@ class Send:
             wait_emails = Tbl_Wait_Emails()
             wait_emails.add(request_id, to_email, book_title, book_author)
 
-            # 书籍ID
+            # 书籍number
             book_number = '%s_%s' %(str(data_json.get('authorId')), book_title)
+            # 书籍大小
+            book_size = len(book_data)
 
             # 判断书籍是否存在数据库中
             books = Tbl_Books()
-            book_info = books.get(book_number)
+            book_info = books.get(book_number, book_size)
             # 如果书籍已经存在
             if book_info:
                 # 修改待发送邮件附件信息
                 attach_file = str(book_info['book_file_path'])
-                # 如果为空处理
-                if attach_file == '' or len(attach_file) == 0:
-                    return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,书籍文件未找到，请联系:hyqiu.syen@gmail.com'})
-                
-                wait_emails.update_attach_file(request_id, attach_file)
-                # 发送邮件并修改待发送邮件状态
-                send_mail = SyncSendMail()
-                send_mail.send(request_id, attach_file, to_email, book_title, book_author)
-                return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})
+                # 如果不为空直接发送邮件
+                if attach_file:
+                    wait_emails.update_attach_file(request_id, attach_file)
+                    # 发送邮件并修改待发送邮件状态
+                    send_mail = SyncSendMail()
+                    send_mail.send(request_id, attach_file, to_email, book_title, book_author)
+                    return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})
 
             # 创建HTML
-            # 图片目录[绝对路径](格式：主目录/作者/书名标题)
-            images_dir = '%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, book_author, book_title)
-            page = HTML(book_title, book_subtitle, book_author, images_dir, book_translator)
+            # 源文件目录[绝对路径](格式：主目录/作者/书名标题/书籍大小)
+            file_dir = '%s/%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, book_author, book_title, str(book_size))
+            page = HTML(book_title, book_subtitle, book_author, file_dir, book_translator)
             book_html_path, book_images_remote_path = page.create(data_posts.get('contents'))
 
             # 存储书籍信息
-            books.add(book_number, book_title, book_subtitle, book_author)
+            book_id = books.add(book_number, book_title, book_subtitle, book_author, book_size)
             # 存储书籍图片路径信息
             if len(book_images_remote_path):
                 book_img = Tbl_Book_Img()
-                book_img.add(book_number, book_images_remote_path)
+                book_img.add(book_id, book_images_remote_path)
 
             # 将待转换的书籍html信息存储在数据库中
             wait_htmls = Tbl_Wait_Htmls()
             wait_htmls.add(request_id, book_html_path)
 
             # 开启异步进程，转换书籍并发送邮件
-            thread = SyncThread(request_id, book_author, book_number, images_dir)
+            # 书籍输出目录[OUT_DATA_DIRS/书名标题/大小/]
+            out_file_dir = '%s/%s/%s/%s' %(Global.GLOBAL_OUT_DATA_DIRS, book_author, book_title, str(book_size))
+            thread = SyncThread(request_id, book_author, book_id, file_dir, out_file_dir)
             thread._children = weakref.WeakKeyDictionary()
             thread.start()
             if len(book_images_remote_path):
