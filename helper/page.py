@@ -13,15 +13,19 @@ sys.setdefaultencoding('utf-8')
 class HTML:
     
     '''
-    '%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, self.author, self.title)
+    初始化
+    book_title: 图书标题
+    book_subtitle: 图书副标题
+    file_dir: 源文件存储目录[绝对路径](格式：主目录/作者/书名标题/书籍大小)
+    translator: 译者
     '''
-    def __init__(self, book_title, book_subtitle, book_author, images_dir, translator):
+    def __init__(self, book_title, book_subtitle, book_author, file_dir, translator):
         self.title = book_title
         self.subtitle = book_subtitle
         self.author = book_author
         self.translator = translator
         # 图片目录(格式：主目录/作者/书名标题)
-        self.images_dir = images_dir
+        self.file_dir = file_dir
         # 创建HTML Page
         self.page = markup.page()
         # 初始化html
@@ -73,8 +77,8 @@ class HTML:
                     logger.error(u'获取图片信息失败')
                 # 图片src
                 medium_src = str(medium.get('src'))
-                # 图片路径(格式：主目录/作者/书名标题/图片名称)
-                cxt_image_path = '%s/%s' %(self.images_dir, medium_src[medium_src.rfind('/')+1:])
+                # 图片路径(格式：主目录/作者/书名标题/书籍大小/图片名称)
+                cxt_image_path = '%s/%s' %(self.file_dir, medium_src[medium_src.rfind('/')+1:])
                 self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_image_path)
                 # 添加图片备注
                 legend = str(cxt_data.get('legend'))
@@ -107,9 +111,9 @@ class HTML:
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
 
         # 写入文件
-        if not os.path.exists(Global.GLOBAL_DATA_DIRS):
-            os.mkdir(Global.GLOBAL_DATA_DIRS)
-        filename = '%s/%s.html' %(os.path.abspath(Global.GLOBAL_DATA_DIRS), self.title)
+        if not os.path.exists(self.file_dir):
+            os.makedirs(self.file_dir)
+        filename = '%s/%s.html' %(self.file_dir, self.title)
         output = open(filename, 'w')
         output.write(str(self.page))
         output.close()
