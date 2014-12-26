@@ -19,6 +19,7 @@ from webglobal.globals import Global, Global_Status
 
 class SendMail:
 
+    @aop.exec_time
     def __init__(self):
         # 获取全局邮件配置信息
         global_info = Tbl_Global()
@@ -27,12 +28,13 @@ class SendMail:
             logger.error(u'查询%s返回空', Global.GLOBAL_DB_TBL_GLOBAL_NAME)
             # TODO
         # 邮件服务
-        self.server = smtplib.SMTP(str(global_email_info['smtp']), str(global_email_info['smtp_port']))
+        self.server = smtplib.SMTP(str(global_email_info['smtp']), str(global_email_info['smtp_port']), timeout=30)
         self.server.starttls()
         self.server.login(str(global_email_info['email_user']), str(global_email_info['email_pwd']))
         self.from_mail = str(global_email_info['email_user'])
         self.encode = str(global_email_info['email_encode'])
 
+    @aop.exec_time
     def close(self):
         if not self.server:
             self.server.quit()
