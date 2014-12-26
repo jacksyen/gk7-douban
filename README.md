@@ -1,5 +1,6 @@
 # 豆瓣阅读推送至kindle
 chrome插件及服务端
+
 安装使用，请戳：[gk7-豆瓣阅读推送](https://chrome.google.com/webstore/detail/lmiobbkpdjmkfhgagdkpgbgonkogbllb)
 
 ---------
