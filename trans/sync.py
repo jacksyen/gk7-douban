@@ -111,4 +111,4 @@ class SyncThread(threading.Thread):
         except Exception, err:
             logger.error(u'异步线程出错，请求ID：%s,错误信息：%s', self.request_id, err)
         finally:
-            sys.exit()
+            exit(-1)
