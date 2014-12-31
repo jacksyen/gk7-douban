@@ -106,8 +106,8 @@ class SyncThread(threading.Thread):
                 logger.error(u'未找到待发送邮件信息，请求ID:%s', self.request_id)
                 exit(-1)
             # 发送邮件
-            #send_mail = SyncSendMail()
-            #send_mail.send(self.request_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+            send_mail = SyncSendMail()
+            send_mail.send(self.request_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
             logger.error(u'异步线程出错，请求ID：%s,错误信息：%s', self.request_id, err)
         finally:
