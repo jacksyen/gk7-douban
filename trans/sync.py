@@ -64,8 +64,7 @@ class SyncThread(threading.Thread):
             wait_html = Tbl_Wait_Htmls()
             wait_html_info = wait_html.get(self.request_id)
             if not wait_html_info:
-                logger.error(u'未找到待转换的书籍信息，请求ID：%s', self.request_id)
-                exit(-1)
+                raise Exception, '未找到待转换的书籍信息'
 
             # 抓取书籍所需图片
             book_img = Tbl_Book_Img()
@@ -80,16 +79,14 @@ class SyncThread(threading.Thread):
             book = Tbl_Books()
             book_info = book.get_by_book_id(self.book_id)
             if not book_info:
-                logger.error(u'获取图书信息失败，书籍ID：%s,请求ID：%s' %(self.book_id, self.request_id))
-                exit(-1)
+                raise Exception, '获取图书信息失败，书籍ID：%s' %self.book_id
 
             ## 调用转换功能
             out_file_path = proc_helper.convert(str(wait_html_info['book_html_path']), self.out_dir, self.book_author)
             if out_file_path == None:
                 # 转换失败
-                logger.error(u'转换失败，请求ID：%s', self.request_id)
                 wait_html.update_status(Global_Status.ERROR, self.request_id)
-                exit(-1)
+                raise Exception, '转换html to mobi失败'
 
             # 转换成功，修改状态，添加书籍输出路径
             wait_html.update_status(Global_Status.COMPLETE, self.request_id, out_file_path)
@@ -102,13 +99,12 @@ class SyncThread(threading.Thread):
             wait_email.update_attach_file(self.request_id, out_file_path)
             # 读取待发送邮件信息
             wait_email_info = wait_email.get(self.request_id)
-            if wait_email_info == None:
-                logger.error(u'未找到待发送邮件信息，请求ID:%s', self.request_id)
-                exit(-1)
+            if not wait_email_info:
+                raise Exception, '未找到待发送邮件信息，请求ID:%s' %self.request_id
+
             # 发送邮件
             send_mail = SyncSendMail()
             send_mail.send(self.request_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
-            logger.error(u'异步线程出错，请求ID：%s,错误信息：%s', self.request_id, err)
-        finally:
+            logger.error(u'异步线程出错，请求ID：%s，错误信息：%s', self.request_id, err)
             exit(-1)
