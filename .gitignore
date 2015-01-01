@@ -48,7 +48,6 @@ logs/*
 *.sh
 *.out
 \#*
-*.html
 data/*
 out-data/*
 *.bak
