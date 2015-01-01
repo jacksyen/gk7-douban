@@ -13,6 +13,7 @@ from helper.mail import SendMail
 from helper.page import HTML
 
 from trans.send import Send
+from trans.admin.login import Login
 
 
 # 设置系统编码
@@ -23,6 +24,7 @@ sys.setdefaultencoding('utf-8')
 urls = (
     '/','Index',
     '/send', 'Send',
+    '/admin/login', 'Login',
 )
 #web.config.debug = False
 app = web.application(urls, globals())

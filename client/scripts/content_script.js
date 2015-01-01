@@ -93,7 +93,7 @@ function getReadData(book_id, callback){
     var post_data = {
 	ck: $.cookie('ck'),
 	aid: book_id,
-	reader_data_version: 'v8'
+	reader_data_version: localStorage.readerDataVersion || 'v8'
     };
     var url = 'http://read.douban.com/j/article_v2/get_reader_data';
     $.ajax({
@@ -150,7 +150,7 @@ function tryGetReadData(book_id, callback){
         url: 'http://read.douban.com/j/article_v2/gallery/get_reader_data',
         data: {
             works_id: book_id,
-            reader_data_version: 'v8'
+            reader_data_version: localStorage.readerDataVersion || 'v8'
         },
         dataType: 'json',
         type: 'POST',
