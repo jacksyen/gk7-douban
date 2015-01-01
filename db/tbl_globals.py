@@ -20,7 +20,7 @@ class Tbl_Global:
         if self.conn:
             SQLite.close(self.conn)
 
-    @aop.exec_time_consum
+    @aop.exec_time
     def check_init(self):
         self.db.execute('SELECT * FROM %s' %Global.GLOBAL_DB_TBL_GLOBAL_NAME)
         result = self.db.fetchone()
@@ -31,7 +31,7 @@ class Tbl_Global:
     '''
     获取邮件配置信息
     '''
-    @aop.exec_time_consum
+    @aop.exec_time
     def get_global_email(self):
         self.db.execute('SELECT smtp, smtp_port, email_user, email_pwd, email_encode, addtime FROM %s' %Global.GLOBAL_DB_TBL_GLOBAL_NAME)
         return self.db.fetchone()

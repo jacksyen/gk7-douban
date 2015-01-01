@@ -11,19 +11,18 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class HTML:
-    
+
     '''
     初始化
     book_title: 图书标题
-    book_subtitle: 图书副标题
+    #book_subtitle: 图书副标题
     file_dir: 源文件存储目录[绝对路径](格式：主目录/作者/书名标题/书籍大小)
     translator: 译者
     '''
-    def __init__(self, book_title, book_subtitle, book_author, file_dir, translator):
+    def __init__(self, book_title, book_author, file_dir):
         self.title = book_title
-        self.subtitle = book_subtitle
+        #self.subtitle = book_subtitle
         self.author = book_author
-        self.translator = translator
         # 图片目录(格式：主目录/作者/书名标题)
         self.file_dir = file_dir
         # 创建HTML Page
@@ -40,76 +39,46 @@ class HTML:
     data_contents: 书籍内容
     '''
     @aop.exec_out_time
-    def create(self, data_contents):
-        ## 标题
-        self.page.h1((self.title,), class_='bookTitle')
-        self.page.h2((self.subtitle,))
-        book_author = [self.author]
-        if self.translator:
-            book_author.append(self.translator.join(u' 译'))
-        ## 作者
-        self.page.p(tuple(book_author), style='text-align:left')
-
-        ## 前言 or 导航
-        #intr_item = (data_abstract,)
-        #self.page.div(class_ = 'introduction')
-        #self.page.p(intr_item, style='text-indent: 2em;')
-        #self.page.div.close()
-
-        ## 书籍所有图片远程路径集合
+    def create(self, book_posts):
         book_images_remote_path = []
+        
+        # 标题即是章节头标识
+        title_class = 'bookTitle'
+        if len(book_posts) > 1:
+            title_class = 'chapter'
+        for post in book_posts:
+            # 文章主标题
+            post_title = post.get('title')
+            # 文章副标题
+            post_subtitle = post.get('subtitle')
+            # 文章作者
+            post_author = [post.get('orig_author')]
+            # 文章译者
+            post_translator = post.get('translator')
 
-        ## 内容
-        for cxt in data_contents:
-            cxt_type = cxt.get('type')
-            # 具体内容
-            cxt_data = cxt.get('data')
-            if cxt_type == 'pagebreak': ## 分页符号
-                self.page.p(('',), class_=Global.GLOBAL_BOOK_PAGE_SPLIT)
-                continue
-            if cxt_type == 'illus': ## 图片页
-                self.page.div()#class_='section'
-                # 获取最大图片信息
-                orig = cxt_data.get('size').get('orig')
-                # 获取中等[medium]图片信息
-                medium = self.get_cxt_pic(cxt_data)
-                if medium == None:
-                    logger.error(u'获取图片信息失败')
-                # 图片src
-                medium_src = str(medium.get('src'))
-                # 图片路径(格式：主目录/作者/书名标题/书籍大小/图片名称)
-                cxt_image_path = '%s/%s' %(self.file_dir, medium_src[medium_src.rfind('/')+1:])
-                self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_image_path)
-                # 添加图片备注
-                legend = str(cxt_data.get('legend'))
-                if legend:
-                    self.page.label(legend, style='color:#555; font-size:.75em; line-height:1.5;')
-                self.page.div.close()
-                # 添加至所有图片远程路径集合
-                book_images_remote_path.append(medium_src)
-                continue
-            cxt_data_text = cxt_data.get('text')
-            # 为空判断
-            if cxt_data_text == '' or len(cxt_data_text) == 0:
-                cxt_data_text = '&nbsp'
-            if cxt_type == 'headline':
-                self.page.h2((str(cxt_data_text),), class_='chapter', style='text-align:center; line-height:2; font-size:13px; min-height: 2em;')
-            elif cxt_type == 'paragraph':
-                text_format = cxt_data.get('format')
-                # 多条内容，带注释
-                if isinstance(cxt_data_text, list):
-                    plaintexts, footnotes = self.get_data_text_list(cxt_data_text)
-                    self.page.p((plaintexts,), style=self.get_text_style(text_format))
-                    if len(footnotes) > 0:
-                        self.page.p(tuple(footnotes), style='color:#333;font-size:13px;')
-                else:
-                    
-                    chapter_item = (str(cxt_data_text),)
-                    self.page.p(chapter_item, style=self.get_text_style(text_format))
+            ## 标题
+            self.page.h1((post_title,), class_=title_class)
+            ## 副标题
+            self.page.h2((post_subtitle,))
+            ## 译者
+            if post_translator:
+                post_author.append(post_translator.join(u' 译'))
+            ## 作者
+            self.page.p(tuple(post_author), style='text-align:left')
+
+            ## 前言 or 导航
+            #intr_item = (data_abstract,)
+            #self.page.div(class_ = 'introduction')
+            #self.page.p(intr_item, style='text-indent: 2em;')
+            #self.page.div.close()
+            
+            ## 加载文章主体内容，返回文章所有图片远程路径
+            book_images_remote_path.extend(self.get_post_content(post.get('contents')))
+            ## 添加分割页面段落
+            self.page.p(('',), class_=Global.GLOBAL_BOOK_PAGE_SPLIT)
 
         ## 片尾
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
-
         # 写入文件
         if not os.path.exists(self.file_dir):
             os.makedirs(self.file_dir)
@@ -119,6 +88,77 @@ class HTML:
         output.close()
         return filename, book_images_remote_path
 
+    '''
+    获取文章主体内容
+    contents：文章内容
+    返回书籍所有图片远程路径集合
+    '''
+    def get_post_content(self, contents):
+        ## 书籍所有图片远程路径集合
+        book_images_remote_path = []
+        for cxt in contents:
+            cxt_type = cxt.get('type')
+            # 具体内容
+            cxt_data = cxt.get('data')
+            if cxt_type == 'pagebreak': ## 分页符号
+                self.page.p(('',), class_=Global.GLOBAL_BOOK_PAGE_SPLIT)
+                continue
+            if cxt_type == 'illus': ## 图片页
+                # 获取图片信息
+                illus_remote_src = self.get_illus(cxt_data)
+                # 添加至所有图片远程路径集合
+                book_images_remote_path.append(illus_remote_src)
+                continue
+            cxt_data_text = cxt_data.get('text')
+            # 为空判断
+            if cxt_data_text == '' or len(cxt_data_text) == 0:
+                cxt_data_text = '&nbsp'
+            # 类型判断
+            if cxt_type == 'headline': ## 标题头
+                plaintexts = self.get_head_or_para_text(cxt_data_text)
+                self.page.h2((plaintexts,), class_='chapter', style='text-align:center; line-height:2; font-size:14px; min-height: 2em;')
+            elif cxt_type == 'paragraph': ## 段落
+                # 获取段落内容
+                plaintexts = self.get_head_or_para_text(cxt_data_text)
+                # 添加段落至HTML
+                self.page.p((plaintexts,), style=self.get_text_style(cxt_data.get('format')))
+        return book_images_remote_path
+    
+    """
+    获取headerline或者段落内容字符串，如存在注释，则包含
+    cxt_data_text: 待解析的内容
+    """
+    def get_head_or_para_text(self, cxt_data_text):
+        # 多条内容，带注释
+        if isinstance(cxt_data_text, list):
+            return self.get_data_text_list(cxt_data_text)
+        return str(cxt_data_text)
+
+    '''
+    获取图片段落
+    cxt_data: 段落内容
+    '''
+    def get_illus(self, cxt_data):
+        self.page.div()#class_='section'
+        # 获取最大图片信息
+        orig = cxt_data.get('size').get('orig')
+        # 获取中等[medium]图片信息
+        medium = self.get_cxt_pic(cxt_data)
+        if medium == None:
+            logger.error(u'获取图片信息失败')
+        # 图片src
+        medium_src = str(medium.get('src'))
+        # 图片路径(格式：主目录/作者/书名标题/书籍大小/图片名称)
+        cxt_image_path = '%s/%s' %(self.file_dir, medium_src[medium_src.rfind('/')+1:])
+        self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_image_path)
+        # 添加图片备注
+        legend = str(cxt_data.get('legend'))
+        if legend:
+            self.page.label(legend, style='color:#555; font-size:.75em; line-height:1.5;')
+        self.page.div.close()
+        
+        return medium_src
+        
     
     '''
     获取<p>中的文字样式
@@ -131,25 +171,19 @@ class HTML:
         return text_base_style
 
     '''
-    获取内容集合，包含注释
+    获取段落主体内容（包含注释，格式：xxxxx*zhushi）
+    cxt_data_text: 段落内容
     '''
     def get_data_text_list(self, cxt_data_text):
         plaintexts = ''
-        footnotes = []
-        index = 1
-        desc = ''
         for text_index, text in enumerate(cxt_data_text):
             kind = str(text.get('kind'))
             content = str(text.get('content'))
             if kind == 'plaintext':
                 plaintexts = plaintexts + content
-                if text_index < (len(cxt_data_text) -1):
-                    desc = '[%d]' %index
-                    plaintexts = plaintexts + desc
-                    index = index + 1
             elif kind == 'footnote':
-                footnotes.append(desc + content)
-        return plaintexts, footnotes    
+                plaintexts = '%s<font style="color:#333; font-size:13px">[注：%s]</font>' %(plaintexts, content)
+        return plaintexts
 
     '''
     获取图片信息
