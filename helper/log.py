@@ -29,15 +29,16 @@ class logger:
         pass
 
     @staticmethod
-    def log():
+    def log(error_name=''):
         if not os.path.exists(global_logs.LOG_DIRS):
             os.mkdir(global_logs.LOG_DIRS)
         # 日志系统
         #filePath = "%s/%s.log" %(global_logs.LOG_DIRS, time.strftime("%Y-%m-%d",time.localtime()))
-        filePath = '%s/%s' %(global_logs.LOG_DIRS, os.path.abspath('.').split('/')[-1])
+        filePath = '%s/%s%s.log' %(global_logs.LOG_DIRS, os.path.abspath('.').split('/')[-1], error_name)
         logging.basicConfig(level=logging.INFO)
-        filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='d', interval=1, backupCount=0)
-        filehandler.suffix = '-%Y-%m-%d.log'
+        filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='midnight')
+        #filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='S', interval=1, backupCount=0)
+        filehandler.suffix = '%Y-%m-%d'
 
         formatter = custom_format('%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S.%03d')
         filehandler.setFormatter(formatter)
@@ -54,7 +55,7 @@ class logger:
 
     @staticmethod
     def error(msg, *args, **kwargs):
-        logg,hdr = logger.log()
+        logg,hdr = logger.log('.error')
         logg.error(msg, *args, **kwargs)
         hdr.flush()
         logg.removeHandler(hdr)

@@ -44,32 +44,32 @@ class Send:
             book_data = args.get('bookData')
             # 推送的email地址
             to_email = args.get('toMail')
-            if not book_data or not to_email:
+            # 图书标题
+            book_title = args.get('bookTitle')
+            if not book_data or not to_email or not book_title:
                 return json.dumps({'status': 'WARN', 'msg': u'参数不能为空，请联系:hyqiu.syen@gmail.com'})
             # 请求ID
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
             # 处理数据
             data = decrypt.parse(book_data)
             data_json = json.loads(data)
-            data_posts = data_json.get('posts')[0]
+            # 文章集合
+            data_posts = data_json.get('posts')#[0]
 
-            # 图书标题
-            book_title = str(data_posts.get('title')).strip()
+            # 最后一篇文章的信息
+            last_post_info = data_posts[-1]
             # 图书副标题
-            book_subtitle = str(data_posts.get('subtitle'))
+            book_subtitle = str(last_post_info.get('subtitle'))
             # 图书作者
-            book_author = str(data_posts.get('orig_author'))
-            # 图书译者
-            book_translator = str(data_posts.get('translator'))
-
-            # 将待发送邮件存储至数据库
-            wait_emails = Tbl_Wait_Emails()
-            wait_emails.add(request_id, to_email, book_title, book_author)
-
+            book_author = str(last_post_info.get('orig_author'))
             # 书籍number
             book_number = '%s_%s' %(str(data_json.get('authorId')), book_title)
             # 书籍大小
             book_size = len(book_data)
+
+            # 将待发送邮件存储至数据库
+            wait_emails = Tbl_Wait_Emails()
+            wait_emails.add(request_id, to_email, book_title, book_author)
 
             # 判断书籍是否存在数据库中
             books = Tbl_Books()
@@ -89,8 +89,8 @@ class Send:
             # 创建HTML
             # 源文件目录[绝对路径](格式：主目录/作者/书名标题/书籍大小)
             file_dir = '%s/%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, book_author, book_title, str(book_size))
-            page = HTML(book_title, book_subtitle, book_author, file_dir, book_translator)
-            book_html_path, book_images_remote_path = page.create(data_posts.get('contents'))
+            page = HTML(book_title, book_author, file_dir)
+            book_html_path, book_images_remote_path = page.create(data_posts)
 
             # 存储书籍信息
             book_id = books.add(book_number, book_title, book_subtitle, book_author, book_size)
