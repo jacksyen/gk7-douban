@@ -62,7 +62,7 @@ class HTML:
             self.page.h2((post_subtitle,))
             ## 译者
             if post_translator:
-                post_author.append(post_translator.join(u' 译'))
+                post_author.append(post_translator + u' 译')
             ## 作者
             self.page.p(tuple(post_author), style='text-align:left')
 
@@ -113,15 +113,17 @@ class HTML:
             # 为空判断
             if cxt_data_text == '' or len(cxt_data_text) == 0:
                 cxt_data_text = '&nbsp'
+            # 内容格式
+            cxt_data_format = cxt_data.get('format')
             # 类型判断
             if cxt_type == 'headline': ## 标题头
                 plaintexts = self.get_head_or_para_text(cxt_data_text)
-                self.page.h2((plaintexts,), class_='chapter', style='text-align:center; line-height:2; font-size:14px; min-height: 2em;')
+                self.page.h2((plaintexts,), class_='chapter', style=self.get_text_style(cxt_data_format))
             elif cxt_type == 'paragraph': ## 段落
                 # 获取段落内容
                 plaintexts = self.get_head_or_para_text(cxt_data_text)
                 # 添加段落至HTML
-                self.page.p((plaintexts,), style=self.get_text_style(cxt_data.get('format')))
+                self.page.p((plaintexts,), style=self.get_text_style(cxt_data_format, is_headline=False))
         return book_images_remote_path
     
     """
@@ -163,11 +165,14 @@ class HTML:
     '''
     获取<p>中的文字样式
     text_format: 豆瓣对应的文本格式
+    is_headline: 是否是标题行[False：添加text-indent:2em样式]
     '''
-    def get_text_style(self, text_format):
-        text_base_style = 'text-indent: 2em; line-height:2; min-height: 2em; text-align:%s' %(text_format.get('p_align'))
-        if text_format.get('p_bold') == 'true':
-            text_base_style = text_base_style.join('font-weight:bold;')
+    def get_text_style(self, text_format, is_headline=True):
+        text_base_style = 'line-height:2; min-height: 2em; text-align:%s; ' %(text_format.get('p_align'))
+        if text_format.get('p_bold') == True:
+            text_base_style += 'font-weight:bold;'
+        if is_headline == False:
+            text_base_style += 'text-indent: 2em;'
         return text_base_style
 
     '''
@@ -182,7 +187,9 @@ class HTML:
             if kind == 'plaintext':
                 plaintexts = plaintexts + content
             elif kind == 'footnote':
-                plaintexts = '%s<font style="color:#333; font-size:13px">[注：%s]</font>' %(plaintexts, content)
+                plaintexts = '%s<font style="color:#333; font-size:13px;">[注：%s]</font>' %(plaintexts, content)
+            elif kind == 'emphasize':
+                plaintexts = '%s<font style="font-weight:bold;">%s</font>' %(plaintexts, content)
         return plaintexts
 
     '''
