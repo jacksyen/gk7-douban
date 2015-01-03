@@ -28,7 +28,7 @@ class SendMail:
             # TODO
         # 邮件服务
         self.server = smtplib.SMTP(str(global_email_info['smtp']), str(global_email_info['smtp_port']), timeout=30)
-        self.server.starttls()
+        #self.server.starttls()
         self.server.login(str(global_email_info['email_user']), str(global_email_info['email_pwd']))
         self.from_mail = str(global_email_info['email_user'])
         self.encode = str(global_email_info['email_encode'])

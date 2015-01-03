@@ -52,6 +52,7 @@ class Send:
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
             # 处理数据
             data = decrypt.parse(book_data)
+            logger.info(data)
             data_json = json.loads(data)
             # 文章集合
             data_posts = data_json.get('posts')#[0]
