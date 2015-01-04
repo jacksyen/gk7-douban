@@ -47,13 +47,12 @@ function set_icon(tab_id, icon) {
    推送请求
 **/
 function send(request, callback){
-    var articleData = {};
-    var splitData = request.bookData.split(':');
-    var book_data = splitData[1].replace(/\n/g, '');
-    articleData['bookData'] = book_data;
-    articleData['bookTitle'] = splitData[0];
-    articleData['toMail'] = localStorage.TO_MAIL;
-    articleData['requestId'] = request.requestId;
+    var articleData = {
+        'bookData': request.bookData,
+        'bookTitle': request.title,
+        'toMail': localStorage.TO_MAIL,
+        'requestId': request.requestId
+    };
     $.ajax({
 	url: 'http://gk7.pw:8000/send',
         //url: 'http://localhost:8000/send',
