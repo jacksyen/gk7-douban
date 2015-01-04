@@ -117,3 +117,5 @@ sudo python index.py 8000
 + sqlite3库锁，写入并发导致数据库临时锁住
 + 配置移至配置文件中
 + 报刊内书籍解析有问题（部分内容丢失）
++ 使用rabbitmq抓取图片
++ 客户端gallery类书籍解析
