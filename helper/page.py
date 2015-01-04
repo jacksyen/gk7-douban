@@ -128,6 +128,8 @@ class HTML:
                 self.page.p(style=self.get_text_style(cxt_data_format))
                 self.page.code((str(cxt_data_text),), style='padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;')
                 self.page.p.close()
+            else:
+                logger.unknown(u'未知的内容type，data内容：%s' %str(cxt_data))
         return book_images_remote_path
     
     """
