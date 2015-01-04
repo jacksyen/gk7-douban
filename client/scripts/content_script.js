@@ -59,11 +59,29 @@ function getArticleInfo(callback){
     }
     // 获取数据
     fetch_book_data(getBookId(), function (book_data){
+        var book_data_matchs = book_data.match(/(bOus[^:]*)/);
+        var splitData = book_data.split(':');
+        var data = undefined;
+        if(!book_data_matchs){
+            for(var s_data in splitData){
+                if(splitData[s_data].length>300){
+                    data = splitData[s_data];
+                }
+            }
+        }else{
+            data = book_data_matchs[1];
+        }
+        if(!data){
+            // 获取文章数据失败
+            result['msg'] = '解析图书数据失败，请稍候再试，或联系：hyqiu.syen@gmail.com';
+	    result['status'] = 'FAIL';
+	    showResultMsg(result);
+	    return;
+        }
+        data = data.replace(/\n/g, '');
 	result = {
-	    title : document.title,
-	    //postDate : postInfo.find("#post-date").text(),
-	    //author : postInfo.find("a").first().text(),
-	    bookData: book_data,
+	    title : splitData[0],
+	    bookData: data,
 	    status: 'SUCCESS'
 	};
 	callback(result);
