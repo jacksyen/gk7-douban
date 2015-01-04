@@ -123,7 +123,11 @@ class HTML:
                 # 获取段落内容
                 plaintexts = self.get_head_or_para_text(cxt_data_text)
                 # 添加段落至HTML
-                self.page.p((plaintexts,), style=self.get_text_style(cxt_data_format, is_headline=False))
+                self.page.p((plaintexts,), style=self.get_text_style(cxt_data_format, is_indent=True))
+            elif cxt_type == 'code': ## 代码
+                self.page.p(style=self.get_text_style(cxt_data_format))
+                self.page.code((str(cxt_data_text),), style='padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;')
+                self.page.p.close()
         return book_images_remote_path
     
     """
@@ -165,13 +169,13 @@ class HTML:
     '''
     获取<p>中的文字样式
     text_format: 豆瓣对应的文本格式
-    is_headline: 是否是标题行[False：添加text-indent:2em样式]
+    is_indent: 是否缩进[True：添加text-indent:2em样式]
     '''
-    def get_text_style(self, text_format, is_headline=True):
+    def get_text_style(self, text_format, is_indent=False):
         text_base_style = 'line-height:2; min-height: 2em; text-align:%s; ' %(text_format.get('p_align'))
         if text_format.get('p_bold') == True:
             text_base_style += 'font-weight:bold;'
-        if is_headline == False:
+        if is_indent == True:
             text_base_style += 'text-indent: 2em;'
         return text_base_style
 
