@@ -59,3 +59,11 @@ class logger:
         logg.error(msg, *args, **kwargs)
         hdr.flush()
         logg.removeHandler(hdr)
+
+    @staticmethod
+    def unknown(msg, *args, **kwargs):
+        logg,hdr = logger.log('.unknown')
+        logg.warn(msg, *args, **kwargs)
+        hdr.flush()
+        logg.removeHandler(hdr)
+        
