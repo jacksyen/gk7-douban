@@ -4,6 +4,7 @@ import os
 import sys
 import tools.markup as markup
 import aop
+from log import logger
 from webglobal.globals import Global
 
 # 设置系统编码
@@ -31,6 +32,8 @@ class HTML:
         self.page.init(title='%s' %self.title, charset='UTF-8', author=self.author)
         # 图片类型
         self.cxt_pic_type = ['medium', 'orig', 'small', 'tiny', 'large']
+        # 代码样式
+        self.style_code = 'padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;'
 
 
     '''
@@ -126,10 +129,10 @@ class HTML:
                 self.page.p((plaintexts,), style=self.get_text_style(cxt_data_format, is_indent=True))
             elif cxt_type == 'code': ## 代码
                 self.page.p(style=self.get_text_style(cxt_data_format))
-                self.page.code((str(cxt_data_text),), style='padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;')
+                self.page.code((str(cxt_data_text),), style=self.style_code)
                 self.page.p.close()
             else:
-                logger.unknown(u'未知的内容type，data内容：%s' %str(cxt_data))
+                logger.unknown(u'未知的内容type，data内容：%s, 书籍名称:%s' %(str(cxt_data), self.title))
         return book_images_remote_path
     
     """
@@ -139,7 +142,22 @@ class HTML:
     def get_head_or_para_text(self, cxt_data_text):
         # 多条内容，带注释
         if isinstance(cxt_data_text, list):
-            return self.get_data_text_list(cxt_data_text)
+            plaintexts = ''
+            for text in cxt_data_text:
+                kind = str(text.get('kind'))
+                # 获取内容字符串
+                content = self.get_data_text_content_str(text.get('content'))
+                if kind == 'plaintext':
+                    plaintexts = plaintexts + content
+                elif kind == 'footnote':
+                    plaintexts = '%s<font style="color:#333; font-size:13px;">[注：%s]</font>' %(plaintexts, content)
+                elif kind == 'emphasize':
+                    plaintexts = '%s<font style="font-weight:bold;">%s</font>' %(plaintexts, content)
+                elif kind == 'code':
+                    plaintexts = '%s<font style="%s">%s</font>' %(plaintexts, self.style_code, content)
+                else:
+                    logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
+            return plaintexts
         return str(cxt_data_text)
 
     '''
@@ -182,21 +200,16 @@ class HTML:
         return text_base_style
 
     '''
-    获取段落主体内容（包含注释，格式：xxxxx*zhushi）
-    cxt_data_text: 段落内容
+    获取paragraph->data->text字符串
+    cxt_data_content: data->text_content内容
     '''
-    def get_data_text_list(self, cxt_data_text):
-        plaintexts = ''
-        for text_index, text in enumerate(cxt_data_text):
-            kind = str(text.get('kind'))
-            content = str(text.get('content'))
-            if kind == 'plaintext':
-                plaintexts = plaintexts + content
-            elif kind == 'footnote':
-                plaintexts = '%s<font style="color:#333; font-size:13px;">[注：%s]</font>' %(plaintexts, content)
-            elif kind == 'emphasize':
-                plaintexts = '%s<font style="font-weight:bold;">%s</font>' %(plaintexts, content)
-        return plaintexts
+    def get_data_text_content_str(self, cxt_data_content):
+        content = ''
+        if isinstance(cxt_data_content, list):
+            for txt in cxt_data_content:
+                content += str(txt.get('content'))
+            return content
+        return str(cxt_data_content)
 
     '''
     获取图片信息
