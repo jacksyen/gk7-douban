@@ -91,6 +91,9 @@ sudo python index.py 8000
 
 ## 版本历史 ##
 
+### v2.4.1 ###
++ 客户端书籍数据split优化
+
 ### v2.4 ###
 + 日志分割优化[按照midnight分割; error级别日志单独输出]
 + 书籍解析添加对contents->headline->text优化
@@ -119,3 +122,4 @@ sudo python index.py 8000
 + 报刊内书籍解析有问题（部分内容丢失）
 + 使用rabbitmq抓取图片
 + 客户端gallery类书籍解析
++ HTML页面样式规范
