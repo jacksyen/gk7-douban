@@ -155,7 +155,10 @@ class HTML:
                     plaintexts = '%s<font style="font-weight:bold;">%s</font>' %(plaintexts, content)
                 elif kind == 'code':
                     plaintexts = '%s<font style="%s">%s</font>' %(plaintexts, self.style_code, content)
+                elif kind == 'latex':
+                    plaintexts = '%s<font style="color:red;">%s</font>' %(plaintexts, content)
                 else:
+                    plaintexts = plaintexts + content
                     logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
             return plaintexts
         return str(cxt_data_text)
