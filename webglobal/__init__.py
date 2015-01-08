@@ -1,1 +1,1 @@
-__all__ = ['globals']
+__all__ = ['globals', 'celeryconfig']
