@@ -123,3 +123,5 @@ sudo python index.py 8000
 + 使用rabbitmq抓取图片
 + 客户端gallery类书籍解析
 + HTML页面样式规范
++ localStorage数据是否存在缓存需要测试
++ 客户端请求超时时间延长[适应超长文章]
