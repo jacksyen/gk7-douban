@@ -3,77 +3,68 @@
 """
 author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
-全局变量存储
+全局配置
 """
 import os
 
-class Global:
+# sqlite db name
+DB_FILE = 'gk7-douban-read-send-kindle.db'
 
-    GLOBAL_DB_FILE = 'gk7-douban-read-send-kindle.db'
-
-    ## 书籍信息表
-    GLOBAL_DB_TBL_BOOK_NAME = 'gk7_douban_books'
-
+## 书籍信息表
+TABLE_NAMES = {
+    ## 书籍表
+    'book': 'gk7_douban_books',
     ## 书籍图片路径表
-    GLOBAL_DB_TBL_BOOK_IMG_NAME = 'gk7_douban_book_img'
-
+    'book_img': 'gk7_douban_book_img',
     ## 全局配置表
-    GLOBAL_DB_TBL_GLOBAL_NAME = 'gk7_douban_global'
-
+    'global_name': 'gk7_douban_global',
     ## 等待发送邮件表
-    GLOBAL_DB_TBL_WAIT_EMAILS_NAME = 'gk7_douban_wait_emails'
-
+    'wait_emails': 'gk7_douban_wait_emails',
     ## 书籍html等待转换表
-    GLOBAL_DB_TBL_WAIT_HTMLS = 'gk7_douban_wait_htmls'
+    'wait_htmls': 'gk7_douban_wait_htmls'
+}
 
-    GLOBAL_DATA_DIRS = '%s/data' %(os.path.abspath('.'))
+# 源文件存储目录
+DATA_DIRS = '%s/data' %(os.path.abspath('.'))
 
-    GLOBAL_OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
+# 输出文件存储目录
+OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
 
-    # 输出文件格式
-    GLOBAL_OUT_FILE_FORMAT = 'mobi'
+# 输出文件格式
+OUT_FILE_FORMAT = 'mobi'
 
-    # 书籍路径表分割字符
-    GLOBAL_DB_BOOK_IMG_PATH_SPLIT = ';'
+# 书籍图片路径分割字符
+BOOK_IMG_PATH_SPLIT = ';'
 
-    GLOBAL_BOOK_PAGE_SPLIT = 'pagebreak'
+# 书籍页面分隔符
+BOOK_PAGE_SPLIT = 'pagebreak'
 
-    ## email配置
-    GLOBAL_EMAIL_SMTP = 'smtp.gmail.com'
-
-    GLOBAL_EMAIL_SMTP_PORT = '25'
-
-    GLOBAL_EMAIL_USER = 'hyqiu.syen@gmail.com'
-
-    GLOBAL_EMAIL_PWD = '' # TODO email密码
-
-    GLOBAL_EMAIL_ENCODE = 'utf-8'
-
-    def __init__(self):
-        pass
+# email配置
+EMAIL = {
+    ## SMTP
+    'smtp': 'smtp.gmail.com',
+    ## 端口
+    'port': 25,
+    ## 发送方邮箱
+    'user': 'hyqiu.syen@gmail.com',
+    ## 发送方密码
+    'pwd': '',
+    ## 邮件编码
+    'encode': 'UTF-8',
+    ## 超时时间30秒
+    'timeout': 30
+}
 
 '''
 全局状态
 + 邮件表
 + htmls转换表
 '''
-class Global_Status:
+STATUS = {
+    'wait': 'wait',
+    'complete': 'complete',
+    'error': 'error'
+}
 
-    WAIT = 'wait'
-
-    COMPLETE = 'complete'
-
-    ERROR = 'error'
-
-
-'''
-全局日志配置
-'''
-class global_logs:
-
-    LOG_DIRS = '%s/logs' %(os.path.abspath('.'))
-
-class GlobalThread:
-
-    POOL_NUMBER = 4
-
+## 日志存储目录
+LOG_DIRS = '%s/logs' %(os.path.abspath('.'))

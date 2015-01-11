@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 import sqlite3 as db
-from webglobal.globals import Global
+import webglobal.globals as gk7
 
 class SQLite:
 
@@ -10,7 +10,7 @@ class SQLite:
 
     @staticmethod
     def conn():
-        conn = db.connect(Global.GLOBAL_DB_FILE)
+        conn = db.connect(gk7.DB_FILE)
         conn.row_factory = db.Row
         return conn
 

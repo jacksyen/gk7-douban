@@ -16,7 +16,7 @@ from db.tbl_wait_htmls import Tbl_Wait_Htmls
 from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
 from db.tbl_book_img import Tbl_Book_Img
-from webglobal.globals import Global
+import webglobal.globals as gk7
 
 
 class Send:
@@ -86,7 +86,7 @@ class Send:
 
             # 创建HTML
             # 源文件目录[绝对路径](格式：主目录/作者/书名标题/书籍大小)
-            file_dir = '%s/%s/%s/%s' %(Global.GLOBAL_DATA_DIRS, book_author, book_title, str(book_size))
+            file_dir = '%s/%s/%s/%s' %(gk7.DATA_DIRS, book_author, book_title, str(book_size))
             page = HTML(book_title, book_author, file_dir)
             book_html_path, book_images_remote_path = page.create(data_posts)
 
@@ -110,7 +110,7 @@ class Send:
 
             # 开启异步进程，转换书籍并发送邮件
             # 书籍输出目录[OUT_DATA_DIRS/书名标题/大小/]
-            out_file_dir = '%s/%s/%s/%s' %(Global.GLOBAL_OUT_DATA_DIRS, book_author, book_title, str(book_size))
+            out_file_dir = '%s/%s/%s/%s' %(gk7.OUT_DATA_DIRS, book_author, book_title, str(book_size))
             thread = SyncThread(request_id, book_author, book_id, out_file_dir, book_images_task)
             thread._children = weakref.WeakKeyDictionary()
             thread.start()

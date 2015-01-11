@@ -17,8 +17,8 @@ from celery import Celery
 from log import logger
 from helper.mail import SendMail
 from webglobal import celeryconfig
-from webglobal.globals import Global, Global_Status
 from db.tbl_wait_emails import Tbl_Wait_Emails
+import webglobal.globals as gk7
 
 app = Celery()
 # 加载celery配置文件
@@ -65,9 +65,9 @@ class MailTask(object):
             send_request = mail.send(attach_file, to_email, title, auth)
             # 更新发送邮件状态
             if send_request:
-                wait_email.update_status(request_id, Global_Status.COMPLETE)
+                wait_email.update_status(request_id, gk7.STATUS.get('complete'))
                 return
-            wait_email.update_status(request_id, Global_Status.ERROR)
+            wait_email.update_status(request_id, gk7.STATUS.get('error'))
         except Exception as err:
             ## 延迟30s后重试
             MailTask.send.retry(countdown=5, exc=err)

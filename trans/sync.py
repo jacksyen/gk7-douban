@@ -12,7 +12,7 @@ import threading
 import helper.aop as aop
 from helper.log import logger
 from helper.proc import proc_helper
-from webglobal.globals import Global, Global_Status
+import webglobal.globals as gk7
 from db.tbl_wait_htmls import Tbl_Wait_Htmls
 from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
@@ -62,11 +62,11 @@ class SyncThread(threading.Thread):
             out_file_path = proc_helper.convert(str(wait_html_info['book_html_path']), self.out_dir, self.book_author)
             if out_file_path == None:
                 # 转换失败
-                wait_html.update_status(Global_Status.ERROR, self.request_id)
+                wait_html.update_status(gk7.Status.get('error'), self.request_id)
                 raise Exception, '转换html to mobi失败'
 
             # 转换成功，修改状态，添加书籍输出路径
-            wait_html.update_status(Global_Status.COMPLETE, self.request_id, out_file_path)
+            wait_html.update_status(gk7.Status.get('complete'), self.request_id, out_file_path)
             # 修改书籍文件路径
             books = Tbl_Books()
             books.update_file_path(self.book_id, out_file_path)

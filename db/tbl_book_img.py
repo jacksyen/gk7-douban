@@ -5,7 +5,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
 书籍图片路径数据库操作
 """
-from webglobal.globals import Global
+import webglobal.globals as gk7
 import helper.aop as aop
 from helper.dbase import SQLite
 from helper.util import DateUtil
@@ -28,7 +28,7 @@ class Tbl_Book_Img:
     '''
     @aop.exec_time
     def add(self, book_id, book_images_remote_path):
-        self.db.execute('INSERT INTO %s(book_id, book_images_remote_path, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_BOOK_IMG_NAME, book_id, Global.GLOBAL_DB_BOOK_IMG_PATH_SPLIT.join(book_images_remote_path), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
+        self.db.execute('INSERT INTO %s(book_id, book_images_remote_path, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s")' %(gk7.TABLE_NAMES.get('book_img'), book_id, gk7.BOOK_IMG_PATH_SPLIT.join(book_images_remote_path), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
 
     '''
@@ -37,7 +37,7 @@ class Tbl_Book_Img:
     '''
     @aop.exec_time
     def get(self, book_id):
-        self.db.execute('SELECT book_images_remote_path, addtime, updatetime FROM %s WHERE book_id ="%s"' %(Global.GLOBAL_DB_TBL_BOOK_IMG_NAME, book_id))
+        self.db.execute('SELECT book_images_remote_path, addtime, updatetime FROM %s WHERE book_id ="%s"' %(gk7.TABLE_NAMES.get('book_img'), book_id))
         return self.db.fetchone()
 
     '''
@@ -47,5 +47,5 @@ class Tbl_Book_Img:
     '''
     @aop.exec_time
     def update_local_path(self, book_id, book_images_local_path):
-        self.db.execute('UPDATE %s SET book_images_local_path = "%s", updatetime = "%s" WHERE book_id = "%s"' %(Global.GLOBAL_DB_TBL_BOOK_IMG_NAME, Global.GLOBAL_DB_BOOK_IMG_PATH_SPLIT.join(book_images_local_path), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), book_id))
+        self.db.execute('UPDATE %s SET book_images_local_path = "%s", updatetime = "%s" WHERE book_id = "%s"' %(gk7.TABLE_NAMES.get('book_img'), gk7.BOOK_IMG_PATH_SPLIT.join(book_images_local_path), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), book_id))
         self.conn.commit()

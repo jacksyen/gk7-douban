@@ -8,7 +8,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 import helper.aop as aop
 from helper.dbase import SQLite
 from helper.util import DateUtil, RandomUtil
-from webglobal.globals import Global
+import webglobal.globals as gk7
 
 
 class Tbl_Books:
@@ -34,7 +34,7 @@ class Tbl_Books:
     @aop.exec_time
     def add(self, book_number, book_title, book_subtitle, book_author, book_size):
         book_id = RandomUtil.random32Str()
-        self.db.execute('INSERT INTO %s(book_id, book_number, book_title, book_subtitle, book_author, book_size, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", %d, "%s", "%s")' %(Global.GLOBAL_DB_TBL_BOOK_NAME, book_id, book_number, book_title, book_subtitle, book_author, book_size, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
+        self.db.execute('INSERT INTO %s(book_id, book_number, book_title, book_subtitle, book_author, book_size, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", %d, "%s", "%s")' %(gk7.TABLE_NAMES.get('book'), book_id, book_number, book_title, book_subtitle, book_author, book_size, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
         return book_id
 
@@ -45,7 +45,7 @@ class Tbl_Books:
     '''
     @aop.exec_time
     def get(self, book_number, book_size):
-        self.db.execute('SELECT book_id, book_title, book_subtitle, book_author, book_file_path, addtime, updatetime FROM %s WHERE book_number ="%s" AND book_size = %d AND book_file_path !=""' %(Global.GLOBAL_DB_TBL_BOOK_NAME, book_number, book_size))
+        self.db.execute('SELECT book_id, book_title, book_subtitle, book_author, book_file_path, addtime, updatetime FROM %s WHERE book_number ="%s" AND book_size = %d AND book_file_path !=""' %(gk7.TABLE_NAMES.book, book_number, book_size))
         return self.db.fetchone()
 
     '''
@@ -54,7 +54,7 @@ class Tbl_Books:
     '''
     @aop.exec_time
     def get_by_book_id(self, book_id):
-        self.db.execute('SELECT book_number, book_title, book_subtitle, book_author, book_file_path, book_size, addtime, updatetime FROM %s WHERE book_id ="%s"' %(Global.GLOBAL_DB_TBL_BOOK_NAME, book_id))
+        self.db.execute('SELECT book_number, book_title, book_subtitle, book_author, book_file_path, book_size, addtime, updatetime FROM %s WHERE book_id ="%s"' %(gk7.TABLE_NAMES.get('book'), book_id))
         return self.db.fetchone()
 
     '''
@@ -64,6 +64,6 @@ class Tbl_Books:
     '''
     @aop.exec_time
     def update_file_path(self, book_id, book_file_path):
-        self.db.execute('UPDATE %s SET book_file_path = "%s", updatetime = "%s" WHERE book_id = "%s"' %(Global.GLOBAL_DB_TBL_BOOK_NAME, book_file_path, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), book_id))
+        self.db.execute('UPDATE %s SET book_file_path = "%s", updatetime = "%s" WHERE book_id = "%s"' %(gk7.TABLE_NAMES.get('book'), book_file_path, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), book_id))
         self.conn.commit()
 

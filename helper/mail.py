@@ -14,24 +14,17 @@ from email.MIMEMultipart import MIMEMultipart
 from log import logger
 from dbase import SQLite
 import helper.aop as aop
-from db.tbl_globals import Tbl_Global
-from webglobal.globals import Global, Global_Status
+import webglobal.globals as gk7
 
 class SendMail:
 
     def __init__(self):
-        # 获取全局邮件配置信息
-        global_info = Tbl_Global()
-        global_email_info = global_info.get_global_email()
-        if global_email_info == None:
-            logger.error(u'查询%s返回空', Global.GLOBAL_DB_TBL_GLOBAL_NAME)
-            # TODO
         # 邮件服务
-        self.server = smtplib.SMTP(str(global_email_info['smtp']), str(global_email_info['smtp_port']), timeout=30)
+        self.server = smtplib.SMTP(gk7.EMAIL.get('smtp'), gk7.EMAIL.get('port'), timeout=gk7.EMAIL.get('timeout'))
         self.server.starttls()
-        self.server.login(str(global_email_info['email_user']), str(global_email_info['email_pwd']))
-        self.from_mail = str(global_email_info['email_user'])
-        self.encode = str(global_email_info['email_encode'])
+        self.server.login(gk7.EMAIL.get('user'), gk7.EMAIL.get('pwd'))
+        self.from_mail = gk7.EMAIL.get('user')
+        self.encode = gk7.EMAIL.get('encode')
 
     @aop.exec_time
     def close(self):

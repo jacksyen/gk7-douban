@@ -11,9 +11,9 @@
 # Created: 三 12月 10 22:37:17 2014 (+0800)
 # Version: 
 # Package-Requires: ()
-# Last-Updated: 五 12月 19 22:26:52 2014 (+0800)
+# Last-Updated: 日  1月 11 23:50:33 2015 (+0800)
 #           By: jacksyen
-#     Update #: 19
+#     Update #: 25
 # URL: 
 # Doc URL: 
 # Keywords: 
@@ -49,8 +49,6 @@
 from dbase import SQLite
 from util import DateUtil
 from db.create_table import Create
-from db.tbl_globals import Tbl_Global
-from webglobal.globals import Global
 
 # Code:
 class Init_DB:
@@ -59,8 +57,6 @@ class Init_DB:
     def init():
         conn = SQLite.conn()
         cursor = conn.cursor()
-        ## 创建全局配置表
-        cursor.execute(Create.gk7_douban_global())
         ## 创建书籍表
         cursor.execute(Create.gk7_douban_books())
         ## 创建书籍图片路径表
@@ -71,11 +67,6 @@ class Init_DB:
         cursor.execute(Create.gk7_douban_wait_emails())
         conn.commit()
         SQLite.close(conn)
-
-        ## 初始化全局配置表
-        tbl_global = Tbl_Global()
-        tbl_global.check_init()
-
 
 # 
 # init.py ends here

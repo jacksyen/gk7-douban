@@ -5,7 +5,7 @@ import sys
 import tools.markup as markup
 import aop
 from log import logger
-from webglobal.globals import Global
+import webglobal.globals as gk7
 
 # 设置系统编码
 reload(sys)
@@ -78,7 +78,7 @@ class HTML:
             ## 加载文章主体内容，返回文章所有图片远程路径
             book_images_remote_path.extend(self.get_post_content(post.get('contents')))
             ## 添加分割页面段落
-            self.page.p(('',), class_=Global.GLOBAL_BOOK_PAGE_SPLIT)
+            self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
 
         ## 片尾
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
@@ -104,7 +104,7 @@ class HTML:
             # 具体内容
             cxt_data = cxt.get('data')
             if cxt_type == 'pagebreak': ## 分页符号
-                self.page.p(('',), class_=Global.GLOBAL_BOOK_PAGE_SPLIT)
+                self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
                 continue
             if cxt_type == 'illus': ## 图片页
                 # 获取图片信息

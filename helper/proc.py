@@ -10,7 +10,7 @@ import os
 from log import logger
 from subprocess import call
 import helper.aop as aop
-from webglobal.globals import Global
+import webglobal.globals as gk7
 
 class proc_helper:
 
@@ -32,13 +32,13 @@ class proc_helper:
         # 文件名
         file_name = input_file_path.split('/')[-1]
         # 输出文件绝对路径
-        out_file_path = '%s/%s.%s' %(out_file_dir, file_name[0: file_name.rfind('.')], Global.GLOBAL_OUT_FILE_FORMAT)
+        out_file_path = '%s/%s.%s' %(out_file_dir, file_name[0: file_name.rfind('.')], gk7.OUT_FILE_FORMAT)
         ## 
         ## 说明：
         ## 调用系统命令：ebook-conver input_file out_file --authors <author> --chapter-mark "none" --page-breaks-before '//*[@class="pagebreak"]'
         ## --chapter-mark 设置标注章节的模式，none：不会在章节前插入控制
         ## --page-breaks-before: XPath表达式，在指定元素前插入分页符
         ## 
-        call(['ebook-convert', input_file_path, out_file_path, '--authors', author, '--chapter-mark', 'none', '--page-breaks-before', '//*[@class="%s"]' %Global.GLOBAL_BOOK_PAGE_SPLIT])
+        call(['ebook-convert', input_file_path, out_file_path, '--authors', author, '--chapter-mark', 'none', '--page-breaks-before', '//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT])
         ## 转换成功
         return out_file_path

@@ -4,7 +4,7 @@ import time, datetime
 import logging
 import logging.handlers
 
-from webglobal.globals import global_logs
+import webglobal.globals as gk7
 
 '''
 自定义日志时间格式
@@ -30,11 +30,11 @@ class logger:
 
     @staticmethod
     def log(error_name=''):
-        if not os.path.exists(global_logs.LOG_DIRS):
-            os.mkdir(global_logs.LOG_DIRS)
+        if not os.path.exists(gk7.LOG_DIRS):
+            os.mkdir(gk7.LOG_DIRS)
         # 日志系统
-        #filePath = "%s/%s.log" %(global_logs.LOG_DIRS, time.strftime("%Y-%m-%d",time.localtime()))
-        filePath = '%s/%s%s.log' %(global_logs.LOG_DIRS, os.path.abspath('.').split('/')[-1], error_name)
+        #filePath = "%s/%s.log" %(gk7.LOG_DIRS, time.strftime("%Y-%m-%d",time.localtime()))
+        filePath = '%s/%s%s.log' %(gk7.LOG_DIRS, os.path.abspath('.').split('/')[-1], error_name)
         logging.basicConfig(level=logging.INFO)
         filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='midnight')
         #filehandler = logging.handlers.TimedRotatingFileHandler(filePath, when='S', interval=1, backupCount=0)

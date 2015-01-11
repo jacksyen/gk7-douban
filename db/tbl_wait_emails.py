@@ -9,7 +9,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 from helper.dbase import SQLite
 from helper.util import DateUtil
 import helper.aop as aop
-from webglobal.globals import Global, Global_Status
+import webglobal.globals as gk7
 
 class Tbl_Wait_Emails:
 
@@ -29,7 +29,7 @@ class Tbl_Wait_Emails:
     '''
     @aop.exec_time
     def add(self, request_id, tomail, title, auth):
-        self.db.execute('INSERT INTO %s(email_to_user, email_title, email_auth, email_send_status, request_id, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, tomail, title, auth, Global_Status.WAIT, request_id, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
+        self.db.execute('INSERT INTO %s(email_to_user, email_title, email_auth, email_send_status, request_id, addtime, updatetime) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s")' %(gk7.TABLE_NAMES.get('wait_emails'), tomail, title, auth, gk7.STATUS.get('wait'), request_id, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
 
     '''
@@ -38,7 +38,7 @@ class Tbl_Wait_Emails:
     '''
     @aop.exec_time
     def get(self, request_id):
-        self.db.execute('SELECT email_to_user, email_attach_file, email_title, email_auth, email_send_status, addtime, updatetime FROM %s WHERE request_id ="%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, request_id))
+        self.db.execute('SELECT email_to_user, email_attach_file, email_title, email_auth, email_send_status, addtime, updatetime FROM %s WHERE request_id ="%s"' %(gk7.TABLE_NAMES.get('wait_emails'), request_id))
         return self.db.fetchone()
 
     '''
@@ -48,7 +48,7 @@ class Tbl_Wait_Emails:
     '''
     @aop.exec_time
     def update_status(self, request_id, send_status):
-        self.db.execute('UPDATE %s SET email_send_status = "%s", updatetime = "%s" WHERE request_id = "%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, send_status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.db.execute('UPDATE %s SET email_send_status = "%s", updatetime = "%s" WHERE request_id = "%s"' %(gk7.TABLE_NAMES.get('wait_emails'), send_status, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
 
     '''
@@ -58,5 +58,5 @@ class Tbl_Wait_Emails:
     '''
     @aop.exec_time
     def update_attach_file(self, request_id, attach_file):
-        self.db.execute('UPDATE %s SET email_attach_file = "%s", updatetime = "%s" WHERE request_id = "%s"' %(Global.GLOBAL_DB_TBL_WAIT_EMAILS_NAME, attach_file, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.db.execute('UPDATE %s SET email_attach_file = "%s", updatetime = "%s" WHERE request_id = "%s"' %(gk7.TABLE_NAMES.get('wait_emails'), attach_file, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
