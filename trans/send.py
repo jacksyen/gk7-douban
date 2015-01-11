@@ -103,7 +103,7 @@ class Send:
                 # celery异步任务下载书籍图片
                 from helper.tasks import DownloadTask as dt
                 from celery import group
-                job = group(dt.get_image.s(url) for url in book_images_remote_path)
+                job = group(dt.get_image.s(url, file_dir) for url in book_images_remote_path)
                 book_images_task = job.apply_async()
 
             # 将待转换的书籍html信息存储在数据库中
