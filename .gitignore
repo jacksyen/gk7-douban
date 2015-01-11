@@ -52,3 +52,5 @@ data/*
 out-data/*
 *.bak
 *.zip
+
+globals.py

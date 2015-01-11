@@ -7,10 +7,8 @@ import uuid
 import weakref
 
 from sync import SyncThread
-from sync import SyncSendMail
 from helper.log import logger
 from helper.dbase import SQLite
-from helper.mail import SendMail
 from helper.page import HTML
 import helper.aop as aop
 from helper.decrypt import decrypt
@@ -82,8 +80,8 @@ class Send:
                 if attach_file:
                     wait_emails.update_attach_file(request_id, attach_file)
                     # 发送邮件并修改待发送邮件状态
-                    send_mail = SyncSendMail()
-                    send_mail.send(request_id, attach_file, to_email, book_title, book_author)
+                    from helper.tasks import MailTask
+                    MailTask.send.delay(request_id, attach_file, to_email, book_title, book_author)
                     return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})
 
             # 创建HTML
@@ -105,7 +103,7 @@ class Send:
                 from celery import group
                 job = group(dt.get_image.s(url, file_dir) for url in book_images_remote_path)
                 book_images_task = job.apply_async()
-
+                
             # 将待转换的书籍html信息存储在数据库中
             wait_htmls = Tbl_Wait_Htmls()
             wait_htmls.add(request_id, book_html_path)
@@ -113,7 +111,7 @@ class Send:
             # 开启异步进程，转换书籍并发送邮件
             # 书籍输出目录[OUT_DATA_DIRS/书名标题/大小/]
             out_file_dir = '%s/%s/%s/%s' %(Global.GLOBAL_OUT_DATA_DIRS, book_author, book_title, str(book_size))
-            thread = SyncThread(request_id, book_author, book_id, file_dir, out_file_dir)
+            thread = SyncThread(request_id, book_author, book_id, out_file_dir, book_images_task)
             thread._children = weakref.WeakKeyDictionary()
             thread.start()
             if len(book_images_remote_path):

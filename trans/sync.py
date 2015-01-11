@@ -9,35 +9,14 @@ author by jacksyen[hyqiu.syen@gmail.com]
 import sys
 import threading
 
-from helper.log import logger
-from helper.mail import SendMail
-from helper.proc import proc_helper
-from helper.download import Files
 import helper.aop as aop
+from helper.log import logger
+from helper.proc import proc_helper
 from webglobal.globals import Global, Global_Status
 from db.tbl_wait_htmls import Tbl_Wait_Htmls
 from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
 from db.tbl_book_img import Tbl_Book_Img
-
-class SyncSendMail:
-    
-    def __init__(self):
-        self.mail = SendMail()
-        self.wait_email = Tbl_Wait_Emails()
-
-    '''
-    '''
-    @aop.exec_time
-    def send(self, request_id, attach_file, to_email, title, auth):
-        send_request = self.mail.send(attach_file, to_email, title, auth)
-        # 修改待发送邮件信息状态
-        if send_request:
-            ## 发送成功
-            self.wait_email.update_status(request_id, Global_Status.COMPLETE)
-            return
-        ## 发送失败
-        self.wait_email.update_status(request_id, Global_Status.ERROR)
 
 
 class SyncThread(threading.Thread):
@@ -100,9 +79,10 @@ class SyncThread(threading.Thread):
             if not wait_email_info:
                 raise Exception, '未找到待发送邮件信息，请求ID:%s' %self.request_id
 
-            # 发送邮件
-            send_mail = SyncSendMail()
-            send_mail.send(self.request_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+            # celery发送邮件
+            from helper.tasks import MailTask
+            
+            MailTask.send.delay(self.request_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
             logger.error(u'异步线程出错，请求ID：%s，错误信息：%s', self.request_id, err)
             exit(-1)
