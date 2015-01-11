@@ -45,6 +45,7 @@ class DownloadTask(object):
     '''
     @app.task(base=BaseTask, max_retries=5)
     def get_image(url, file_dir):
+        file_dir = '/home/jacksyen/jacksyen/git/gk7-douban/data/'
         try:
             data = urllib2.urlopen(url).read()
             # 文件路径
@@ -55,4 +56,3 @@ class DownloadTask(object):
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)
         return file_path
-
