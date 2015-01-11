@@ -9,6 +9,7 @@ import urllib2
 from celery import Task
 from celery import Celery
 from webglobal import celeryconfig
+#from log import logger
 
 app = Celery()
 # 加载celery配置文件
@@ -43,9 +44,7 @@ class DownloadTask(object):
     file_dir: 文件本地存储目录
     '''
     @app.task(base=BaseTask, max_retries=5)
-    def get_image(url):
-        file_dir = '/home/jacksyen/jacksyen/git/gk7-douban/data/'
-        print url
+    def get_image(url, file_dir):
         try:
             data = urllib2.urlopen(url).read()
             # 文件路径
@@ -57,11 +56,3 @@ class DownloadTask(object):
             DownloadTask.get_image.retry(countdown=20, exc=e)
         return file_path
 
-
-class DwonloadGroupTask(object):
-
-    @staticmethod
-    def get_images(url_list, file_dir):
-        job = group(dt.get_image.s(url) for url in book_images_remote_path)
-        book_images_task = job.apply_async()
-        
