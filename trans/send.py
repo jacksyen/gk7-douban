@@ -94,10 +94,17 @@ class Send:
 
             # 存储书籍信息
             book_id = books.add(book_number, book_title, book_subtitle, book_author, book_size)
-            # 存储书籍图片路径信息
+            # 书籍图片下载任务
+            book_images_task = None            
             if len(book_images_remote_path):
+                # 存储书籍图片路径信息
                 book_img = Tbl_Book_Img()
                 book_img.add(book_id, book_images_remote_path)
+                # celery异步任务下载书籍图片
+                from helper.tasks import DownloadTask as dt
+                from celery import group
+                job = group(dt.get_image.s(url) for url in book_images_remote_path)
+                book_images_task = job.apply_async()
 
             # 将待转换的书籍html信息存储在数据库中
             wait_htmls = Tbl_Wait_Htmls()
