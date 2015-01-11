@@ -46,16 +46,16 @@ class SyncThread(threading.Thread):
     request_id: 请求ID
     book_auth: 书籍作者
     book_id: 书籍ID
-    images_dir: 图书目录
     out_dir: 书籍输出目录
+    book_images_task: 书籍图片下载任务
     '''
-    def __init__(self, request_id, book_author, book_id, images_dir, out_dir):
+    def __init__(self, request_id, book_author, book_id, out_dir, book_images_task):
         threading.Thread.__init__(self)
         self.request_id = request_id
         self.book_author = book_author
         self.book_id = book_id
-        self.images_dir = images_dir
         self.out_dir = out_dir
+        self.book_images_task = book_images_task
     
     @aop.exec_time
     def run(self):
@@ -70,10 +70,8 @@ class SyncThread(threading.Thread):
             book_img = Tbl_Book_Img()
             book_img_info = book_img.get(self.book_id)
             if book_img_info:
-                # 多线程抓取图片
-                book_images_local_path = Files.get_images(self.images_dir, str(book_img_info['book_images_remote_path']).split(Global.GLOBAL_DB_BOOK_IMG_PATH_SPLIT))
                 # 更新书籍所需图片表信息
-                book_img.update_local_path(self.book_id, book_images_local_path)
+                book_img.update_local_path(self.book_id, self.book_images_task.get())
 
             # 读取图书信息
             book = Tbl_Books()
