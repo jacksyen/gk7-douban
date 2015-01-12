@@ -44,7 +44,7 @@ class BaseTask(Task):
 
     def on_success(self, retval, task_id, args, kwargs):
         try:
-            logger.info(u'发送邮件成功，参数:%s' %(task_id, str(args)))
+            logger.info(u'发送邮件成功，参数:%s' %str(args))
             # 更新发送邮件状态
             wait_email = Tbl_Wait_Emails()
             wait_email.update_status(str(args[0]), gk7.STATUS.get('complete'))
@@ -70,8 +70,6 @@ class MailTask(object):
     def send(request_id, attach_file, to_email, title, auth):
         try:
             mail = SendMail()
-            
-
             # 发送邮件
             send_request = mail.send(attach_file, to_email, title, auth)
         except Exception as err:

@@ -159,7 +159,7 @@ class HTML:
                 plaintexts.append('<font style="%s">%s</font>' %(self.style_code, content))
             elif kind == 'latex':
                 plaintexts.append('<font style="color:red;">%s</font>' %content)
-            elif kind = 'regular_script':
+            elif kind == 'regular_script':
                 plaintexts.append(content)
             else:
                 plaintexts.append(content)

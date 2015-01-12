@@ -19,10 +19,6 @@ chrome插件及服务端
   - [ubuntu下使用服务端](#ubuntu下使用服务端)
   - [chrome下加载开发插件](#chrome下加载开发插件)
 - [版本历史](#版本历史)
-  - [v2.4](#v2.4)
-  - [v2.3.3](#v2.3.3)
-  - [v2.3.2](#v2.3.2)
-  - [v2.3.1](#v2.3.1)
 - [待优化](#待优化)
 
 ## 目录说明 ##
@@ -59,7 +55,9 @@ chrome插件及服务端
 + `git`
 + `python` 2.6 or later(but not 3.x)
 + `web.py`
++ `celery`
 + `calibre`
++ `rabbitmq server`
 
 ### git检出 ###
 
@@ -73,11 +71,20 @@ git checkout dev
 ### ubuntu下使用服务端 ###
 
 首先必须安装好依赖
+```bash
+sudo apt-get install git
+sudo pip install web.py
+sudo pip install celery
+sudo apt-get install calibre
+sudo apt-get install rabbitmq-server
+```
 
 * 修改全局配置
 ```bash
-sed -i "s/GLOBAL_EMAIL_USER = 'hyqiu.syen@gmail.com'/GLOBAL_EMAIL_USER = '你的gmail邮箱地址'/g" webglobal/globals.py
-sed -i "s/GLOBAL_EMAIL_PWD = ''/GLOBAL_EMAIL_PWD = '你的gmail密码'/g" webglobal/globals.py
+// 建议修改rabbitmq默认密码
+sudo rabbitmqctl change_password guest <newpwd>
+// 修改发送email配置
+vi webglobal/globals.py
 ```
 * 启动：
 ```bash
@@ -98,10 +105,4 @@ sudo python index.py 8000
 + 客户端并发控制
 + HTTP传输数据大太，导致处理客户端请求太慢
 + sqlite3库锁，写入并发导致数据库临时锁住
-+ 配置移至配置文件中
-+ 报刊内书籍解析有问题（部分内容丢失）
-+ 使用rabbitmq抓取图片
 + 客户端gallery类书籍解析
-+ HTML页面样式规范
-+ localStorage数据是否存在缓存需要测试
-+ 客户端请求超时时间延长[适应超长文章]

@@ -8,7 +8,7 @@ celery配置
 CELERY_ENABLE_UTC = True
 CELERY_TIMEZONE = 'Europe/London'
 
-#BROKER_URL = 'amqp'
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 CELERY_RESULT_BACKEND = 'amqp'
 
 # 任务结果超时时间(秒)
@@ -20,10 +20,10 @@ ADMINS = (
 )
 
 # 发送者邮箱设置
-SERVER_MAIL = '461166828@qq.com'
+SERVER_MAIL = '418296229@qq.com'
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = '461166828'
+EMAIL_HOST_USER = '418296229'
 EMAIL_HOST_PASSWORD = ''
 
 
