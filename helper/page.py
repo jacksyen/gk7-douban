@@ -140,28 +140,32 @@ class HTML:
     cxt_data_text: 待解析的内容
     """
     def get_head_or_para_text(self, cxt_data_text):
+        # 单条内容，直接返回
+        if isinstance(cxt_data_text, list) == False:
+            return str(cxt_data_text)
         # 多条内容，带注释
-        if isinstance(cxt_data_text, list):
-            plaintexts = ''
-            for text in cxt_data_text:
-                kind = str(text.get('kind'))
-                # 获取内容字符串
-                content = self.get_data_text_content_str(text.get('content'))
-                if kind == 'plaintext':
-                    plaintexts = plaintexts + content
-                elif kind == 'footnote':
-                    plaintexts = '%s<font style="color:#333; font-size:13px;">[注：%s]</font>' %(plaintexts, content)
-                elif kind == 'emphasize':
-                    plaintexts = '%s<font style="font-weight:bold;">%s</font>' %(plaintexts, content)
-                elif kind == 'code':
-                    plaintexts = '%s<font style="%s">%s</font>' %(plaintexts, self.style_code, content)
-                elif kind == 'latex':
-                    plaintexts = '%s<font style="color:red;">%s</font>' %(plaintexts, content)
-                else:
-                    plaintexts = plaintexts + content
-                    logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
-            return plaintexts
-        return str(cxt_data_text)
+        plaintexts = []
+        for text in cxt_data_text:
+            kind = str(text.get('kind'))
+            # 获取内容字符串
+            content = self.get_data_text_content_str(text.get('content'))
+            if kind == 'plaintext':
+                plaintexts.append(content)
+            elif kind == 'footnote':
+                plaintexts.append('<font style="color:#333; font-size:13px;">[注：%s]</font>' %content)
+            elif kind == 'emphasize':
+                plaintexts.append('<font style="font-weight:bold;">%s</font>' %content)
+            elif kind == 'code':
+                plaintexts.append('<font style="%s">%s</font>' %(self.style_code, content))
+            elif kind == 'latex':
+                plaintexts.append('<font style="color:red;">%s</font>' %content)
+            elif kind = 'regular_script':
+                plaintexts.append(content)
+            else:
+                plaintexts.append(content)
+                logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
+        return ''.join(plaintexts)
+        
 
     '''
     获取图片段落
@@ -207,12 +211,13 @@ class HTML:
     cxt_data_content: data->text_content内容
     '''
     def get_data_text_content_str(self, cxt_data_content):
-        content = ''
-        if isinstance(cxt_data_content, list):
-            for txt in cxt_data_content:
-                content += str(txt.get('content'))
-            return content
-        return str(cxt_data_content)
+        if isinstance(cxt_data_content, list) == False:
+            return str(cxt_data_content)    
+        content = []
+        for txt in cxt_data_content:
+            content.append(str(txt.get('content')))
+        return content
+        
 
     '''
     获取图片信息
