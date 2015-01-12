@@ -28,7 +28,7 @@ class Tbl_Wait_Htmls:
     '''
     @aop.exec_time
     def add(self, request_id, book_html_path):
-        self.db.execute('INSERT INTO %s(book_convert_id, request_id , book_html_path, book_convert_status, addtime, updatetime) VALUES("%s", "%s", "%s", "%s", "%s", "%s")' %(gk7.TABLE_NAMES.get('wait_htmls'), str(uuid.uuid1()), request_id, book_html_path, gk7.Status.wait, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
+        self.db.execute('INSERT INTO %s(book_convert_id, request_id , book_html_path, book_convert_status, addtime, updatetime) VALUES("%s", "%s", "%s", "%s", "%s", "%s")' %(gk7.TABLE_NAMES.get('wait_htmls'), str(uuid.uuid1()), request_id, book_html_path, gk7.STATUS.get('wait'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
 
     '''

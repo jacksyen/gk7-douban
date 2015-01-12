@@ -17,6 +17,7 @@ from db.tbl_wait_htmls import Tbl_Wait_Htmls
 from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
 from db.tbl_book_img import Tbl_Book_Img
+from helper.tasks import MailTask
 
 
 class SyncThread(threading.Thread):
@@ -62,11 +63,11 @@ class SyncThread(threading.Thread):
             out_file_path = proc_helper.convert(str(wait_html_info['book_html_path']), self.out_dir, self.book_author)
             if out_file_path == None:
                 # 转换失败
-                wait_html.update_status(gk7.Status.get('error'), self.request_id)
+                wait_html.update_status(gk7.STATUS.get('error'), self.request_id)
                 raise Exception, '转换html to mobi失败'
 
             # 转换成功，修改状态，添加书籍输出路径
-            wait_html.update_status(gk7.Status.get('complete'), self.request_id, out_file_path)
+            wait_html.update_status(gk7.STATUS.get('complete'), self.request_id, out_file_path)
             # 修改书籍文件路径
             books = Tbl_Books()
             books.update_file_path(self.book_id, out_file_path)
@@ -80,8 +81,6 @@ class SyncThread(threading.Thread):
                 raise Exception, '未找到待发送邮件信息，请求ID:%s' %self.request_id
 
             # celery发送邮件
-            from helper.tasks import MailTask
-            
             MailTask.send.delay(self.request_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
             logger.error(u'异步线程出错，请求ID：%s，错误信息：%s', self.request_id, err)

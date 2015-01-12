@@ -32,13 +32,24 @@ class BaseTask(Task):
         pass
 
     def on_failure(self, exc, task_id, args, kwargs, einfo):
-        logger.error(u'发送邮件失败，celery task id: %s, 参数:%s, 错误信息：%s' %(task_id, str(args), str(exc)))
+        try:
+            logger.error(u'发送邮件失败，celery task id: %s, 参数:%s, 错误信息：%s' %(task_id, str(args), str(exc)))
+            wait_email = Tbl_Wait_Emails()
+            wait_email.update_status(str(args[0]), gk7.STATUS.get('error'))
+        except Exception as e:
+            logger.error(u'更新发送邮件状态异常，错误:%s,参数:%s' %(str(e), str(args)))
 
     def on_retry(self, *args, **kwargs):
         pass
 
     def on_success(self, retval, task_id, args, kwargs):
-        logger.info(u'发送邮件成功，参数:%s' %(task_id, str(args)))
+        try:
+            logger.info(u'发送邮件成功，参数:%s' %(task_id, str(args)))
+            # 更新发送邮件状态
+            wait_email = Tbl_Wait_Emails()
+            wait_email.update_status(str(args[0]), gk7.STATUS.get('complete'))
+        except Exception as e:
+            logger.error(u'更新发送邮件状态异常，错误:%s,参数:%s' %(str(e), str(args)))
 
 
 '''
@@ -47,7 +58,7 @@ class BaseTask(Task):
 class MailTask(object):
     
     '''
-    发送邮件
+    发送邮件,发送失败后间隔30秒重新发送
     重试次数：5
     request_id: 请求ID
     attach_file: 附件文件路径
@@ -59,18 +70,13 @@ class MailTask(object):
     def send(request_id, attach_file, to_email, title, auth):
         try:
             mail = SendMail()
-            wait_email = Tbl_Wait_Emails()
+            
 
             # 发送邮件
             send_request = mail.send(attach_file, to_email, title, auth)
-            # 更新发送邮件状态
-            if send_request:
-                wait_email.update_status(request_id, gk7.STATUS.get('complete'))
-                return
-            wait_email.update_status(request_id, gk7.STATUS.get('error'))
         except Exception as err:
             ## 延迟30s后重试
-            MailTask.send.retry(countdown=5, exc=err)
+            MailTask.send.retry(countdown=30, exc=err)
 
 '''
 下载任务队列
@@ -83,7 +89,7 @@ class DownloadTask(object):
     url: 下载URL
     file_dir: 文件本地存储目录
     '''
-    @app.task(base=BaseTask, max_retries=5)
+    @app.task(max_retries=5)
     def get_image(url, file_dir):
         try:
             data = urllib2.urlopen(url).read()

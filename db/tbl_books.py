@@ -10,7 +10,6 @@ from helper.dbase import SQLite
 from helper.util import DateUtil, RandomUtil
 import webglobal.globals as gk7
 
-
 class Tbl_Books:
 
     def __init__(self):
@@ -45,7 +44,7 @@ class Tbl_Books:
     '''
     @aop.exec_time
     def get(self, book_number, book_size):
-        self.db.execute('SELECT book_id, book_title, book_subtitle, book_author, book_file_path, addtime, updatetime FROM %s WHERE book_number ="%s" AND book_size = %d AND book_file_path !=""' %(gk7.TABLE_NAMES.book, book_number, book_size))
+        self.db.execute('SELECT book_id, book_title, book_subtitle, book_author, book_file_path, addtime, updatetime FROM %s WHERE book_number ="%s" AND book_size = %d AND book_file_path !=""' %(gk7.TABLE_NAMES.get('book'), book_number, book_size))
         return self.db.fetchone()
 
     '''
