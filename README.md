@@ -88,6 +88,11 @@ vi webglobal/globals.py
 ```
 * 启动：
 ```bash
+// celery服务端
+mkdir -p /var/log/celery
+export C_FORCE_ROOT='root'
+celery -A helper.tasks worker -l info -f /var/log/celery/gk7-douban.log --pidfile=/var/run/celery.pid -D --uid=root
+// 启动
 sudo python index.py 8000
 ```
 
@@ -98,7 +103,7 @@ sudo python index.py 8000
 
 ## 版本历史 ##
 
-[CHANGELOG](https://github.com/jacksyen/gk7-douban/blob/master/CHANGELOG.md)
+[Changelog](https://github.com/jacksyen/gk7-douban/blob/dev/CHANGELOG.md)
 
 
 ## 待优化 ##
