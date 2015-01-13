@@ -71,7 +71,7 @@ class MailTask(object):
         try:
             mail = SendMail()
             # 发送邮件
-            send_request = mail.send(attach_file, to_email, title, auth)
+            mail.send(attach_file, to_email, title, auth)
         except Exception as err:
             ## 延迟30s后重试
             MailTask.send.retry(countdown=30, exc=err)

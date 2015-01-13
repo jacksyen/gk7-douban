@@ -7,6 +7,11 @@ celery下载图片、发送邮件
 export C_FORCE_ROOT='root'
 ```
 
+**注意**
++ celery任务代码修改，需要重启celery服务
++ 
+
+
 
 ### 启动 ###
 

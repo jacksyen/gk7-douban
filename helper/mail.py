@@ -51,16 +51,15 @@ class SendMail:
         #msg["Accept-Charset"]="ISO-8859-1,utf-8"
         att = MIMEText(open(file_path, 'rb').read(), 'base64', self.encode)
         att["Content-Type"] = 'application/octet-stream'
-        att.add_header("Content-Disposition", "attachment", filename = '%s' %(file_name.encode('utf-8')))
+        att.add_header("Content-Disposition", "attachment", filename = file_name.encode('utf-8'))
         msg.attach(att)
         # 发送邮件
         try:
             logger.info(u'开始发送邮件至%s...', tomail)
             self.server.sendmail(msg['From'], tomail, msg.as_string())
             logger.info(u'发送邮件至%s完成', tomail)
-            return True
         except Exception, err:
             logger.error(u'发送邮件至%s失败,%s', tomail, err)
-            return False
+            raise Exception, '发送邮件至%s失败,%s' %(tomail, err)
         finally:
             self.close()

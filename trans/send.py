@@ -75,7 +75,7 @@ class Send:
             # 如果书籍已经存在
             if book_info:
                 # 修改待发送邮件附件信息
-                attach_file = str(book_info['book_file_path'])
+                attach_file = book_info['book_file_path']
                 # 如果不为空直接发送邮件
                 if attach_file:
                     wait_emails.update_attach_file(request_id, attach_file)
