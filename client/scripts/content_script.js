@@ -95,6 +95,8 @@ function getBookId(){
 
 //fetch book信息，调用callback
 function fetch_book_data(book_id, callback) {
+    /**
+    // 从localStorage中获取书籍数据，但是可能存在缓存
     if(('e'+book_id) in localStorage){
 	var book_data = localStorage['e' + book_id];
         if(book_data == undefined){
@@ -103,8 +105,9 @@ function fetch_book_data(book_id, callback) {
         }
 	callback(book_data);
     }else{
-	getReadData(book_id, callback);
-    }
+    **/
+    getReadData(book_id, callback);
+    //}
 }
 
 function getReadData(book_id, callback){

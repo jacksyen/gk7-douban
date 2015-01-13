@@ -52,7 +52,6 @@ chrome插件及服务端
 
 ### 依赖 ###
 
-+ `git`
 + `python` 2.6 or later(but not 3.x)
 + `web.py`
 + `celery`
@@ -72,7 +71,6 @@ git checkout dev
 
 首先必须安装好依赖
 ```bash
-sudo apt-get install git
 sudo pip install web.py
 sudo pip install celery
 sudo apt-get install calibre
@@ -85,13 +83,15 @@ sudo apt-get install rabbitmq-server
 sudo rabbitmqctl change_password guest <newpwd>
 // 修改发送email配置
 vi webglobal/globals.py
+// 修改celery配置
+vi webglobal/celeryconfig.py
 ```
 * 启动：
 ```bash
 // celery服务端
 mkdir -p /var/log/celery
 export C_FORCE_ROOT='root'
-celery -A helper.tasks worker -l info -f /var/log/celery/gk7-douban.log --pidfile=/var/run/celery.pid -D --uid=root
+celery -A helper.tasks worker -l info -D -f /var/log/celery/gk7-douban.log --pidfile=/var/run/celery.pid
 // 启动
 sudo python index.py 8000
 ```

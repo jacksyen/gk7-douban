@@ -60,7 +60,7 @@ function send(request, callback){
 	data: articleData,
 	dataType: 'json',
 	type: 'POST',
-	timeout: 60*1000// 60秒超时
+	timeout: 90*1000// 90秒超时
     }).done(function(response){
 	callback(response);
     }).fail(function(){
