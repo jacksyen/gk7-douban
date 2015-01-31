@@ -43,12 +43,13 @@ class Create:
     book_author: 作者
     book_file_path: 书籍绝对路径(转换后的)
     book_size: 书籍大小
+    book_cover: 书籍封面本地路径
     addtime: 添加时间
     updatetime: 更新时间
     '''
     @staticmethod
     def gk7_douban_books():
-        return 'CREATE TABLE IF NOT EXISTS %s(book_id text PRIMARY KEY, book_number text, book_title text, book_subtitle text, book_author text, book_file_path text, book_size INTEGER, addtime datetime, updatetime datetime)' %(gk7.TABLE_NAMES.get('book'))
+        return 'CREATE TABLE IF NOT EXISTS %s(book_id text PRIMARY KEY, book_number text, book_title text, book_subtitle text, book_author text, book_file_path text, book_size INTEGER, book_cover text, addtime datetime, updatetime datetime)' %(gk7.TABLE_NAMES.get('book'))
 
     '''
     获取书籍关联的图片路径表SQL

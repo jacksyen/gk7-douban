@@ -24,6 +24,9 @@ TABLE_NAMES = {
     'wait_htmls': 'gk7_douban_wait_htmls'
 }
 
+# 书籍封面前缀
+BOOK_COVER_URL = 'http://img3.douban.com/view/ark_article_cover/retina/public/{}.jpg'
+
 # 源文件存储目录
 DATA_DIRS = '%s/data' %(os.path.abspath('.'))
 

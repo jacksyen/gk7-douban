@@ -23,10 +23,11 @@ class proc_helper:
     input_file_path: 输入文件绝对路径
     out_file_dir: 输出文件目录绝对路径[如果不存在，则创建]
     author: 作者
+    cover: 封面
     '''
     @staticmethod
     @aop.exec_time
-    def convert(input_file_path, out_file_dir, author):
+    def convert(input_file_path, out_file_dir, author, cover):
         if not os.path.exists(out_file_dir):
             os.makedirs(out_file_dir)
         # 文件名
@@ -35,10 +36,25 @@ class proc_helper:
         out_file_path = '%s/%s.%s' %(out_file_dir, file_name[0: file_name.rfind('.')], gk7.OUT_FILE_FORMAT)
         ## 
         ## 说明：
-        ## 调用系统命令：ebook-conver input_file out_file --authors <author> --chapter-mark "none" --page-breaks-before '//*[@class="pagebreak"]'
+        ## 调用系统命令：ebook-convert input_file out_file --authors <author> --cover <img> --chapter-mark "none" --page-breaks-before '//*[@class="pagebreak"]'
+        ## --cover 书籍封面
         ## --chapter-mark 设置标注章节的模式，none：不会在章节前插入控制
         ## --page-breaks-before: XPath表达式，在指定元素前插入分页符
         ## 
-        call(['ebook-convert', input_file_path, out_file_path, '--authors', author, '--chapter-mark', 'none', '--page-breaks-before', '//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT])
+        params = ['ebook-convert']
+        params.append(input_file_path)
+        params.append(out_file_path)
+        params.append('--authors')
+        params.append(author)
+        if cover:
+            params.append('--cover')
+            params.append(cover)
+        parmas.append('--chapter-mark')
+        parmas.append('none')
+        parmas.append('--page-breaks-before')
+        parmas.append('//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT)
+        ## 调用
+        call(params)
+        #call(['ebook-convert', input_file_path, out_file_path, '--authors', author, '--cover', cover, '--chapter-mark', 'none', '--page-breaks-before', '//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT])
         ## 转换成功
         return out_file_path

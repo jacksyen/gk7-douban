@@ -82,6 +82,7 @@ function getArticleInfo(callback){
 	result = {
 	    title : splitData[0],
 	    bookData: data,
+	    ebookId: getBookId(),
 	    status: 'SUCCESS'
 	};
 	callback(result);

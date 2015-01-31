@@ -51,11 +51,12 @@ function send(request, callback){
         'bookData': request.bookData,
         'bookTitle': request.title,
         'toMail': localStorage.TO_MAIL,
-        'requestId': request.requestId
+        'requestId': request.requestId,
+	'ebookId': request.ebookId
     };
     $.ajax({
-	url: 'http://gk7.pw:8000/send',
-        //url: 'http://localhost:8000/send',
+	//url: 'http://gk7.pw:8000/send',
+        url: 'http://localhost:8000/send',
         //url: 'http://192.168.3.167:8000/send',
 	data: articleData,
 	dataType: 'json',

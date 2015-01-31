@@ -42,10 +42,13 @@ class Send:
             book_data = args.get('bookData')
             # 推送的email地址
             to_email = args.get('toMail')
+            # 豆瓣书籍ID
+            ebook_id = args.get('ebookId')
             # 图书标题
             book_title = args.get('bookTitle')
             if not book_data or not to_email or not book_title:
                 return json.dumps({'status': 'WARN', 'msg': u'参数不能为空，请联系:hyqiu.syen@gmail.com'})
+
             # 请求ID
             request_id = '%s_%s' %(to_email, str(uuid.uuid1()))
             # 处理数据
@@ -111,7 +114,7 @@ class Send:
             # 开启异步进程，转换书籍并发送邮件
             # 书籍输出目录[OUT_DATA_DIRS/书名标题/大小/]
             out_file_dir = '%s/%s/%s/%s' %(gk7.OUT_DATA_DIRS, book_author, book_title, str(book_size))
-            thread = SyncThread(request_id, book_author, book_id, out_file_dir, book_images_task)
+            thread = SyncThread(request_id, book_author, book_id, ebook_id, out_file_dir, book_images_task)
             thread._children = weakref.WeakKeyDictionary()
             thread.start()
             if len(book_images_remote_path):
