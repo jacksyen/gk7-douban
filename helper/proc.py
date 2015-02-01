@@ -49,10 +49,10 @@ class proc_helper:
         if cover:
             params.append('--cover')
             params.append(cover)
-        parmas.append('--chapter-mark')
-        parmas.append('none')
-        parmas.append('--page-breaks-before')
-        parmas.append('//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT)
+        params.append('--chapter-mark')
+        params.append('none')
+        params.append('--page-breaks-before')
+        params.append('//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT)
         ## 调用
         call(params)
         #call(['ebook-convert', input_file_path, out_file_path, '--authors', author, '--cover', cover, '--chapter-mark', 'none', '--page-breaks-before', '//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT])

@@ -30,6 +30,8 @@ BOOK_COVER_URL = 'http://img3.douban.com/view/ark_article_cover/retina/public/{}
 # 源文件存储目录
 DATA_DIRS = '%s/data' %(os.path.abspath('.'))
 
+BOOK_COVER_DIRS = '%s/cover' %(DATA_DIRS)
+
 # 输出文件存储目录
 OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
 

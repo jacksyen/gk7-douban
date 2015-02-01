@@ -63,10 +63,8 @@ class SyncThread(threading.Thread):
         book_cover_path = (book_info['book_cover'] or '')
         ## 判断书籍封面是否存在
         if self.ebook_id and not book_cover_path:
-            print '%s' %gk7.BOOK_COVER_URL.replace('{}', self.ebook_id)
-            print '%s/%s' %(gk7.DATA_DIRS, str(book_info['book_title']))
             # 抓取书籍封面
-            book_cover_task = DownloadTask.get_image.apply_async(('%s' %gk7.BOOK_COVER_URL.replace('{}', self.ebook_id), '%s/%s' %(gk7.DATA_DIRS, str(book_info['book_title']))), )
+            book_cover_task = DownloadTask.get_image.apply_async(('%s' %gk7.BOOK_COVER_URL.replace('{}', self.ebook_id), gk7.BOOK_COVER_DIRS), )
             # 书籍封面本地路径
             book_cover_path = book_cover_task.get()
             # 更新书籍封面路径

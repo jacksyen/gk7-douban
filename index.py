@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
+import os, sys
 import web
 import json
 import base64
@@ -11,6 +11,7 @@ from helper.log import logger
 from helper.init import Init_DB
 from helper.mail import SendMail
 from helper.page import HTML
+import webglobal.globals as gk7
 
 from trans.send import Send
 from trans.admin.login import Login
@@ -41,6 +42,10 @@ if __name__ == "__main__":
     logger.info(u'-----------系统启动-----------')
     # 初始化数据库和表信息
     Init_DB.init()
+
+    # 初始化书籍封面目录
+    if not os.path.exists(gk7.BOOK_COVER_DIRS):
+        os.makedirs(gk7.BOOK_COVER_DIRS)
 
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()

@@ -9,6 +9,7 @@ server:
     export C_FORCE_ROOT='true'
     celery -A helper.tasks worker -l info
 """
+import os
 import urllib2
 
 from celery import Task
