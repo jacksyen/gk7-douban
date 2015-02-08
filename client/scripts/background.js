@@ -16,12 +16,13 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 	return;
     }
     //var request_id = new Date().getTime();
-    chrome.tabs.sendMessage(tab.id, {status: 'BEGIN', msg: '文章较长,处理时间大约一分钟左右,请稍候..'}, function(response) {
-        // 发送数据
+    chrome.tabs.sendMessage(tab.id, {status: 'BEGIN'}, function(response) {
+	// 发送数据
 	send(response, function(data) {
 	    sendResultMessage(tab.id, data);
 	});
     });
+
 
 });
 
@@ -42,23 +43,21 @@ function set_icon(tab_id, icon) {
     });
 }
 
-
 /**
    推送请求
 **/
 function send(request, callback){
-    var articleData = {
-        'bookData': request.bookData,
-        'bookTitle': request.title,
-        'toMail': localStorage.TO_MAIL,
-        'requestId': request.requestId,
-	'ebookId': request.ebookId
-    };
     $.ajax({
-	url: 'http://gk7.pw:8000/send',
-        //url: 'http://localhost:8000/send',
+	//url: 'http://gk7.pw:8000/send',
+        url: 'http://localhost:8000/send',
         //url: 'http://192.168.3.167:8000/send',
-	data: articleData,
+	data: {
+            'bookData': request.bookData,
+            'bookTitle': request.title,
+            'toMail': localStorage.TO_MAIL,
+            'requestId': request.requestId,
+	    'ebookId': request.ebookId
+	},
 	dataType: 'json',
 	type: 'POST',
 	timeout: 90*1000// 90秒超时

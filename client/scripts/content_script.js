@@ -2,30 +2,30 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
     var html = $('.gk7-douban-result-msg');
     // 开始处理数据
     if(request.status == 'BEGIN'){
-        // 添加等待进度条
-        if(html.length == 0){
-            html = $('<div />').addClass('gk7-douban-result-msg');
-            var close = $('<div />').addClass('close').click(function (){
-                $('.gk7-douban-result-msg').remove();
-            }).html('关闭');
-            var content = $('<div/>').addClass('content').attr('content','').html(request.msg);
-	    //var loading = $('<iframe/>').attr('id','gk7-douban-send');
-            $('body').append(html.append(close).append(content));//.append(loading));
-            html.hide().appendTo('body').fadeIn(1000);
-            // 添加关闭事件
-            $(window).on('popstate', function() {
-                html.remove();
-            });
-        };
-        /**content = '<html><head><meta http-equiv="Content-Type" content="text/html;charset=gb2312"/><link rel="stylesheet" href="https://coding.net/u/jacksyen/p/open/git/raw/master/styles/pace-theme-loading-bar.css"/><style>body{background-color:#f5f5f5;}</style><script>paceOptions={ajax:false,document:false,eventLag:false,elements:{selectors:[".end"]}};</script><script src="https://coding.net/u/jacksyen/p/open/git/raw/master/scripts/pace.min.js"></script></head><body></body></html>';
-           frames["gk7-douban-send"].contentWindow.document.open();
-           frames["gk7-douban-send"].contentWindow.document.write(content);
-           frames["gk7-douban-send"].contentWindow.document.close();**/
-        // 获取文章数据
-        getArticleInfo(sendRequest);
-        return;
+	if (html.length>0){
+	    html.find('.content').html('该文章正在推送处理中，请勿重复推送...');
+	    return;
+	}
+	html = $('<div />').addClass('gk7-douban-result-msg');
+        var close = $('<div />').addClass('close').click(function (){
+            html.remove();
+        }).html('关闭');
+        var content = $('<div/>').addClass('content').html("正在获取文章信息，请稍候...");
+	$('body').append(html.append(close).append(content));
+
+	// 获取文章数据
+	getArticleInfo(sendRequest);
+	// 异步调用返回true
+	return true;
+    } 
+    // 重试
+    else if(request.status == 'TRY'){
+	$('.gk7-douban-result-msg').find('.content').html(result.msg);
     }
-    showResultMsg(request);
+    // 处理状态码['FAIL', 'SUCCESS', 'ABNORMAL']
+    else {
+	showResultMsg(request)
+    }
 });
 
 /**
@@ -33,16 +33,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
  */
 function showResultMsg(result){
     var html = $('.gk7-douban-result-msg');
-    // 服务器返回结果处理
-    //$(frames["gk7-douban-send"].contentWindow.document).find('body').append($('<div />').addClass('end'));
-    // 删除iframe进度条
-    //frames["gk7-douban-send"].remove();
-    html.find('.content').html(result.msg);//.css('margin', '20px');
-    if(result.status != 'PROC'){
-        $('.gk7-douban-result-msg').fadeTo(5000, 0.50, function (){
-	    html.remove();
-        });
-    }
+    html.find('.content').html(result.msg);
+    html.fadeTo(5000, 0.50, function (){
+	html.remove();
+    });
 }
 
 /**
@@ -50,11 +44,11 @@ function showResultMsg(result){
 **/
 function getArticleInfo(callback){
     var article = $(".article");
-    var result = {};
     if(article.length!=1){
-	result['msg'] = '获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com';
-	result['status'] = 'FAIL';
-	showResultMsg(result);
+	showResultMsg({
+	    'status': 'FAIL',
+	    'msg': '获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com'
+	});
 	return;
     }
     // 获取数据
@@ -73,22 +67,25 @@ function getArticleInfo(callback){
         }
         if(!data){
             // 获取文章数据失败
-            result['msg'] = '解析图书数据失败，请稍候再试，或联系：hyqiu.syen@gmail.com';
-	    result['status'] = 'FAIL';
-	    showResultMsg(result);
+	    showResultMsg({
+		'status': 'FAIL',
+		'msg': '解析图书数据失败，请稍候再试，或联系：hyqiu.syen@gmail.com'
+	    });
 	    return;
         }
         data = data.replace(/\n/g, '');
-	result = {
+	callback({
 	    title : splitData[0],
 	    bookData: data,
 	    ebookId: getBookId(),
 	    status: 'SUCCESS'
-	};
-	callback(result);
+	});
     });
 }
 
+/**
+ * 获取书籍ID
+ **/
 function getBookId(){
     var matches = location.href.match(/ebook\/(\d+)\//);
     return matches[1];
@@ -96,22 +93,6 @@ function getBookId(){
 
 //fetch book信息，调用callback
 function fetch_book_data(book_id, callback) {
-    /**
-    // 从localStorage中获取书籍数据，但是可能存在缓存
-    if(('e'+book_id) in localStorage){
-	var book_data = localStorage['e' + book_id];
-        if(book_data == undefined){
-            getReadData(book_id, callback);
-            return;
-        }
-	callback(book_data);
-    }else{
-    **/
-    getReadData(book_id, callback);
-    //}
-}
-
-function getReadData(book_id, callback){
     var post_data = {
 	ck: $.cookie('ck'),
 	aid: book_id,
@@ -123,24 +104,17 @@ function getReadData(book_id, callback){
         data: post_data,
         dataType: 'json',
         type: 'POST',
-        async: false,
         success: function (data){
             call_result(data, callback);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            get_error_msg('第一次获取文章信息失败，正在更换连接...', 'PROC');
+	    $('.gk7-douban-result-msg').find('.content').html('第一次获取文章信息失败，正在更换连接...');
             // 重新换链接抓取文章数据
             tryGetReadData(book_id, callback);
         }
     });
 }
 
-function get_error_msg(msg, status){
-    var result = {};
-    result['msg'] = msg
-    result['status'] = status;
-    showResultMsg(result);
-}
 
 /**
   * 获取数据成功返回数据
@@ -182,7 +156,7 @@ function tryGetReadData(book_id, callback){
             call_result(data, callback);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            get_error_msg('获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com', 'FAIL');
+	    $('.gk7-douban-result-msg').find('.content').html('获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com');
         }
     });
 }

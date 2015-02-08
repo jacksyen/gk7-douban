@@ -26,6 +26,7 @@ chrome插件及服务端
 |———
 |---- client 客户端代码
 |---- db 数据库表操作
+|---- docs 文档说明
 |---- helper 存放帮助类[切面日志、数据库连接、豆瓣文章解密、批量下载、发送邮件等]
 |---- resources 资源，包含发布插件的图片
 |---- static 后台静态资源存放目录
@@ -94,6 +95,8 @@ export C_FORCE_ROOT='root'
 celery -A helper.tasks worker -l info -D -f /var/log/celery/gk7-douban.log --pidfile=/var/run/celery.pid
 // 启动
 sudo python index.py 8000
+// 设置数据库权限
+sudo chmod 666 <db name>
 ```
 
 ### chrome下加载开发插件 ###
@@ -107,7 +110,7 @@ sudo python index.py 8000
 
 
 ## 待优化 ##
-+ 客户端并发控制
 + HTTP传输数据大太，导致处理客户端请求太慢
 + sqlite3库锁，写入并发导致数据库临时锁住
 + 客户端gallery类书籍解析
++ 书籍kind='strikethrough'类型未解析

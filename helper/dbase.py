@@ -10,7 +10,7 @@ class SQLite:
 
     @staticmethod
     def conn():
-        conn = db.connect(gk7.DB_FILE)
+        conn = db.connect(gk7.DB_FILE, timeout=20)
         conn.row_factory = db.Row
         return conn
 
