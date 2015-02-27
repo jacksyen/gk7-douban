@@ -24,19 +24,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
     }
     // 处理状态码['FAIL', 'SUCCESS', 'ABNORMAL']
     else {
-	showResultMsg(request)
+	showResultMsg(request, true)
     }
 });
 
 /**
  * 显示结果信息
+ * @param result 内容
+ * @param hidden [true/false]
  */
-function showResultMsg(result){
+function showResultMsg(result, hidden){
     var html = $('.gk7-douban-result-msg');
     html.find('.content').html(result.msg);
-    html.fadeTo(5000, 0.50, function (){
-	html.remove();
-    });
+    if (hidden != false) {
+	html.fadeTo(5000, 0.50, function (){
+	    html.remove();
+	});
+    }
 }
 
 /**
@@ -46,9 +50,8 @@ function getArticleInfo(callback){
     var article = $(".article");
     if(article.length!=1){
 	showResultMsg({
-	    'status': 'FAIL',
 	    'msg': '获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com'
-	});
+	}, true);
 	return;
     }
     // 获取数据
@@ -68,19 +71,49 @@ function getArticleInfo(callback){
         if(!data){
             // 获取文章数据失败
 	    showResultMsg({
-		'status': 'FAIL',
 		'msg': '解析图书数据失败，请稍候再试，或联系：hyqiu.syen@gmail.com'
-	    });
+	    }, true);
 	    return;
         }
         data = data.replace(/\n/g, '');
+	// 处理推送
+	showResultMsg({
+	    'msg': '正在推送中，请稍候...'
+	}, false);
 	callback({
 	    title : splitData[0],
 	    bookData: data,
-	    ebookId: getBookId(),
-	    status: 'SUCCESS'
+	    ebookId: getRequestBookId(),
+	    status: 'SUCCESS',
+	    sendType: getSendType(),
 	});
     });
+}
+
+/**
+ * 获取推送类型
+ * 'article': 文章
+ * 'column' : 专栏
+ **/
+function getSendType(){
+    if(location.href.match(/ebook\/(\d+)\//)){
+	return 'article';
+    }
+    if(location.href.match(/column\/(\d+)\//)){
+	return 'column';
+    }
+    return undefined;
+}
+
+/**
+ * 获取推送时的书籍ID
+ **/
+function getRequestBookId(){
+    var matches = location.href.match(/ebook\/(\d+)\//);
+    if (!matches) {
+	matches = location.href.match(/column\/(\d+)\//);
+    }
+    return matches[1];
 }
 
 /**
@@ -88,6 +121,9 @@ function getArticleInfo(callback){
  **/
 function getBookId(){
     var matches = location.href.match(/ebook\/(\d+)\//);
+    if (!matches) {
+	matches = location.href.match(/chapter\/(\d+)\//);
+    }
     return matches[1];
 }
 

@@ -21,7 +21,7 @@ chrome插件及服务端
 - [版本历史](#版本历史)
 - [待优化](#待优化)
 
-## 目录说明 ##
+## <a name="目录说明">目录说明</a> ##
 ```
 |———
 |---- client 客户端代码
@@ -37,21 +37,21 @@ chrome插件及服务端
 |---- index.py 程序入口
 ```
 
-## 开发逻辑 ##
+## <a name="开发逻辑">开发逻辑</a> ##
 
-### 客户端 ###
+### <a name="客户端">客户端</a> ###
 
-### 服务端 ###
+### <a name="服务端">服务端</a> ###
 
-#### 主流程 ####
+#### <a name="主流程">主流程</a> ####
 ![main_proc](https://raw.githubusercontent.com/jacksyen/gk7-douban/dev/resources/main_.png)
 
 
-#### 异步进程 ####
+#### <a name="异步进程">异步进程</a> ####
 
-## 安装 ##
+## <a name="安装">安装</a> ##
 
-### 依赖 ###
+### <a name="依赖">依赖</a> ###
 
 + `python` 2.6 or later(but not 3.x)
 + `web.py`
@@ -59,7 +59,7 @@ chrome插件及服务端
 + `calibre`
 + `rabbitmq server`
 
-### git检出 ###
+### <a name="git检出">git检出</a> ###
 
 + dev: 开发分支
 + master: 主干分支，发布后由dev合并
@@ -68,7 +68,7 @@ git clone https://github.com/jacksyen/gk7-douban.git
 git checkout dev
 ```
 
-### ubuntu下使用服务端 ###
+### <a name="ubuntu下使用服务端">ubuntu下使用服务端</a> ###
 
 首先必须安装好依赖
 ```bash
@@ -99,18 +99,19 @@ sudo python index.py 8000
 sudo chmod 666 <db name>
 ```
 
-### chrome下加载开发插件 ###
+### <a name="chrome下加载开发插件">chrome下加载开发插件</a> ###
 
 1. 修改插件推送的后台地址url，编辑client/scripts/background.js，在 **send** 函数中修改 **url** 地址，和上面服务器端启动的IP/端口对应
 2. 在chrome浏览器中的地址栏中输入：[chrome://extensions/](chrome://extensions/)，点击 **加载正在开发的扩展程序**，选择`client`文件夹即可
 
-## 版本历史 ##
+## <a name="版本历史">版本历史</a> ##
 
 [Changelog](https://github.com/jacksyen/gk7-douban/blob/dev/CHANGELOG.md)
 
 
-## 待优化 ##
+## <a name="待优化">待优化</a> ##
+
 + HTTP传输数据大太，导致处理客户端请求太慢
 + sqlite3库锁，写入并发导致数据库临时锁住
 + 客户端gallery类书籍解析
-+ 书籍kind='strikethrough'类型未解析
++ 对于客户端版本不一致作判断

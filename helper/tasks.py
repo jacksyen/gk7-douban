@@ -97,6 +97,7 @@ class DownloadTask(object):
             with open(file_path, 'w') as f_data:
                 f_data.write(data)
         except Exception as e:
+            logger.error(u'下载文件失败，url:%s，原因：%s' %(url, str(e)))
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)
         return file_path

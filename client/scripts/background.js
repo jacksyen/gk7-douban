@@ -1,7 +1,10 @@
-﻿function checkForValidUrl(tabId, changeInfo, tab) {
+﻿var version = '2.5';
+
+function checkForValidUrl(tabId, changeInfo, tab) {
     var regex = /.*\:\/\/read.douban.com\/reader\/ebook\/([^\/]*).*/;
+    var column_regex = /^.*\:\/\/read.douban.com\/reader\/column\/([^\/]*)\/chapter\/[0-9]*\/$/;
     if (changeInfo.status == 'complete') {
-	if (regex.test(tab.url)) {
+	if (regex.test(tab.url) || column_regex.test(tab.url)) {
 	    chrome.pageAction.show(tabId);
 	}
 	
@@ -22,7 +25,6 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 	    sendResultMessage(tab.id, data);
 	});
     });
-
 
 });
 
@@ -56,7 +58,9 @@ function send(request, callback){
             'bookTitle': request.title,
             'toMail': localStorage.TO_MAIL,
             'requestId': request.requestId,
-	    'ebookId': request.ebookId
+	    'ebookId': request.ebookId,
+	    'sendType': request.sendType,
+	    'version': version
 	},
 	dataType: 'json',
 	type: 'POST',

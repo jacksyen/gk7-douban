@@ -148,7 +148,7 @@ class HTML:
         for text in cxt_data_text:
             kind = str(text.get('kind'))
             # 获取内容字符串
-            content = self.get_data_text_content_str(text.get('content'))
+            content = self.get_head_or_para_text(text.get('content'))
             if kind == 'plaintext':
                 plaintexts.append(content)
             elif kind == 'footnote':
@@ -159,13 +159,14 @@ class HTML:
                 plaintexts.append('<font style="%s">%s</font>' %(self.style_code, content))
             elif kind == 'latex':
                 plaintexts.append('<font style="color:red;">%s</font>' %content)
+            elif kind == 'strikethrough':
+                plaintexts.append('<font style="text-decoration: line-through;">%s</font>' %content)
             elif kind == 'regular_script':
                 plaintexts.append(content)
             else:
                 plaintexts.append(content)
                 logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
         return ''.join(plaintexts)
-        
 
     '''
     获取图片段落
@@ -205,19 +206,6 @@ class HTML:
         if is_indent == True:
             text_base_style += 'text-indent: 2em;'
         return text_base_style
-
-    '''
-    获取paragraph->data->text字符串
-    cxt_data_content: data->text_content内容
-    '''
-    def get_data_text_content_str(self, cxt_data_content):
-        if isinstance(cxt_data_content, list) == False:
-            return str(cxt_data_content)    
-        content = []
-        for txt in cxt_data_content:
-            content.append(str(txt.get('content')))
-        return content
-        
 
     '''
     获取图片信息

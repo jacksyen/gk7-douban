@@ -29,8 +29,9 @@ class SyncThread(threading.Thread):
     ebook_id: 豆瓣书籍ID
     out_dir: 书籍输出目录
     book_images_task: 书籍图片下载任务
+    send_type: 推送类型
     '''
-    def __init__(self, request_id, book_author, book_id, ebook_id, out_dir, book_images_task):
+    def __init__(self, request_id, book_author, book_id, ebook_id, out_dir, book_images_task, send_type):
         threading.Thread.__init__(self)
         self.request_id = request_id
         self.book_author = book_author
@@ -38,6 +39,7 @@ class SyncThread(threading.Thread):
         self.ebook_id = ebook_id
         self.out_dir = out_dir
         self.book_images_task = book_images_task
+        self.send_type = send_type
     
     @aop.exec_time
     def run(self):
@@ -64,7 +66,7 @@ class SyncThread(threading.Thread):
         ## 判断书籍封面是否存在
         if self.ebook_id and not book_cover_path:
             # 抓取书籍封面
-            book_cover_task = DownloadTask.get_image.apply_async(('%s' %gk7.BOOK_COVER_URL.replace('{}', self.ebook_id), gk7.BOOK_COVER_DIRS), )
+            book_cover_task = DownloadTask.get_image.apply_async(('%s' %gk7.BOOK_COVER_URL.replace('{#id}', self.ebook_id).replace('{#type}', self.send_type), gk7.BOOK_COVER_DIRS), )
             # 书籍封面本地路径
             book_cover_path = book_cover_task.get()
             # 更新书籍封面路径
