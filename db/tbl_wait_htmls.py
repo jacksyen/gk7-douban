@@ -28,7 +28,7 @@ class Tbl_Wait_Htmls:
     '''
     @aop.exec_time
     def add(self, request_id, book_html_path):
-        self.db.execute('INSERT INTO %s(book_convert_id, request_id , book_html_path, book_convert_status, addtime, updatetime) VALUES("%s", "%s", "%s", "%s", "%s", "%s")' %(gk7.TABLE_NAMES.get('wait_htmls'), str(uuid.uuid1()), request_id, book_html_path, gk7.STATUS.get('wait'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
+        self.db.execute('''INSERT INTO %s(book_convert_id, request_id , book_html_path, book_convert_status, addtime, updatetime) VALUES(?, ?, ?, ?, ?, ?)''' %(gk7.TABLE_NAMES.get('wait_htmls')), (str(uuid.uuid1()), request_id, book_html_path, gk7.STATUS.get('wait'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
 
     '''
@@ -37,7 +37,7 @@ class Tbl_Wait_Htmls:
     '''
     @aop.exec_time
     def get(self, request_id):
-        self.db.execute('SELECT book_convert_id, book_html_path FROM %s WHERE request_id = "%s"' %(gk7.TABLE_NAMES.get('wait_htmls'), request_id))
+        self.db.execute('''SELECT book_convert_id, book_html_path FROM %s WHERE request_id = ?''' %(gk7.TABLE_NAMES.get('wait_htmls')), (request_id, ))
         return self.db.fetchone()
 
     '''
@@ -47,5 +47,5 @@ class Tbl_Wait_Htmls:
     '''
     @aop.exec_time
     def update_status(self, status, request_id, book_convert_path=None):
-        self.db.execute('UPDATE %s SET book_convert_status = "%s", book_convert_path = "%s", updatetime = "%s" WHERE request_id ="%s"' %(gk7.TABLE_NAMES.get('wait_htmls'), status, book_convert_path, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
+        self.db.execute('''UPDATE %s SET book_convert_status = ?, book_convert_path = ?, updatetime = ? WHERE request_id =?''' %(gk7.TABLE_NAMES.get('wait_htmls')), (status, book_convert_path, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S'), request_id))
         self.conn.commit()
