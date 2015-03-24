@@ -44,8 +44,9 @@ class proc_helper:
         params = ['ebook-convert']
         params.append(input_file_path)
         params.append(out_file_path)
-        params.append('--authors')
-        params.append(author)
+        if author:
+            params.append('--authors')
+            params.append(author)
         if cover:
             params.append('--cover')
             params.append(cover)
