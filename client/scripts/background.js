@@ -52,7 +52,7 @@ function send(request, callback){
     $.ajax({
 	url: 'http://gk7.pw:8000/send',
         //url: 'http://localhost:8000/send',
-        //url: 'http://192.168.1.107:8000/send',
+        //url: 'http://192.168.1.108:8000/send',
 	data: {
             'bookData': request.bookData,
             'bookTitle': request.title,
