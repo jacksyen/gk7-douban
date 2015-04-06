@@ -76,13 +76,22 @@ sudo pip install web.py
 sudo pip install celery
 sudo apt-get install calibre
 sudo apt-get install rabbitmq-server
+
+## mysql
+sudo apt-get -y install libmysqlclient-dev python-dev
+sudo pip install MySQL-python
+## mysql连接池
+sudo pip install DBUtils
 ```
+
+* 初始化数据库
+[gk7_douban sql](https://github.com/jacksyen/gk7-douban/blob/dev/docs/gk7_douban.sql)
 
 * 修改全局配置
 ```bash
 // 建议修改rabbitmq默认密码
 sudo rabbitmqctl change_password guest <newpwd>
-// 修改发送email配置
+// 修改发送email配置和连接数据库配置
 vi webglobal/globals.py
 // 修改celery配置
 vi webglobal/celeryconfig.py
@@ -90,6 +99,7 @@ vi webglobal/celeryconfig.py
 * 启动：
 ```bash
 // celery服务端
+su -
 mkdir -p /var/log/celery
 export C_FORCE_ROOT='root'
 celery -A helper.tasks worker -l info -D -f /var/log/celery/gk7-douban.log --pidfile=/var/run/celery.pid
@@ -112,6 +122,4 @@ sudo chmod 666 <db name>
 ## <a name="待优化">待优化</a> ##
 
 + HTTP传输数据大太，导致处理客户端请求太慢
-+ sqlite3库锁，写入并发导致数据库临时锁住
 + 客户端gallery类书籍解析
-+ 对于客户端版本不一致作判断

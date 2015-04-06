@@ -9,9 +9,15 @@ export C_FORCE_ROOT='root'
 
 **注意**
 + celery任务代码修改，需要重启celery服务
-+ 
++
 
+### 创建vhost和用户 ###
 
+```bash
+sudo rabbitmqctl add_vhost gk7-vhost
+sudo rabbitmqctl add_user <name> <pwd>
+sudo rabbitmqctl set_permissions -p <vhost> <user> ".*" ".*" ".*"
+```
 
 ### 启动 ###
 

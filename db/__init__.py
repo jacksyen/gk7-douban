@@ -1,1 +1,1 @@
-__all__ = ['create_table', 'tbl_globals', 'tbl_wait_htmls', 'tbl_wait_emails', 'tbl_books', 'tbl_book_img']
+__all__ = ['tbl_wait_converts', 'tbl_wait_emails', 'tbl_books', 'tbl_book_img']

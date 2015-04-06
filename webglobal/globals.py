@@ -7,21 +7,13 @@ author by jacksyen[hyqiu.syen@gmail.com]
 """
 import os
 
-# sqlite db name
-DB_FILE = 'gk7-douban-read-send-kindle.db'
 
-## 书籍信息表
-TABLE_NAMES = {
-    ## 书籍表
-    'book': 'gk7_douban_books',
-    ## 书籍图片路径表
-    'book_img': 'gk7_douban_book_img',
-    ## 全局配置表
-    'global_name': 'gk7_douban_global',
-    ## 等待发送邮件表
-    'wait_emails': 'gk7_douban_wait_emails',
-    ## 书籍html等待转换表
-    'wait_htmls': 'gk7_douban_wait_htmls'
+DB_CONFIG = {
+    'host': '192.168.1.104',
+    'user': 'root',
+    'passwd': 'root',
+    'db': 'gk7_douban',
+    'port': 3306
 }
 
 # 书籍封面前缀

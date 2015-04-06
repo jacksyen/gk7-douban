@@ -12,7 +12,6 @@ from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 
 from log import logger
-from dbase import SQLite
 import helper.aop as aop
 import webglobal.globals as gk7
 

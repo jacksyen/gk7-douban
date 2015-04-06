@@ -61,14 +61,14 @@ class MailTask(object):
     '''
     发送邮件,发送失败后间隔30秒重新发送
     重试次数：5
-    request_id: 请求ID
+    mail_id: 邮件ID
     attach_file: 附件文件路径
     to_email: 收件方
     title: 邮件标题
     auth: 邮件作者
     '''
     @app.task(base=BaseTask, max_retries=5)
-    def send(request_id, attach_file, to_email, title, auth):
+    def send(mail_id, attach_file, to_email, title, auth):
         try:
             mail = SendMail()
             # 发送邮件
