@@ -42,46 +42,46 @@ class SyncThread(threading.Thread):
     
     @aop.exec_time
     def run(self):
-        #try:
-        # 读取待转换的书籍信息
-        wait_converts = Tbl_Wait_Converts()
-        wait_converts_info = wait_converts.get(self.convert_id)
-        if not wait_converts_info:
-            raise Exception, '未找到待转换的书籍信息'
+        try:
+            # 读取待转换的书籍信息
+            wait_converts = Tbl_Wait_Converts()
+            wait_converts_info = wait_converts.get(self.convert_id)
+            if not wait_converts_info:
+                raise Exception, '未找到待转换的书籍信息'
 
-        # 读取书籍所需图片
-        book_img = Tbl_Book_Img()
-        book_img_info = book_img.get(self.book_id)
-        if book_img_info:
-            # 更新书籍所需图片表信息
-            book_img.update_local_path(self.book_id, self.book_images_task.get())
-        
-        # 读取书籍信息
-        books = Tbl_Books()
-        book_info = books.get_by_book_id(self.book_id)
+            # 读取书籍所需图片
+            book_img = Tbl_Book_Img()
+            book_img_info = book_img.get(self.book_id)
+            if book_img_info:
+                # 更新书籍所需图片表信息
+                book_img.update_local_path(self.book_id, self.book_images_task.get())
 
-        ## 调用转换功能
-        out_file_path = proc_helper.convert(str(wait_converts_info['book_html_local_path']), self.out_dir, book_info['book_author'], book_info['book_cover_local_path'])
-        if out_file_path == None:
-            # 转换失败
-            wait_converts.update_status(gk7.STATUS.get('error'), self.request_id)
-            raise Exception, '转换html to mobi失败'
+            # 读取书籍信息
+            books = Tbl_Books()
+            book_info = books.get_by_book_id(self.book_id)
 
-        # 转换成功，修改状态，添加书籍输出路径
-        wait_converts.update_status(gk7.STATUS.get('complete'), self.convert_id, out_file_path)
-        # 修改书籍文件路径
-        books.update_file_path(self.book_id, out_file_path)
+            ## 调用转换功能
+            out_file_path = proc_helper.convert(str(wait_converts_info['book_html_local_path']), self.out_dir, book_info['book_author'], book_info['book_cover_local_path'])
+            if out_file_path == None:
+                # 转换失败
+                wait_converts.update_status(gk7.STATUS.get('error'), self.request_id)
+                raise Exception, '转换html to mobi失败'
 
-        wait_email = Tbl_Wait_Emails()
-        # 修改待发送邮件附件信息
-        wait_email.update_attach_file(self.email_id, out_file_path)
-        # 读取待发送邮件信息
-        wait_email_info = wait_email.get(self.email_id)
-        if not wait_email_info:
-            raise Exception, '未找到待发送邮件信息，请求ID:%s' %self.request_id
+            # 转换成功，修改状态，添加书籍输出路径
+            wait_converts.update_status(gk7.STATUS.get('complete'), self.convert_id, out_file_path)
+            # 修改书籍文件路径
+            books.update_file_path(self.book_id, out_file_path)
 
-        # celery发送邮件
-        MailTask.send.delay(self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
-'''        except Exception, err:
+            wait_email = Tbl_Wait_Emails()
+            # 修改待发送邮件附件信息
+            wait_email.update_attach_file(self.email_id, out_file_path)
+            # 读取待发送邮件信息
+            wait_email_info = wait_email.get(self.email_id)
+            if not wait_email_info:
+                raise Exception, '未找到待发送邮件信息，请求ID:%s' %self.request_id
+
+            # celery发送邮件
+            MailTask.send.delay(self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+        except Exception, err:
             logger.error(u'异步线程出错，请求ID：%s，错误信息：%s', self.request_id, err)
-            exit(-1)'''
+            exit(-1)
