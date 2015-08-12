@@ -1,3 +1,8 @@
+var TYPE = {
+    article: 'article',
+    gallery: 'gallery'
+};
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
     var html = $('.gk7-douban-result-msg');
     // 开始处理数据
@@ -56,37 +61,26 @@ function getArticleInfo(callback){
     }
     // 获取数据
     fetch_book_data(getBookId(), function (book_data){
-        var book_data_matchs = book_data.match(/(bOus[^:]*)/);
-        var splitData = book_data.split(':');
-        var data = undefined;
-        if(!book_data_matchs){
-            for(var s_data in splitData){
-                if(splitData[s_data].length>300){
-                    data = splitData[s_data];
-                }
-            }
-        }else{
-            data = book_data_matchs[1];
-        }
-        if(!data){
-            // 获取文章数据失败
+	var data = book_data.data;
+	if (!data) {
+	    // 获取文章数据失败
 	    showResultMsg({
 		'msg': '解析图书数据失败，请稍候再试，或联系：hyqiu.syen@gmail.com'
 	    }, true);
 	    return;
-        }
-        data = data.replace(/\n/g, '');
+	}
+	data = data.replace(/\n/g, '');
 	// 处理推送
 	showResultMsg({
 	    'msg': '正在推送中，请稍候...'
 	}, false);
 	callback({
-	    title : splitData[0],
+	    title : book_data.title,
 	    bookData: data,
 	    ebookId: getRequestBookId(),
 	    status: 'SUCCESS',
 	    sendType: getSendType(),
-	});
+	});	
     });
 }
 
@@ -141,7 +135,12 @@ function fetch_book_data(book_id, callback) {
         dataType: 'json',
         type: 'POST',
         success: function (data){
-            call_result(data, callback);
+	    if (!data.title || data.title == undefined) {
+		$('.gk7-douban-result-msg').find('.content').html('第一次获取文章信息失败，正在更换连接...');
+		tryGetReadData(book_id, callback);
+		return;
+	    }
+            call_result(data, TYPE.article, callback);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 	    $('.gk7-douban-result-msg').find('.content').html('第一次获取文章信息失败，正在更换连接...');
@@ -157,18 +156,21 @@ function fetch_book_data(book_id, callback) {
   * data: 返回数据
   * callback: 回调函数
   */
-function call_result(data, callback){
-    var book_data = [
-	data.title,
-	data.data,
-	data.purchase_time,
-	data.is_sample,
-	data.is_gift,
-	data.has_formula,
-	data.has_added,
-	data.price
-    ];
-    callback(book_data.join(':'));
+function call_result(data, type, callback){
+    var book_data = {};
+    switch (type){
+    case TYPE.article:
+	book_data['title'] = data.title;
+	book_data['data'] = data.data;
+	book_data['price'] = data.price;
+	break;
+    case TYPE.gallery:
+	book_data['title'] = data.meta.title;
+	book_data['price'] = data.meta.price;
+	book_data['data'] = data.data;
+	break;
+    }
+    callback(book_data);
 }
 
 /**
@@ -189,7 +191,7 @@ function tryGetReadData(book_id, callback){
         async: false,
         headers: {'X-CSRF-Token': $.cookie('ck')},
         success: function (data){
-            call_result(data, callback);
+            call_result(data, TYPE.gallery, callback);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 	    $('.gk7-douban-result-msg').find('.content').html('获取文章信息失败，请稍候再试，或联系：hyqiu.syen@gmail.com');

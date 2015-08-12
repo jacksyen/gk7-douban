@@ -9,9 +9,9 @@ import os
 
 
 DB_CONFIG = {
-    'host': '192.168.1.104',
-    'user': 'root',
-    'passwd': 'root',
+    'host': '192.168.1.66',
+    'user': 'gk7',
+    'passwd': 'gk7',
     'db': 'gk7_douban',
     'port': 3306
 }

@@ -39,6 +39,14 @@ class Send:
     def POST(self):
         return self.execute(web.input())
 
+    '''
+    bookData : 图书数据
+    toMail   : 推送的email地址
+    ebookId  : 豆瓣书籍ID
+    bookTitle: 图书标题
+    sendType:  推送类型,article
+    version:   插件版本
+    '''
     @aop.exec_out_time
     def execute(self, args):
         try:
@@ -60,6 +68,7 @@ class Send:
             version = args.get('version')
             # 处理数据
             data = decrypt.parse(book_data)
+            logger.error(data)
             data_json = json.loads(data)
 
             # 文章集合
