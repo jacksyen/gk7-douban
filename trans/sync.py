@@ -64,7 +64,7 @@ class SyncThread(threading.Thread):
             out_file_path = proc_helper.convert(str(wait_converts_info['book_html_local_path']), self.out_dir, book_info['book_author'], book_info['book_cover_local_path'])
             if out_file_path == None:
                 # 转换失败
-                wait_converts.update_status(gk7.STATUS.get('error'), self.request_id)
+                wait_converts.update_status(gk7.STATUS.get('error'), self.convert_id)
                 raise Exception, '转换html to mobi失败'
 
             # 转换成功，修改状态，添加书籍输出路径
@@ -78,10 +78,10 @@ class SyncThread(threading.Thread):
             # 读取待发送邮件信息
             wait_email_info = wait_email.get(self.email_id)
             if not wait_email_info:
-                raise Exception, '未找到待发送邮件信息，请求ID:%s' %self.request_id
+                raise Exception, '未找到待发送邮件信息，邮件ID:%s' %self.email_id
 
             # celery发送邮件
             MailTask.send.delay(self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
-            logger.error(u'异步线程出错，请求ID：%s，错误信息：%s', self.request_id, err)
+            logger.error(u'异步线程出错，转换ID：%s，错误信息：%s', self.convert_id, err)
             exit(-1)

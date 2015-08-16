@@ -21,7 +21,7 @@ from db.tbl_book_img import Tbl_Book_Img
 import webglobal.globals as gk7
 
 '''
-
+推送
 '''
 class Send:
 
@@ -44,7 +44,7 @@ class Send:
     toMail   : 推送的email地址
     ebookId  : 豆瓣书籍ID
     bookTitle: 图书标题
-    sendType:  推送类型,article
+    sendType:  推送类型,详见：gk7.BOOK_TYPE
     version:   插件版本
     '''
     @aop.exec_out_time
@@ -68,17 +68,9 @@ class Send:
             version = args.get('version')
             # 处理数据
             data = decrypt.parse(book_data)
-            logger.error(data)
-            data_json = json.loads(data)
-
-            # 文章集合
-            data_posts = data_json.get('posts')#[0]
-            # 最后一篇文章的信息
-            last_post_info = data_posts[-1]
-            # 图书副标题
-            book_subtitle = str(last_post_info.get('subtitle'))
-            # 图书作者
-            book_author = str(last_post_info.get('orig_author'))
+            logger.info(data)
+            # 文章集合, 图书副标题, 图书作者
+            data_posts, book_subtitle, book_author = self.get_book_info(send_type, data)
             # 书籍大小
             book_size = len(book_data)
 
@@ -106,10 +98,10 @@ class Send:
             # 源文件目录[绝对路径](格式：主目录/douban书籍ID/书籍大小)
             file_dir = '%s/%s/%s' %(gk7.DATA_DIRS, ebook_id, str(book_size))
             page = HTML(book_title, book_author, file_dir)
-            book_html_local_path, book_images_remote_path = page.create(data_posts)
+            book_html_local_path, book_images_remote_path = page.create(send_type, data_posts)
 
             # 书籍封面远程路径
-            book_cover_remote_path = gk7.BOOK_COVER_URL.replace('{#id}', ebook_id).replace('{#type}', send_type)
+            book_cover_remote_path = gk7.BOOK_COVER_URL.replace('{#id}', ebook_id).replace('{#type}', send_type == gk7.BOOK_TYPE['gallery'] and gk7.BOOK_TYPE['article'] or send_type)
             # 存储书籍信息
             book_id = RandomUtil.random32Str()
             books.add(book_id, ebook_id, book_title, book_subtitle, book_author, book_size, book_cover_remote_path)
@@ -147,3 +139,53 @@ class Send:
         except Exception, err:
             logger.error(u'推送异常,错误信息：%s，入参：%s' %(err, str(args)))
             return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com' %err})
+
+    '''
+    获取书籍基本信息（数据，副标题，作者）
+    '''
+    def get_book_info(self, send_type, decrypt_data):
+        data_json = json.loads(decrypt_data)
+        # 文章集合
+        book_posts = []
+        # 图书副标题
+        book_subtitle = ''
+        # 图书作者
+        book_author = ''
+        if send_type == gk7.BOOK_TYPE['gallery']:
+            part_attrs = data_json.get('part_attrs')
+            book_posts = data_json.get('pages')
+            book_subtitle = str(part_attrs.get('sub_title'))
+            people = part_attrs.get('people') 
+            authors = people.get('author') #[]
+            for author_id in authors:
+                book_author += self.get_gallery_author(author_id) + ' '
+        else: # article, column
+            book_posts = data_json.get('posts')
+            # 最后一篇文章的信息
+            last_post_info = book_posts[-1]
+            book_subtitle = str(last_post_info.get('subtitle'))
+            book_author = str(last_post_info.get('orig_author'))
+        return book_posts, book_subtitle, book_author
+
+    '''
+    获取gallery类书籍作者
+    '''
+    def get_gallery_author(self, author_id):
+        try:
+            import urllib2
+            request = urllib2.urlopen('http://read.douban.com/author/%s' %author_id)
+            import re
+            pattern = re.compile(r'http://read.douban.com/people/(\d*)/')
+            groups = pattern.search(request.geturl()).groups()
+            if not groups:
+                return author_id
+            people_id = groups[0]
+            response = urllib2.urlopen('http://api.douban.com/people/%s' %people_id).read()
+            if not response:
+                return author_id
+            pattern = re.compile(r'db:signature>(.*)</db:signature')
+            author = pattern.search(response).groups()[0]
+            return author
+        except Exception, err:
+            logger.unknown(u'未找到gallery类书籍作者信息, 作者ID:%s' %authod_id)
+            return authod_id

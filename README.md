@@ -121,5 +121,5 @@ sudo chmod 666 <db name>
 
 ## <a name="待优化">待优化</a> ##
 
-+ HTTP传输数据大太，导致处理客户端请求太慢
-+ 客户端gallery类书籍解析
++ gallery类书籍作者解析
++ 推送至个人邮箱

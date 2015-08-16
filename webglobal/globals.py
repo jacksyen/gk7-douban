@@ -39,11 +39,11 @@ BOOK_PAGE_SPLIT = 'pagebreak'
 # email配置
 EMAIL = {
     ## SMTP
-    'smtp': 'smtp.gmail.com',
+    'smtp': 'smtp.qq.com', #'smtp.gmail.com',
     ## 端口
     'port': 25,
     ## 发送方邮箱
-    'user': 'hyqiu.syen@gmail.com',
+    'user': '418296229@qq.com', #'hyqiu.syen@gmail.com',
     ## 发送方密码
     'pwd': '',
     ## 邮件编码
@@ -63,5 +63,16 @@ STATUS = {
     'error': 'error'
 }
 
+## 书籍类型
+BOOK_TYPE = {
+    'gallery': 'gallery',
+    'article': 'article',
+    'column': 'column'
+}
+
 ## 日志存储目录
 LOG_DIRS = '%s/logs' %(os.path.abspath('.'))
+
+
+## 图片默认最大宽度
+PIC_MAX_WIDTH = 800

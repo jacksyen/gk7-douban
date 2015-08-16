@@ -8,7 +8,7 @@ celery配置
 CELERY_ENABLE_UTC = True
 CELERY_TIMEZONE = 'Europe/London'
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+BROKER_URL = 'amqp://gk7:gk7@localhost:5672/gk7-vhost'
 CELERY_RESULT_BACKEND = 'amqp'
 
 # 任务结果超时时间(秒)

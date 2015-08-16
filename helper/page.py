@@ -31,18 +31,63 @@ class HTML:
         # 初始化html
         self.page.init(title='%s' %self.title, charset='UTF-8', author=self.author)
         # 图片类型
-        self.cxt_pic_type = ['medium', 'orig', 'small', 'tiny', 'large']
+        self.cxt_pic_type = ['medium', 'large', 'orig', 'small', 'tiny', 'smallshow']
         # 代码样式
-        self.style_code = 'padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;'
+        self.style_code = 'padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;' 
 
+        
+    @aop.exec_out_time
+    def create(self, send_type, book_posts):
+        if send_type == gk7.BOOK_TYPE['gallery']:
+            return self.create_gallery(book_posts)
+        # 默认
+        return self.create_article(book_posts)
+
+
+    '''
+    创建gallery类书籍
+    book_pages: 书籍内容
+    '''
+    def create_gallery(self, book_pages):
+        book_images_remote_path = []
+        # 内容
+        for page in book_pages:
+            page_type = page.get('type')
+            page_data = page.get('data')
+            if page_type == 'illus':  ## 图片页
+                # 获取图片信息
+                illus_remote_src = self.get_illus(page_data)
+                # 添加至所有图片远程路径集合
+                book_images_remote_path.append(illus_remote_src)
+            elif page_type == 'pagebreak': ## 分页符号
+                pass
+            elif page_type == 'container': ## 内容
+                paragraphs = page_data.get('paragraphs')
+                for paragraph in paragraphs:
+                    paragraph_data = paragraph.get('data')
+                    paragraph_data_text = paragraph_data.get('text')
+                    text_content = ''
+                    for text in paragraph_data_text:
+                        if text:
+                            text_content += text.get('content')
+                    paragraph_data_format = paragraph_data.get('format')
+                    self.page.p((text_content,), self.get_text_style(paragraph_data_format)
+            else:
+                logger.unknown(u'未知的内容type，data内容：%s' %(str(page_data)))
+            ## 添加分割页面段落
+            self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
+        ## 片尾
+        self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
+        # 写入文件
+        filename = self.write_html_to_file()
+        return filename, book_images_remote_path
 
     '''
     创建html
     返回文件绝对路径
     data_contents: 书籍内容
     '''
-    @aop.exec_out_time
-    def create(self, book_posts):
+    def create_article(self, book_posts):
         book_images_remote_path = []
         
         # 标题即是章节头标识
@@ -83,12 +128,8 @@ class HTML:
         ## 片尾
         self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
         # 写入文件
-        if not os.path.exists(self.file_dir):
-            os.makedirs(self.file_dir)
-        filename = '%s/%s.html' %(self.file_dir, self.title)
-        output = open(filename, 'w')
-        output.write(str(self.page))
-        output.close()
+        filename = self.write_html_to_file()
+
         return filename, book_images_remote_path
 
     '''
@@ -186,13 +227,38 @@ class HTML:
         cxt_image_path = '%s/%s' %(self.file_dir, medium_src[medium_src.rfind('/')+1:])
         self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_image_path)
         # 添加图片备注
-        legend = str(cxt_data.get('legend'))
-        if legend:
-            self.page.label(legend, style='color:#555; font-size:.75em; line-height:1.5;')
+        legend = cxt_data.get('legend')
+        if type(legend) == unicode:
+            self.page.label(str(legend), style='color:#555; font-size:.75em; line-height:1.5;')
+        else:
+            if legend:
+                # dict
+                legend_data = legend.get('data')
+                legend_data_paragraphs = legend_data.get('paragraphs') # []
+                for legend_data_paragraph in legend_data_paragraphs:
+                    desc_text = self.get_legend_paragraph_text(legend_data_paragraph)
+                    self.page.label(desc_text, style='color:#555; font-size:.75em; line-height:1.5;')
         self.page.div.close()
         
         return medium_src
         
+
+    '''
+    获取图片备注
+    多行，适合gallery类书籍
+    legend_data_paragraph: 图例内容
+    '''
+    def get_legend_paragraph_text(self, legend_data_paragraph):
+        img_desc_text = ''
+        lp_type = legend_data_paragraph.get('type')
+        lp_data = legend_data_paragraph.get('data')
+        if lp_type == 'paragraph':
+            for l_text in lp_data.get('text'):
+                l_text_kind = l_text.get('kind')
+                if l_text_kind == 'plaintext':
+                    img_desc_text += str(l_text.get('content'))
+        return img_desc_text
+    
     
     '''
     获取<p>中的文字样式
@@ -218,3 +284,17 @@ class HTML:
         if not pic_info:
             pic_info = self.get_cxt_pic(cxt_data, pic_type_num=pic_type_num+1)
         return pic_info
+
+    
+    '''
+    将html写入本地文件
+    '''
+    def write_html_to_file(self):
+        # 写入文件
+        if not os.path.exists(self.file_dir):
+            os.makedirs(self.file_dir)
+        filename = '%s/%s.html' %(self.file_dir, self.title)
+        output = open(filename, 'w')
+        output.write(str(self.page))
+        output.close()
+        return filename

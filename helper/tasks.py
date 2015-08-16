@@ -16,6 +16,7 @@ from celery import Task
 from celery import Celery
 
 from log import logger
+from util import ImageUtil
 from helper.mail import SendMail
 from webglobal import celeryconfig
 from db.tbl_wait_emails import Tbl_Wait_Emails
@@ -96,8 +97,10 @@ class DownloadTask(object):
             file_path = '%s/%s' %(file_dir, url[url.rfind('/')+1:])
             with open(file_path, 'w') as f_data:
                 f_data.write(data)
+            # 压缩
+            ImageUtil.compress(file_path, gk7.PIC_MAX_WIDTH)
         except Exception as e:
-            logger.error(u'下载文件失败，url:%s，原因：%s' %(url, str(e)))
+            logger.error(u'下载文件失败，url:%s，文件路径:%s，原因：%s' %(url, file_path, str(e)))
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)
         return file_path

@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "gk7-豆瓣阅读推送",
     "description": "豆瓣阅读推送kindle",
-    "version": "2.5",
+    "version": "2.6",
     "icons": {
         "48": "images/icon48.png"
     },

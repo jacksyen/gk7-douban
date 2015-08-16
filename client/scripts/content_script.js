@@ -79,7 +79,7 @@ function getArticleInfo(callback){
 	    bookData: data,
 	    ebookId: getRequestBookId(),
 	    status: 'SUCCESS',
-	    sendType: getSendType(),
+	    sendType: book_data.type || getSendType(), // article, column, gallery
 	});	
     });
 }
@@ -168,6 +168,7 @@ function call_result(data, type, callback){
 	book_data['title'] = data.meta.title;
 	book_data['price'] = data.meta.price;
 	book_data['data'] = data.data;
+	book_data['type'] = 'gallery';
 	break;
     }
     callback(book_data);
