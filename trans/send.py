@@ -68,7 +68,6 @@ class Send:
             version = args.get('version')
             # 处理数据
             data = decrypt.parse(book_data)
-            logger.info(data)
             # 文章集合, 图书副标题, 图书作者
             data_posts, book_subtitle, book_author = self.get_book_info(send_type, data)
             # 书籍大小

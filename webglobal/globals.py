@@ -39,11 +39,11 @@ BOOK_PAGE_SPLIT = 'pagebreak'
 # email配置
 EMAIL = {
     ## SMTP
-    'smtp': 'smtp.qq.com', #'smtp.gmail.com',
+    'smtp': 'smtp.gmail.com',
     ## 端口
     'port': 25,
     ## 发送方邮箱
-    'user': '418296229@qq.com', #'hyqiu.syen@gmail.com',
+    'user': 'hyqiu.syen@gmail.com',
     ## 发送方密码
     'pwd': '',
     ## 邮件编码

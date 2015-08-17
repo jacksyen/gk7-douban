@@ -121,5 +121,5 @@ sudo chmod 666 <db name>
 
 ## <a name="待优化">待优化</a> ##
 
-+ gallery类书籍作者解析
 + 推送至个人邮箱
++ gallery书籍解析可能不完善（没有足够的测试书籍）

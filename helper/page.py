@@ -29,7 +29,7 @@ class HTML:
         # 创建HTML Page
         self.page = markup.page()
         # 初始化html
-        self.page.init(title='%s' %self.title, charset='UTF-8', author=self.author)
+        self.page.init(lang='en', title='%s' %self.title, charset='UTF-8', encoding='UTF-8', author=self.author)
         # 图片类型
         self.cxt_pic_type = ['medium', 'large', 'orig', 'small', 'tiny', 'smallshow']
         # 代码样式
@@ -71,7 +71,7 @@ class HTML:
                         if text:
                             text_content += text.get('content')
                     paragraph_data_format = paragraph_data.get('format')
-                    self.page.p((text_content,), self.get_text_style(paragraph_data_format)
+                    self.page.p((text_content,), style=self.get_text_style(paragraph_data_format))
             else:
                 logger.unknown(u'未知的内容type，data内容：%s' %(str(page_data)))
             ## 添加分割页面段落
@@ -293,7 +293,7 @@ class HTML:
         # 写入文件
         if not os.path.exists(self.file_dir):
             os.makedirs(self.file_dir)
-        filename = '%s/%s.html' %(self.file_dir, self.title)
+        filename = '%s/%s.html' %(self.file_dir, self.title.replace('/', ''))
         output = open(filename, 'w')
         output.write(str(self.page))
         output.close()
