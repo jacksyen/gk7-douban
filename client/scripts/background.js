@@ -50,8 +50,8 @@ function set_icon(tab_id, icon) {
 **/
 function send(request, callback){
     $.ajax({
-	//url: 'http://gk7.pw:8000/send',
-        url: 'http://localhost:8000/send',
+	url: 'http://gk7.pw:8000/send',
+        //url: 'http://localhost:8000/send',
         //url: 'http://192.168.1.108:8000/send',
 	data: {
             'bookData': request.bookData,
@@ -64,7 +64,7 @@ function send(request, callback){
 	},
 	dataType: 'json',
 	type: 'POST',
-	timeout: 90*1000// 90秒超时
+	timeout: 100*1000// 100秒超时
     }).done(function(response){
 	callback(response);
     }).fail(function(){
