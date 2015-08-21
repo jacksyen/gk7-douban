@@ -68,8 +68,12 @@ class HTML:
                     paragraph_data_text = paragraph_data.get('text')
                     text_content = ''
                     for text in paragraph_data_text:
-                        if text:
-                            text_content += text.get('content')
+                        if type(text) == unicode:
+                            text_content += str(text)
+                        else:
+                            if text:
+                                # dict
+                                text_content += str(text.get('content'))
                     paragraph_data_format = paragraph_data.get('format')
                     self.page.p((text_content,), style=self.get_text_style(paragraph_data_format))
             else:
