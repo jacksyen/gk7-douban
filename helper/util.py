@@ -27,7 +27,7 @@ class ImageUtil:
         #插值缩放图像
         out = im.resize(new_size, Image.ANTIALIAS)
         # 保存并替换原图片
-        out.save(file_path)
+        out.convert('RGB').save(file_path)
 
 
 '''
