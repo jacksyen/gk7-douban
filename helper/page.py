@@ -232,18 +232,25 @@ class HTML:
         self.page.img(width=orig.get('width'), height=orig.get('height'), src=cxt_image_path)
         # 添加图片备注
         legend = cxt_data.get('legend')
-        if type(legend) == unicode:
+        legend_type = type(legend)
+        if legend_type == unicode:
             self.page.label(str(legend), style='color:#555; font-size:.75em; line-height:1.5;')
-        else:
-            if legend:
-                # dict
-                legend_data = legend.get('data')
-                legend_data_paragraphs = legend_data.get('paragraphs') # []
-                for legend_data_paragraph in legend_data_paragraphs:
-                    desc_text = self.get_legend_paragraph_text(legend_data_paragraph)
+        elif legend_type == dict:
+            legend_data = legend.get('data')
+            legend_data_paragraphs = legend_data.get('paragraphs') # []
+            for legend_data_paragraph in legend_data_paragraphs:
+                desc_text = self.get_legend_paragraph_text(legend_data_paragraph)
+                self.page.label(desc_text, style='color:#555; font-size:.75em; line-height:1.5;')
+        elif legend_type == list:
+            for legend_data in legend:
+                l_type = legend_data.get('type')
+                l_data = legend_data.get('data')
+                if l_type == 'paragraph':
+                    desc_text = str(l_data.get('text'))
                     self.page.label(desc_text, style='color:#555; font-size:.75em; line-height:1.5;')
+                else:
+                    logger.unknown(u'未知的内容:%s, 类型：%s' %(str(l_data), str(l_type)))
         self.page.div.close()
-        
         return medium_src
         
 

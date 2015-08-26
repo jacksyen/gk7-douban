@@ -100,7 +100,7 @@ class DownloadTask(object):
             # 压缩
             ImageUtil.compress(file_path, gk7.PIC_MAX_WIDTH)
         except Exception as e:
-            logger.error(u'下载文件失败，url:%s，文件路径:%s，原因：%s' %(url, file_path, str(e)))
+            logger.error(u'下载文件失败，url:%s，文件目录:%s，原因：%s' %(url, file_dir, str(e)))
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)
         return file_path
