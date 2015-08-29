@@ -46,3 +46,5 @@ if __name__ == "__main__":
 
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()
+
+#application = app.wsgifunc()

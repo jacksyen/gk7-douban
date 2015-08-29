@@ -9,7 +9,7 @@ import os
 
 
 DB_CONFIG = {
-    'host': '192.168.1.238',
+    'host': '192.168.1.66',
     'user': 'gk7',
     'passwd': 'gk7',
     'db': 'gk7_douban',
@@ -61,6 +61,19 @@ STATUS = {
     'wait': 'wait',
     'complete': 'complete',
     'error': 'error'
+}
+
+'''
+API接口全局状态
+'''
+API_STATUS = {
+    'success': 'SUCCESS',
+    'fail': 'FAIL',
+    'abnormal': 'ABNORMAL'
+}
+
+API_URL = {
+    'mail': 'http://gk7.pw:8001/mail'
 }
 
 ## 书籍类型

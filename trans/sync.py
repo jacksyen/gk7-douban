@@ -11,15 +11,16 @@ author by jacksyen[hyqiu.syen@gmail.com]
 import sys
 import threading
 
+import webglobal.globals as gk7
 import helper.aop as aop
 from helper.log import logger
 from helper.proc import proc_helper
-import webglobal.globals as gk7
+from helper.tasks import DownloadTask
 from db.tbl_wait_converts import Tbl_Wait_Converts
 from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
 from db.tbl_book_img import Tbl_Book_Img
-from helper.tasks import MailTask, DownloadTask
+from common import Common
 
 
 class SyncThread(threading.Thread):
@@ -30,15 +31,16 @@ class SyncThread(threading.Thread):
     book_id: 书籍ID
     out_dir: 书籍输出目录
     book_images_task: 书籍图片下载任务
+    send_mail_type: 发送邮件类型
     '''
-    def __init__(self, convert_id, email_id, book_id, out_dir, book_images_task):
+    def __init__(self, convert_id, email_id, book_id, out_dir, book_images_task, send_mail_type):
         threading.Thread.__init__(self)
         self.convert_id = convert_id
         self.email_id = email_id
         self.book_id = book_id
         self.out_dir = out_dir
         self.book_images_task = book_images_task
-
+        self.send_mail_type = send_mail_type
     
     @aop.exec_time
     def run(self):
@@ -80,8 +82,8 @@ class SyncThread(threading.Thread):
             if not wait_email_info:
                 raise Exception, '未找到待发送邮件信息，邮件ID:%s' %self.email_id
 
-            # celery发送邮件
-            MailTask.send.delay(self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+            # 发送邮件
+            Common.send_mail(self.send_mail_type, self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
             logger.error(u'异步线程出错，转换ID：%s，错误信息：%s', self.convert_id, err)
             exit(-1)
