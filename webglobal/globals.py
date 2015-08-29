@@ -24,8 +24,8 @@ DATA_DIRS = '%s/data' %(os.path.abspath('.'))
 
 BOOK_COVER_DIRS = '%s/cover' %(DATA_DIRS)
 # 初始化书籍封面目录
-if not os.path.exists(gk7.BOOK_COVER_DIRS):
-    os.makedirs(gk7.BOOK_COVER_DIRS)
+if not os.path.exists(BOOK_COVER_DIRS):
+    os.makedirs(BOOK_COVER_DIRS)
 
 # 输出文件存储目录
 OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
