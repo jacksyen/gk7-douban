@@ -23,6 +23,9 @@ BOOK_COVER_URL = 'http://img3.douban.com/view/ark_{#type}_cover/retina/public/{#
 DATA_DIRS = '%s/data' %(os.path.abspath('.'))
 
 BOOK_COVER_DIRS = '%s/cover' %(DATA_DIRS)
+# 初始化书籍封面目录
+if not os.path.exists(gk7.BOOK_COVER_DIRS):
+    os.makedirs(gk7.BOOK_COVER_DIRS)
 
 # 输出文件存储目录
 OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))

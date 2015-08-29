@@ -27,7 +27,7 @@ urls = (
     '/admin/login', 'Login',
 )
 #web.config.debug = False
-app = web.application(urls, globals())
+app = web.application(urls, globals())    
 
 class Index:
 
@@ -39,10 +39,6 @@ class Index:
 
 if __name__ == "__main__":
     logger.info(u'-----------系统启动-----------')
-
-    # 初始化书籍封面目录
-    if not os.path.exists(gk7.BOOK_COVER_DIRS):
-        os.makedirs(gk7.BOOK_COVER_DIRS)
 
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()
