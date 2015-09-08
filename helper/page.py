@@ -29,7 +29,7 @@ class HTML:
         # 创建HTML Page
         self.page = markup.page()
         # 初始化html
-        self.page.init(lang='en', title='%s' %self.title, charset='UTF-8', encoding='UTF-8', author=self.author)
+        self.page.init(lang='zh', title='%s' %self.title, charset='UTF-8', encoding='UTF-8', author=self.author)
         # 图片类型
         self.cxt_pic_type = ['medium', 'large', 'orig', 'small', 'tiny', 'smallshow']
         # 代码样式

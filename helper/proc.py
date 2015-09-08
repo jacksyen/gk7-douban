@@ -36,7 +36,7 @@ class proc_helper:
         out_file_path = '%s/%s.%s' %(out_file_dir, file_name[0: file_name.rfind('.')], gk7.OUT_FILE_FORMAT)
         ## 
         ## 说明：
-        ## 调用系统命令：ebook-convert input_file out_file --authors <author> --cover <img> --chapter-mark "none" --page-breaks-before '//*[@class="pagebreak"]'
+        ## 调用系统命令：ebook-convert input_file out_file --authors <author> --cover <img> --language zh --chapter-mark "none" --page-breaks-before '//*[@class="pagebreak"]'
         ## --cover 书籍封面
         ## --chapter-mark 设置标注章节的模式，none：不会在章节前插入控制
         ## --page-breaks-before: XPath表达式，在指定元素前插入分页符
@@ -50,6 +50,8 @@ class proc_helper:
         if cover:
             params.append('--cover')
             params.append(cover)
+        params.append('--language')
+        params.append('zh')
         params.append('--chapter-mark')
         params.append('none')
         params.append('--page-breaks-before')
