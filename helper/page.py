@@ -2,6 +2,7 @@
 
 import os
 import sys
+import time
 import tools.markup as markup
 import aop
 from log import logger
@@ -304,7 +305,7 @@ class HTML:
         # 写入文件
         if not os.path.exists(self.file_dir):
             os.makedirs(self.file_dir)
-        filename = '%s/%s.html' %(self.file_dir, self.title.replace('/', ''))
+        filename = '%s/%d.html' %(self.file_dir, int(time.time()))
         output = open(filename, 'w')
         output.write(str(self.page))
         output.close()
