@@ -76,7 +76,7 @@ API_STATUS = {
 }
 
 API_URL = {
-    'mail': 'http://www.gk7.pw:8001/mail'
+    'mail': 'http://gk7.pw:8001/mail'
 }
 
 ## 书籍类型
