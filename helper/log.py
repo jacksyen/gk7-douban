@@ -57,6 +57,8 @@ class logger:
     def error(msg, *args, **kwargs):
         logg,hdr = logger.log('.error')
         logg.error(msg, *args, **kwargs)
+        import traceback
+        logg.error(traceback.format_exc())
         hdr.flush()
         logg.removeHandler(hdr)
 

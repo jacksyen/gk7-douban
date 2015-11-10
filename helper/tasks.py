@@ -10,6 +10,7 @@ server:
     celery -A helper.tasks worker -l info
 """
 import os
+import json
 import urllib2
 
 from celery import Task
@@ -52,6 +53,30 @@ class BaseTask(Task):
             wait_email.update_status(str(args[0]), gk7.STATUS.get('complete'))
         except Exception as e:
             logger.error(u'更新发送邮件状态异常，错误:%s,参数:%s' %(str(e), str(args)))
+
+
+'''
+调用API接口
+'''
+class ApiTask(object):
+    
+    @app.task(max_retries=5)
+    def post(url, params):
+        try:
+            result = urllib2.urlopen(url, params).read()
+            if not result:
+                logger.error(u'发送邮件结果为空,返回结果：%s' %(result))
+                ApiTask.post.retry(countdown=20, exc=e)
+                return
+            json_result = json.loads(result)
+            if str(json_result.get('status')) != gk7.API_STATUS.get('success'):
+                logger.error(u'发送邮件失败,API接口返回：%s' % str(result))
+                ApiTask.post.retry(countdown=20, exc=e)
+                return
+        except Exception as e:
+            logger.error(u'调用API接口异常，url:%s, 参数:%s,原因:%s' %(url, params, str(e)))
+            ApiTask.post.retry(countdown=20, exc=e)
+        return json_result
 
 
 '''

@@ -19,7 +19,7 @@ from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
 from db.tbl_book_img import Tbl_Book_Img
 import webglobal.globals as gk7
-from common import Common
+from api import Api
 
 '''
 推送
@@ -94,7 +94,7 @@ class Send:
                 if attach_file:
                     wait_emails.update_attach_file(email_id, attach_file)
                     # 发送邮件
-                    isSend = Common.send_mail(send_mail_type, email_id, attach_file, to_email, book_title, book_author)
+                    isSend = Api.send_mail(send_mail_type, email_id, attach_file, to_email, book_title, book_author)
                     if isSend == False:
                         return json.dumps({'status': 'FAIL', 'msg': u'推送失败，原因：发送邮件异常，请联系:hyqiu.syen@gmail.com'})
                     return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})

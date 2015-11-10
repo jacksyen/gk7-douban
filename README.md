@@ -72,16 +72,12 @@ git checkout dev
 
 首先必须安装好依赖
 ```bash
-sudo pip install web.py
-sudo pip install celery
+pip install -r requirements.txt
 sudo apt-get install calibre
 sudo apt-get install rabbitmq-server
 
 ## mysql
 sudo apt-get -y install libmysqlclient-dev python-dev
-sudo pip install MySQL-python
-## mysql连接池
-sudo pip install DBUtils
 ```
 
 * 初始化数据库

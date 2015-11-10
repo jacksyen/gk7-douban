@@ -1,0 +1,4 @@
+web.py
+celery
+MySQL-python
+DBUtils

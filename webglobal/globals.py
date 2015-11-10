@@ -13,7 +13,7 @@ DB_CONFIG = {
     'user': 'gk7',
     'passwd': 'gk7',
     'db': 'gk7_douban',
-    'port': 3306
+    'port': 3305
 }
 
 # 书籍封面前缀
@@ -76,7 +76,7 @@ API_STATUS = {
 }
 
 API_URL = {
-    'mail': 'http://gk7.pw:8001/mail'
+    'mail': 'http://www.gk7.pw:8001/mail'
 }
 
 ## 书籍类型

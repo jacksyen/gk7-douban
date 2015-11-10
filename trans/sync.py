@@ -20,7 +20,7 @@ from db.tbl_wait_converts import Tbl_Wait_Converts
 from db.tbl_wait_emails import Tbl_Wait_Emails
 from db.tbl_books import Tbl_Books
 from db.tbl_book_img import Tbl_Book_Img
-from common import Common
+from api import Api
 
 
 class SyncThread(threading.Thread):
@@ -81,9 +81,8 @@ class SyncThread(threading.Thread):
             wait_email_info = wait_email.get(self.email_id)
             if not wait_email_info:
                 raise Exception, '未找到待发送邮件信息，邮件ID:%s' %self.email_id
-
             # 发送邮件
-            Common.send_mail(self.send_mail_type, self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
+            Api.send_mail(self.send_mail_type, self.email_id, wait_email_info['email_attach_file'], str(wait_email_info['email_to_user']), str(wait_email_info['email_title']), str(wait_email_info['email_auth']))
         except Exception, err:
             logger.error(u'异步线程出错，转换ID：%s，错误信息：%s', self.convert_id, err)
             exit(-1)
