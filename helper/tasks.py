@@ -54,27 +54,44 @@ class BaseTask(Task):
         except Exception as e:
             logger.error(u'更新发送邮件状态异常，错误:%s,参数:%s' %(str(e), str(args)))
 
+'''
+API base task
+'''
+class ApiBaseTask(Task):
+
+    abstract = True
+
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        logger.error(u'调用API接口失败，celery task id:%s, 参数:%s, 错误信息:%s' %(task_id, str(args), str(exc)))
+
+'''
+Download base task
+'''
+class DownloadBaseTask(Task):
+
+    abstract = True
+
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        logger.error(u'下载文件失败，celery task id:%s，参数:%s，错误信息：%s' %(task_id, str(args), str(exc)))
 
 '''
 调用API接口
 '''
 class ApiTask(object):
     
-    @app.task(max_retries=5)
+    @app.task(base=ApiBaseTask, max_retries=5)
     def post(url, params):
         try:
-            result = urllib2.urlopen(url, params).read()
+            result = urllib2.urlopen(url, params, timeout=gk7.HTTP_TIME_OUT).read()
             if not result:
-                logger.error(u'发送邮件结果为空,返回结果：%s' %(result))
                 ApiTask.post.retry(countdown=20, exc=e)
                 return
             json_result = json.loads(result)
             if str(json_result.get('status')) != gk7.API_STATUS.get('success'):
-                logger.error(u'发送邮件失败,API接口返回：%s' % str(result))
                 ApiTask.post.retry(countdown=20, exc=e)
                 return
         except Exception as e:
-            logger.error(u'调用API接口异常，url:%s, 参数:%s,原因:%s' %(url, params, str(e)))
+            # 延迟20s重试
             ApiTask.post.retry(countdown=20, exc=e)
         return json_result
 
@@ -114,10 +131,10 @@ class DownloadTask(object):
     url: 下载URL
     file_dir: 文件本地存储目录
     '''
-    @app.task(max_retries=5)
+    @app.task(base=DownloadBaseTask, max_retries=5)
     def get_image(url, file_dir):
         try:
-            data = urllib2.urlopen(url).read()
+            data = urllib2.urlopen(url, timeout=gk7.HTTP_TIME_OUT).read()
             # 文件路径
             file_path = '%s/%s' %(file_dir, url[url.rfind('/')+1:])
             with open(file_path, 'w') as f_data:
@@ -125,7 +142,6 @@ class DownloadTask(object):
             # 压缩
             ImageUtil.compress(file_path, gk7.PIC_MAX_WIDTH)
         except Exception as e:
-            logger.error(u'下载文件失败，url:%s，文件目录:%s，原因：%s' %(url, file_dir, str(e)))
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)
         return file_path
