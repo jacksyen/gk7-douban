@@ -16,6 +16,9 @@ DB_CONFIG = {
     'port': 3305
 }
 
+# 超时时间(s)
+HTTP_TIME_OUT = 60
+
 # 书籍封面前缀
 BOOK_COVER_URL = 'http://img3.douban.com/view/ark_{#type}_cover/retina/public/{#id}.jpg'
 
