@@ -52,6 +52,8 @@ class proc_helper:
             params.append(cover)
         params.append('--language')
         params.append('zh')
+        params.append('--input-encoding')
+        params.append('UTF-8')
         params.append('--chapter-mark')
         params.append('none')
         params.append('--page-breaks-before')

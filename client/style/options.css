@@ -1,9 +1,16 @@
 div{
     font-size: 13px;
-    font-family:"宋体";
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.5em;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
 }
 a {
     color: #4183C4;
+}
+.option {
+    color: #666;
 }
 .top .title{
     font-size:18px;

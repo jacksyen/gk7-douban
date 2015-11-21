@@ -65,6 +65,8 @@ class Send:
             send_type = args.get('sendType')
             if not send_type:
                 send_type = 'article'
+            # 用户个人邮箱
+            to_private_email = args.get('toPrivateMail')
             # 插件版本
             version = args.get('version')
             # 处理数据
@@ -73,10 +75,8 @@ class Send:
             data_posts, book_subtitle, book_author = self.get_book_info(send_type, data)
             # 书籍大小
             book_size = len(book_data)
-            # 推送邮箱[gmail, 163, qq]
-            send_mail_type = args.get('sendMailType')
-            if not send_mail_type:
-                send_mail_type = 'gmail'
+
+            #send_mail_type = args.get('sendMailType')
 
             # 将待发送邮件存储至数据库
             wait_emails = Tbl_Wait_Emails()
@@ -94,7 +94,12 @@ class Send:
                 if attach_file:
                     wait_emails.update_attach_file(email_id, attach_file)
                     # 发送邮件
-                    isSend = Api.send_mail(send_mail_type, email_id, attach_file, to_email, book_title, book_author)
+                    isSend = Api.send_mail(email_id, attach_file, to_email, book_title, book_author)
+                    # 发送邮件至个人邮箱to_private_email
+                    if to_private_email:
+                        private_email_id = RandomUtil.random32Str()
+                        wait_emails.add_full(private_email_id, to_private_email, book_title, book_author, attach_file)
+                        MailTask.send.delay(private_email_id, attach_file, to_private_email, book_title, book_author)
                     if isSend == False:
                         return json.dumps({'status': 'FAIL', 'msg': u'推送失败，原因：发送邮件异常，请联系:hyqiu.syen@gmail.com'})
                     return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle'})
@@ -135,7 +140,7 @@ class Send:
             # 开启异步进程，转换书籍并发送邮件
             # 书籍输出目录[OUT_DATA_DIRS/douban书籍ID/大小/]
             out_file_dir = '%s/%s/%s' %(gk7.OUT_DATA_DIRS, ebook_id, str(book_size))
-            thread = SyncThread(convert_id, email_id, book_id, out_file_dir, book_images_task, send_mail_type)
+            thread = SyncThread(convert_id, email_id, book_id, out_file_dir, book_images_task, to_private_email)
             thread._children = weakref.WeakKeyDictionary()
             thread.start()
             if len(book_images_remote_path):
