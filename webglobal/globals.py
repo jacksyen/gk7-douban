@@ -49,7 +49,7 @@ EMAIL = {
     ## 端口
     'port': 25,
     ## 发送方邮箱
-    'user': 'hyqiu.syen@gmail.com',
+    'user': '',
     ## 发送方密码
     'pwd': '',
     ## 邮件编码
@@ -92,6 +92,8 @@ BOOK_TYPE = {
 ## 日志存储目录
 LOG_DIRS = '%s/logs' %(os.path.abspath('.'))
 
-
 ## 图片默认最大宽度
 PIC_MAX_WIDTH = 800
+
+## 发送邮件类型[local, api]
+SEND_MAIL_TYPE = 'local'

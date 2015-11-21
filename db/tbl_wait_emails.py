@@ -33,6 +33,20 @@ class Tbl_Wait_Emails:
         self.conn.commit()
 
     '''
+    将信息添加至待发送邮件数据表
+    email_id: 待发送邮件Id
+    tomail: 发送到的email
+    title: 标题
+    author: 作者
+    attach_file: 附件
+    '''
+    @aop.exec_time
+    def add_full(self, email_id, tomail, title, auth, attach_file):
+        self.cur.execute('''INSERT INTO gk7_douban_wait_emails(email_id, email_to_user, email_attach_file, email_title, email_auth, email_send_status, addtime) VALUES (%s, %s, %s, %s, %s, %s, %s)''', (email_id, tomail, attach_file, title, auth, gk7.STATUS.get('wait'), DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
+        self.conn.commit()
+        
+
+    '''
     根据请求ID获取待发送邮件信息
     request_id: 请求ID
     '''

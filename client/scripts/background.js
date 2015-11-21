@@ -1,4 +1,4 @@
-﻿var version = '2.5';
+﻿var version = '2.6.1';
 
 function checkForValidUrl(tabId, changeInfo, tab) {
     var regex = /.*\:\/\/read.douban.com\/reader\/ebook\/([^\/]*).*/;
@@ -61,6 +61,7 @@ function send(request, callback){
             'requestId': request.requestId,
 	    'ebookId': request.ebookId,
 	    'sendType': request.sendType,
+	    'toPrivateMail': localStorage.TO_PRIVATE_MAIL,
 	    'version': version
 	},
 	dataType: 'json',

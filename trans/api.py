@@ -9,8 +9,8 @@ from helper.tasks import ApiTask, MailTask
 class Api():
 
     @staticmethod
-    def send_mail(send_mail_type, email_id, attach_file, to_email, book_title, book_author):
-        if send_mail_type == 'gmail':
+    def send_mail(email_id, attach_file, to_email, book_title, book_author):
+        if gk7.SEND_MAIL_TYPE == 'api':
             data = {
                 'email_id': email_id,
                 'file_path': attach_file,
@@ -24,4 +24,5 @@ class Api():
         # 其他类型
         # 发送邮件并修改待发送邮件状态
         MailTask.send.delay(email_id, attach_file, to_email, book_title, book_author)
+        logger.info(u'发送邮件中...')
         return True
