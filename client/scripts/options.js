@@ -27,7 +27,6 @@ $(document).ready(function (){
     $('#btn-save').click(function (){
 	var email = $('#userEmail').val() + '@' + $('#emailDomain').val();
 	var privateEmail = $('#privateEmail');
-	var msg = '保存成功';
 	if(!validateEmail(email)){
 	    showMsg('kindle邮箱格式不正确，请检查，注意，输入框内只需要填邮箱名，后缀点击选择框选择即可。');
 	    localStorage.TO_MAIL = '';
@@ -44,6 +43,7 @@ $(document).ready(function (){
 	    }
 	}
 	localStorage.TO_PRIVATE_MAIL = privateEmail.val();
+	showMsg('保存成功');
     });
 
 
