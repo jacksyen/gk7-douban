@@ -9,6 +9,11 @@ div{
 a {
     color: #4183C4;
 }
+li {
+    list-style-type: circle;
+    list-style: inside;
+	line-height: 1.7em;
+}
 .option {
     color: #666;
 }
