@@ -34,7 +34,8 @@ class HTML:
         # 图片类型
         self.cxt_pic_type = ['medium', 'large', 'orig', 'small', 'tiny', 'smallshow']
         # 代码样式
-        self.style_code = 'padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;' 
+        self.style_code = 'padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;'
+        self.style_code_inline = 'margin: 0 2px; padding: 3px 6px 0; -moz-border-radius: 3px; border-radius: 3px; color: #333; background-color: #e5e4db; font-size: 12px; word-break: normal; white-space: pre-wrap;'
 
         
     @aop.exec_out_time
@@ -202,7 +203,7 @@ class HTML:
             elif kind == 'emphasize':
                 plaintexts.append('<font style="font-weight:bold;">%s</font>' %content)
             elif kind == 'code':
-                plaintexts.append('<font style="%s">%s</font>' %(self.style_code, content))
+                plaintexts.append('<font style="%s">%s</font>' %(self.style_code_inline, content))
             elif kind == 'latex':
                 plaintexts.append('<font style="color:red;">%s</font>' %content)
             elif kind == 'strikethrough':
@@ -247,8 +248,15 @@ class HTML:
                 l_type = legend_data.get('type')
                 l_data = legend_data.get('data')
                 if l_type == 'paragraph':
-                    desc_text = str(l_data.get('text'))
-                    self.page.label(desc_text, style='color:#555; font-size:.75em; line-height:1.5;')
+                    desc_text = l_data.get('text')
+                    desc_text_type = type(desc_text)
+                    if desc_text_type == unicode:
+                        self.page.label(str(desc_text), style='color:#555; font-size:.75em; line-height:1.5;')
+                    elif desc_text_type == list:
+                        for desc_text_data in desc_text:
+                            self.page.label(str(desc_text_data.get('content')), style='font-weight:bold;font-size: .75em; color: #555;line-height: 1;font-style: normal;')
+                    else:
+                        logger.unknown(u'未知的内容:%s, 类型：%s' %(str(desc_text), str(desc_text_type)))
                 else:
                     logger.unknown(u'未知的内容:%s, 类型：%s' %(str(l_data), str(l_type)))
         self.page.div.close()
