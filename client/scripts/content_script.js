@@ -126,9 +126,9 @@ function fetch_book_data(book_id, callback) {
     var post_data = {
 	ck: $.cookie('ck'),
 	aid: book_id,
-	reader_data_version: localStorage.readerDataVersion || 'v8'
+	reader_data_version: localStorage.readerDataVersion || 'v12'
     };
-    var url = 'http://read.douban.com/j/article_v2/get_reader_data';
+    var url = 'https://read.douban.com/j/article_v2/get_reader_data';
     $.ajax({
         url: url,
         data: post_data,
@@ -182,10 +182,10 @@ function call_result(data, type, callback){
 function tryGetReadData(book_id, callback){
     // 更换抓取数据链接
     $.ajax({
-        url: 'http://read.douban.com/j/article_v2/gallery/get_reader_data',
+        url: 'https://read.douban.com/j/article_v2/gallery/get_reader_data',
         data: {
             works_id: book_id,
-            reader_data_version: localStorage.readerDataVersion || 'v8'
+            reader_data_version: localStorage.readerDataVersion || 'v12'
         },
         dataType: 'json',
         type: 'POST',
