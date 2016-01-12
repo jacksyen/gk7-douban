@@ -1,4 +1,4 @@
-﻿var version = '2.6.1';
+﻿var version = '2.7';
 
 function checkForValidUrl(tabId, changeInfo, tab) {
     var regex = /.*\:\/\/read.douban.com\/reader\/ebook\/([^\/]*).*/;
