@@ -1,9 +1,12 @@
 ﻿body {
     width: 450px;
     font: 12px/1.5 "Helvetica Neue",Helvetica,"Lucida Grande","Luxi Sans",Arial,"Hiragino Sans GB",STHeiti,"Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Micro Hei Mono","WenQuanYi Zen Hei","WenQuanYi Zen Hei Mono",LiGothicMed;
+    margin: 0 0;
+    padding: 0 0;
 }
 .wrapper {
     margin-top: 10px;
+    margin-left: 10px;
 }
 .ui.list{
     list-style-type: none;
@@ -74,3 +77,51 @@ a, a:hover {
     border-color: #1678c2!important;
     color: #fff!important;
 }
+.tabular.menu {
+    box-shadow: none!important;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #d4d4d5;
+    font-size: 1.2em;
+    display: flex;
+    font-weight: 400;
+    min-height: 2em;
+    margin-left: -10px;
+    padding-left: 10px;
+}
+.ui.tabular.menu .active.item {
+    background: #fff;
+    color: rgba(0,0,0,.95);
+    border-top-width: 1px;
+    border-color: #d4d4d5;
+    font-weight: 700;
+    margin-bottom: -1px;
+    cursor: default;
+}
+.ui.tabular.menu .item {
+    border-bottom: none;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-top: 2px solid transparent;
+    padding: .7em 1.2em;
+    position: relative;
+    vertical-align: middle;
+    line-height: 1;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-box-flex: 0;
+    flex: 0 0 auto;
+    -webkit-user-select: none;
+    text-transform: none;
+    cursor: pointer;
+    transition: background .1s ease,box-shadow .1s ease,color .1s ease;
+}
+.ui.attached.segment {
+    position: relative;
+    padding: 1em;
+}
+.hidden {
+    display: none;
+}
+
+
