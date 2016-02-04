@@ -46,3 +46,15 @@ def exec_time_consum(func):
         logger.info("调用函数:{%s.%s}，耗时：%.3fs" %(func.__module__, func.__name__, time.time() - t0))
         return back
     return wrapper
+
+'''
+打印调用函数耗时信息
+'''
+def exec_api_time_consum(func):
+    def wrapper(*args, **args2):
+        t0 = time.time()
+        logger.info(u"调用函数:{%s.%s}, 入参：%s" %(func.__module__, func.__name__, str(args)))
+        back = func(*args, **args2)
+        logger.info("调用函数:{%s.%s}，耗时：%.3fs" %(func.__module__, func.__name__, time.time() - t0))
+        return back
+    return wrapper

@@ -148,7 +148,7 @@ class Send:
             return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...最新版本为2.6.8，如接收不到，请重新设置kinde白名单'})
         except Exception, err:
             logger.error(u'推送异常,错误信息：%s，入参：%s' %(err, str(args)))
-            return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com...最新版本为2.6.8，如接收不到，请重新设置kinde白名单' %err})
+            return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com' %err})
 
     '''
     获取书籍基本信息（数据，副标题，作者）

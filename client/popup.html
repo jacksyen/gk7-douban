@@ -12,50 +12,100 @@
     <div class="wrapper">
 
       <div class="ui top attached tabular menu">
-	<a class="item active" data-tab="first">推送历史</a>
-	<a class="item" data-tab="second">个人设置</a>
+	<a class="item active" data-tab="history">推送历史</a>
+	<a class="item" data-tab="setting">个人设置</a>
+	<a class="item" data-tab="use">使用办法</a>
+	<a class="item" data-tab="offer">捐助</a>
       </div>
-      <div class="ui bottom attached tab segment" data-tab="first">
+      <div class="ui bottom attached tab segment history" data-tab="history">
 	<div class="ui middle aligned divided list">
-	  <div class="item">
-            <div class="right floated content">
-              <a class="ui green label">推送成功</a>
-            </div>
-            <div class="title">
-              <a href="">量子态历史穿越指南</a>
-            </div>
-	  </div>
-	  <div class="item">
-            <div class="right floated content">
-              <a class="ui red label">推送失败</a>
-            </div>
-            <div class="title">
-	      <a href="">春秋战国：一段你应了解的历史（二十）</a>
-            </div>
-	  </div>
-	  <div class="item">
-            <div class="right floated content">
-              <a class="ui blue label">推送中</a>
-            </div>
-            <div class="title">
-              <a href="">如果恰好相爱</a>
-            </div>
-	  </div>
-	  <div class="item">
-            <div class="right floated content">
-	      <a class="ui green label">推送成功</a>
-            </div>
-            <div class="title">
-              <a href="">我不知道该如何像正常人那样生活</a>
-            </div>
+	</div>
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="setting" style="display: none">
+      	<div class="list margin">
+	  1. 设置您的kindle邮箱：
+	  <div class="email-div">
+	    kindle邮箱：<input type='text' id='userEmail'/>
+	    <span>@</span>
+	    <select id="emailDomain">
+              <option value="kindle.com" selected="selected">kindle.com</option>
+              <option value="free.kindle.com">free.kindle.com</option>
+              <option value="kindle.cn">kindle.cn</option>
+	      <option value="iduokan.com">iduokan.com</option>
+            </select>
+
 	  </div>
 	</div>
+	<div class="list margin">
+	  2. 设置您的个人邮箱：
+	  <div class="email-div">
+	    个人邮箱：<input type='text' id='privateEmail' /><br/>
+	    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（<span class="option">可选，当填入会发送至您的个人邮箱，同时也会发送至kindle邮箱</span>）
+	  </div>
+	</div>
+	<div class="list margin">
+	  <div class="save">
+	    <a class="button" id="btn-save">
+	      <span>保存</span>
+	    </a>
+	    <span class='msg'></span>
+	  </div>
+	</div>
+	<div class="hr"></div>
+	<div class="help">
+	  <div>* 有问题请发邮件至<a href="mailto:hyqiu.syen@gmail.com">hyqiu.syen@gmail.com</a>，欢迎给予意见!</div>
+	  <div>* 加入豆瓣小组讨论：<a href="http://www.douban.com/group/544287/" target="_blank">http://www.douban.com/group/544287/</a></div>
+	</div>
 
+      </div> <!-- end of setting -->
 
-      </div>
-      <div class="ui bottom attached tab segment" data-tab="second" style="display: none">
-      	个人设置
-      </div>
+      <div class="ui bottom attached tab segment" data-tab="use" style="display: none">
+      	<div class="list">
+	  1. 在 
+	  <a href="https://www.amazon.cn/gp/digital/fiona/manage?ie=UTF8&ref_=gno_yam_myk#pdocSettings" target="_blank">
+	    z.cn
+	  </a>
+	  或
+	  <a href="https://www.amazon.com/gp/digital/fiona/manage?ie=UTF8&ref_=gno_yam_myk#pdocSettings" target="_blank">
+	    amazon.com
+	  </a>
+	  中添加以下邮箱为信任邮箱
+	  <ul>
+	    <li>gk7.douban@gmail.com</li>
+	    <li>gk7.douban1@gmail.com</li>
+	    <li>gk7.douban2@gmail.com</li>
+	  </ul>
+	</div>
+	<div class="list">
+	  2. <a class="button" id="btnSetting">
+	    <span>点击设置kindle邮箱</span>
+	  </a>
+	</div>
+	<div class="list faq"> 	
+	  3. 打开豆瓣阅读(
+	  <a href="http://read.douban.com/reader/ebooks">
+	    http://read.douban.com/reader/ebooks
+	  </a>
+	  或者豆瓣阅读专栏(
+	  <a href="http://read.douban.com/reader/columns">
+	    http://read.douban.com/reader/columns
+	  </a>
+	  )，点击任何书籍，看到地址栏上的推送按钮，点击推送即可;或者在页面中右键点击菜单 <strong>gk7-推送</strong>
+	</div>
+      </div><!-- end of use -->
+
+      <div class="ui bottom attached tab segment" data-tab="offer" style="display: none">
+   	<div class="donation">
+	  <div class="left">
+	    <img src="" width="200" height="200" id="offerImg" />
+	  </div>
+	  <div class="right">
+	    如果您觉得该插件帮助到了您，有意捐助的话，请扫一扫左侧支付宝二维码，开发者在此表示衷心的感谢 ^_^
+	  </div>
+	</div><!-- donation end -->
+
+      </div><!-- end of offer -->
+
     </div>
   </body>
 </html>

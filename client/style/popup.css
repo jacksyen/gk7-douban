@@ -3,6 +3,7 @@
     font: 12px/1.5 "Helvetica Neue",Helvetica,"Lucida Grande","Luxi Sans",Arial,"Hiragino Sans GB",STHeiti,"Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Micro Hei Mono","WenQuanYi Zen Hei","WenQuanYi Zen Hei Mono",LiGothicMed;
     margin: 0 0;
     padding: 0 0;
+    height: 285px;
 }
 .wrapper {
     margin-top: 10px;
@@ -10,7 +11,7 @@
 }
 .ui.list{
     list-style-type: none;
-    margin: 1em 0;
+    /* margin: 1em 0; */
     padding: 0;
     font-size: 1em;
 }
@@ -36,9 +37,24 @@
     display: inline-block;
     padding: 0 0 0 .5em;
 }
-.title a {
+.history {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 5px;
+}
+.title {
     font-weight: 700;
     color: #825d5b;
+}
+.center{
+    text-align: center;
+    line-height: 2.5em;
+}
+.large {
+    font-size: 16px;
+}
+.gray {
+    color: #999;
 }
 a, a:hover {
     text-decoration: none;
@@ -118,10 +134,90 @@ a, a:hover {
 }
 .ui.attached.segment {
     position: relative;
-    padding: 1em;
+    padding: 1em 1em;
 }
 .hidden {
     display: none;
 }
-
-
+.tab {
+    height: 220px;
+}
+.tab .list{
+    font-size: 13px;
+    /* line-height: 1.5em; */
+}
+.tab .margin {
+    margin-bottom: 10px;
+}
+.tab .email-div{
+    text-indent: 2em;
+}
+.tab .save{
+    margin-top: 5px;
+    text-indent: 0px;
+    margin-left: 10px;
+ }
+.tab .button{
+    width: 100px;
+    text-align: center;
+    background-color: #60B044;
+    background-image: linear-gradient(#8ADD6D, #60B044);
+    background-repeat: repeat-x;
+    border-color: #5CA941;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    line-height: 29px;
+    padding: 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
+}
+#btnSetting{
+    width: 140px;
+    text-align: center;
+}
+.tab .faq{
+    margin-top:5px;
+    font-size: 14px;
+    color: #5CA941;
+}
+.tab .option {
+    color: #666;
+    font-size: 12px;
+}
+.msg{
+    margin-left: 18px;
+    color: #789;
+}
+.hr{
+    border-top: 1px dashed #789;
+    width: 90%;
+}
+.tab .help{
+    margin-top:10px;
+}
+.donation .left{
+    float: left;
+    width: 50%;
+}
+.donation .right{
+    font-size: 13px;
+    color: red;
+    font-weight: 700;
+    line-height: 1.4em;
+    padding-top: 20px;
+}
+::-webkit-scrollbar {
+    width: 7px;
+    background: #fff;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border: 1px #ccc solid;
+}

@@ -13,6 +13,7 @@ from helper.page import HTML
 import webglobal.globals as gk7
 
 from trans.send import Send
+from trans.history import History
 from trans.admin.login import Login
 
 
@@ -24,6 +25,7 @@ sys.setdefaultencoding('utf-8')
 urls = (
     '/','Index',
     '/send', 'Send',
+    '/history', 'History',
     '/admin/login', 'Login',
 )
 #web.config.debug = False

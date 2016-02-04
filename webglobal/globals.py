@@ -9,11 +9,11 @@ import os
 
 
 DB_CONFIG = {
-    'host': '192.168.1.66',
+    'host': '192.168.1.238',
     'user': 'gk7',
     'passwd': 'gk7',
     'db': 'gk7_douban',
-    'port': 3305
+    'port': 3306
 }
 
 # 超时时间(s)

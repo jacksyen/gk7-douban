@@ -48,12 +48,21 @@ class Tbl_Wait_Emails:
 
     '''
     根据请求ID获取待发送邮件信息
-    request_id: 请求ID
+    email_id: emailID
     '''
     @aop.exec_time
     def get(self, email_id):
         self.cur.execute('''SELECT email_id, email_to_user, email_attach_file, email_title, email_auth, email_send_status FROM gk7_douban_wait_emails WHERE email_id =%s''', (email_id, ))
         return self.cur.fetchone()
+
+    '''
+    根据请求ID获取待发送邮件信息
+    user_id: 用户id
+    '''
+    @aop.exec_time
+    def get_by_userId(self, user_id):
+        self.cur.execute('''SELECT email_title, email_auth, email_send_status FROM gk7_douban_wait_emails WHERE email_user_id =%s order by addtime desc''', (user_id, ))
+        return self.cur.fetchall()
 
     '''
     根据请求ID修改发送邮件状态
