@@ -101,8 +101,8 @@ class Send:
                         wait_emails.add_full(private_email_id, to_private_email, book_title, book_author, attach_file)
                         MailTask.send.delay(private_email_id, attach_file, to_private_email, book_title, book_author)
                     if isSend == False:
-                        return json.dumps({'status': 'FAIL', 'msg': u'推送失败，原因：发送邮件异常，请联系:hyqiu.syen@gmail.com...最新版本为2.6.8，如接收不到，请重新设置kinde白名单'})
-                    return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...最新版本为2.6.8，如接收不到，请重新设置kinde白名单'})
+                        return json.dumps({'status': 'FAIL', 'msg': u'推送失败，原因：发送邮件异常，请联系:hyqiu.syen@gmail.com...'})
+                    return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...'})
 
             # 创建HTML
             # 源文件目录[绝对路径](格式：主目录/douban书籍ID/书籍大小)
@@ -144,11 +144,11 @@ class Send:
             thread._children = weakref.WeakKeyDictionary()
             thread.start()
             if len(book_images_remote_path):
-                return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，书籍中存在图片，推送的时间更长一些，请稍侯查看您的kindle...最新版本为2.6.8，如接收不到，请重新设置kinde白名单'})
-            return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...最新版本为2.6.8，如接收不到，请重新设置kinde白名单'})
+                return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，书籍中存在图片，推送的时间更长一些，请稍侯查看您的kindle...'})
+            return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...'})
         except Exception, err:
             logger.error(u'推送异常,错误信息：%s，入参：%s' %(err, str(args)))
-            return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com...最新版本为2.6.8，如接收不到，请重新设置kinde白名单' %err})
+            return json.dumps({'status': 'ABNORMAL', 'msg': u'推送异常,%s，请联系:hyqiu.syen@gmail.com...' %err})
 
     '''
     获取书籍基本信息（数据，副标题，作者）
