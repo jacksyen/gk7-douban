@@ -176,7 +176,7 @@ class HTML:
                 self.page.p((plaintexts,), style=self.get_text_style(cxt_data_format, is_indent=True))
             elif cxt_type == 'code': ## 代码
                 self.page.p(style=self.get_text_style(cxt_data_format))
-                self.page.code((str(cxt_data_text),), style=self.style_code)
+                self.page.code((str(cxt_data_text).replace('<', '&lt;').replace('>', '&gt;'),), style=self.style_code)
                 self.page.p.close()
             else:
                 logger.unknown(u'未知的内容type，data内容：%s, 书籍名称:%s' %(str(cxt_data), self.title))
@@ -189,7 +189,7 @@ class HTML:
     def get_head_or_para_text(self, cxt_data_text):
         # 单条内容，直接返回
         if isinstance(cxt_data_text, list) == False:
-            return str(cxt_data_text)
+            return str(cxt_data_text).replace('<', '&lt;').replace('>', '&gt;')
         # 多条内容，带注释
         plaintexts = []
         for text in cxt_data_text:
@@ -213,7 +213,7 @@ class HTML:
             else:
                 plaintexts.append(content)
                 logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
-        return ''.join(plaintexts)
+        return ''.join(plaintexts).replace('<', '&lt;').replace('>', '&gt;')
 
     '''
     获取图片段落
