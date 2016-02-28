@@ -203,13 +203,13 @@ class HTML:
             elif kind == 'emphasize':
                 plaintexts.append('<font style="font-weight:bold;">%s</font>' %content)
             elif kind == 'code':
-                plaintexts.append('<font style="%s">%s</font>' %(self.style_code_inline, content.replace('<', '&lt;').replace('>', '&gt;')))
+                plaintexts.append('<font style="%s">%s</font>' %(self.style_code_inline, content))
             elif kind == 'latex':
-                plaintexts.append('<font style="color:red;">%s</font>' %(content.replace('<', '&lt;').replace('>', '&gt;'), ))
+                plaintexts.append('<font style="color:red;">%s</font>' %(content))
             elif kind == 'strikethrough':
                 plaintexts.append('<font style="text-decoration: line-through;">%s</font>' %content)
             elif kind == 'regular_script':
-                plaintexts.append(content.replace('<', '&lt;').replace('>', '&gt;'))
+                plaintexts.append(content)
             else:
                 plaintexts.append(content)
                 logger.unknown(u'未知的data->text->kind，text内容：%s，图书标题：%s' %(str(cxt_data_text), self.title))
