@@ -83,7 +83,7 @@ class HTML:
             ## 添加分割页面段落
             self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
         ## 片尾
-        self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
+        #self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
         # 写入文件
         filename = self.write_html_to_file()
         return filename, book_images_remote_path
@@ -132,7 +132,7 @@ class HTML:
             self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
 
         ## 片尾
-        self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
+        #self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
         # 写入文件
         filename = self.write_html_to_file()
 
@@ -162,7 +162,7 @@ class HTML:
             cxt_data_text = cxt_data.get('text')
             # 为空判断
             if cxt_data_text == '' or len(cxt_data_text) == 0:
-                cxt_data_text = '&nbsp'
+                cxt_data_text = '&nbsp;'
             # 内容格式
             cxt_data_format = cxt_data.get('format')
             # 类型判断
