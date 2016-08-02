@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 author by jacksyen[hyqiu.syen@gmail.com]
+https://img1.doubanio.com/dae/staticng/s/ark/latest/js/dist/reader/4.b5cafd1dd8d845646b6d.js
+
 ---------------------------------------
 解密豆瓣阅读文章
 """
