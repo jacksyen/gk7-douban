@@ -7,6 +7,8 @@ author by jacksyen[hyqiu.syen@gmail.com]
 """
 import os
 
+# 环境(DEV,TEST,ONLINE)
+ENV = 'ONLINE'
 
 DB_CONFIG = {
     'host': '192.168.1.66',
@@ -32,6 +34,9 @@ if not os.path.exists(BOOK_COVER_DIRS):
 
 # 输出文件存储目录
 OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
+if ENV == 'ONLINE':
+    # 生产环境存储在/data目录
+    OUT_DATA_DIRS = '/data'
 
 # 输出文件格式
 OUT_FILE_FORMAT = 'mobi'
