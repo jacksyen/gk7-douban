@@ -36,7 +36,7 @@ if not os.path.exists(BOOK_COVER_DIRS):
 OUT_DATA_DIRS = '%s/out-data' %(os.path.abspath('.'))
 if ENV == 'ONLINE':
     # 生产环境存储在/data目录
-    OUT_DATA_DIRS = '/data'
+    OUT_DATA_DIRS = '/data/gk7-douban/mobi'
 
 # 输出文件格式
 OUT_FILE_FORMAT = 'mobi'
