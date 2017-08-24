@@ -2,3 +2,5 @@ web.py
 celery
 MySQL-python
 DBUtils
+uwsgi
+Image

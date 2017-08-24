@@ -3,7 +3,7 @@ import hashlib
 import random
 import time
 import uuid
-import Image
+from PIL import Image
 
 '''
 图片帮助类
