@@ -50,15 +50,16 @@ function set_icon(tab_id, icon) {
 **/
 function send(request, callback){
     $.ajax({
-	url: 'http://gk7.pw:8000/send',
+	//url: 'http://gk7.pw:8000/send',
 	//url: 'http://112.124.38.237:8000/send',
-        //url: 'http://localhost:8000/send',
+        url: 'http://localhost:8000/send',
         //url: 'http://192.168.1.108:8000/send',
 	data: {
-            'bookData': request.bookData,
-            'bookTitle': request.title,
-            'toMail': localStorage.TO_MAIL,
-            'requestId': request.requestId,
+        'tmplId': request.tmplId,
+        'bookData': request.bookData,
+        'bookTitle': request.title,
+        'toMail': localStorage.TO_MAIL,
+        'requestId': request.requestId,
 	    'ebookId': request.ebookId,
 	    'sendType': request.sendType,
 	    'toPrivateMail': localStorage.TO_PRIVATE_MAIL,
@@ -68,8 +69,8 @@ function send(request, callback){
 	type: 'POST',
 	timeout: 100*1000// 100秒超时
     }).done(function(response){
-	callback(response);
+        callback(response);
     }).fail(function(){
-	callback({status:'FAIL', msg:'推送请求失败，请稍候再试，或联系：<a href="mailto:hyqiu.syen@gmail.com">hyqiu.syen@gmail.com</a>'});
+        callback({status:'FAIL', msg:'推送请求失败，请稍候再试，或联系：<a href="mailto:hyqiu.syen@gmail.com">hyqiu.syen@gmail.com</a>'});
     });
 }

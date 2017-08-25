@@ -6,7 +6,7 @@ author by jacksyen[hyqiu.syen@gmail.com]
 celery配置
 """
 CELERY_ENABLE_UTC = True
-CELERY_TIMEZONE = 'Europe/London'
+CELERY_TIMEZONE = 'Asia/Shanghai'
 
 BROKER_URL = 'amqp://gk7:gk7@localhost:5672/gk7-vhost'
 CELERY_RESULT_BACKEND = 'amqp'

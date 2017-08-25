@@ -51,6 +51,8 @@ class Send:
     @aop.exec_out_time
     def execute(self, args):
         try:
+            # 加密id
+            tmpl_id = args.get('tmplId')
             # 图书数据
             book_data = args.get('bookData')
             # 推送的email地址
@@ -70,7 +72,7 @@ class Send:
             # 插件版本
             version = args.get('version')
             # 处理数据
-            data = decrypt.parse(book_data)
+            data = decrypt.parse(tmpl_id, book_data)
             # 文章集合, 图书副标题, 图书作者
             data_posts, book_subtitle, book_author = self.get_book_info(send_type, data)
             # 书籍大小
