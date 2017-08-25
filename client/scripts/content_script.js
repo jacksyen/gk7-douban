@@ -78,6 +78,7 @@ function getArticleInfo(callback){
             tmplId: book_data.tmplId,
             title : book_data.title,
             bookData: data,
+            denum: localStorage.readerUserId == 'anonymous' ? '24871': '53092',
             ebookId: getRequestBookId(),
             status: 'SUCCESS',
             sendType: book_data.type || getSendType(), // article, column, gallery

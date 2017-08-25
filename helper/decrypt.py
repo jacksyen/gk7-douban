@@ -20,7 +20,7 @@ class decrypt:
     '''
     @staticmethod
     @aop.exec_time_consum
-    def parse(tmpl_id, decrypt_str):
+    def parse(tmpl_id, denum, decrypt_str):
         def xtoy(a):
             i = 0
             ll = []
@@ -43,7 +43,7 @@ class decrypt:
                 return n
             return list(e)
 
-        def oid(e, t='53092', n=64):
+        def oid(e, t, n=64):
             for i in t:
                 r = ord(str(i)) % n
                 x = ioc(e[r:])
@@ -51,7 +51,7 @@ class decrypt:
                 e = x
             return e
         #'PQXVprI$7FzoK_S6aTCtj5nDexURy4NY9v03Wlu1iqsOJGEwfBmL2dhk8cgZMAbH'
-        _hex_chs = oid(str(tmpl_id))
+        _hex_chs = oid(str(tmpl_id), denum)
         n = {}
         o = "~"
         a = 64

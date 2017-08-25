@@ -51,10 +51,14 @@ class Send:
     @aop.exec_out_time
     def execute(self, args):
         try:
+            # 插件版本
+            version = args.get('version')
+            if str(version) != '2.8':
+                return json.dumps({'status': 'WARN', 'msg': u'您的插件版本太低了，请升级，豆瓣小组：https://www.douban.com/group/544287/'})
             # 加密id
             tmpl_id = args.get('tmplId')
-            if not tmpl_id:
-                return json.dumps({'status': 'WARN', 'msg': u'您的插件版本太低了，请升级，豆瓣小组：https://www.douban.com/group/544287/'})
+            # 加密号（登录:53092， 不登录:24871）
+            denum = args.get('denum')
             # 图书数据
             book_data = args.get('bookData')
             # 推送的email地址
@@ -71,10 +75,8 @@ class Send:
                 send_type = 'article'
             # 用户个人邮箱
             to_private_email = args.get('toPrivateMail')
-            # 插件版本
-            version = args.get('version')
             # 处理数据
-            data = decrypt.parse(tmpl_id, book_data)
+            data = decrypt.parse(tmpl_id, denum, book_data)
             # 文章集合, 图书副标题, 图书作者
             data_posts, book_subtitle, book_author = self.get_book_info(send_type, data)
             # 书籍大小
