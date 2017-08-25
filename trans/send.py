@@ -53,6 +53,8 @@ class Send:
         try:
             # 加密id
             tmpl_id = args.get('tmplId')
+            if not tmpl_id:
+                return json.dumps({'status': 'WARN', 'msg': u'您的插件版本太低了，请升级，豆瓣小组：https://www.douban.com/group/544287/'})
             # 图书数据
             book_data = args.get('bookData')
             # 推送的email地址
