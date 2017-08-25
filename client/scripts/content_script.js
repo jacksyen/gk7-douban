@@ -48,6 +48,7 @@ function showResultMsg(result, hidden){
     }
 }
 
+
 /**
    获取文章数据
 **/
@@ -74,12 +75,30 @@ function getArticleInfo(callback){
         showResultMsg({
             'msg': '正在推送中，请稍候...'
         }, false);
+
+
+      var n = undefined;
+      var ss =  $('script:not([id])');
+      for(var i=0;i<ss.length;i++) {
+        if ($(ss[i]).attr('src')){
+          continue;
+        }
+        var text = $(ss[i]).text();
+        var matchs = text.match(/me:.*"id":"([^"]+)/);
+        if (matchs && matchs.length == 2) {
+          n = matchs[1];
+          break;
+        }
+      }
+      n = n || "";
+      var ebookId = getRequestBookId();
+      var denum = parseInt((n + ebookId).slice(0, 10), 36).toString().slice(0, 5);
         callback({
             tmplId: book_data.tmplId,
             title : book_data.title,
-            bookData: data,
-            denum: localStorage.readerUserId == 'anonymous' ? '24871': '53092',
-            ebookId: getRequestBookId(),
+          bookData: data,
+          denum: denum,
+            ebookId: ebookId,
             status: 'SUCCESS',
             sendType: book_data.type || getSendType(), // article, column, gallery
         });
