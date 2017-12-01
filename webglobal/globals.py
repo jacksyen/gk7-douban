@@ -22,7 +22,7 @@ DB_CONFIG = {
 HTTP_TIME_OUT = 60
 
 # 书籍封面前缀
-BOOK_COVER_URL = 'https://img5.doubanio.com/view/ark_{#type}_cover/retina/public/{#id}.jpg'
+BOOK_COVER_URL = 'https://img3.doubanio.com/view/ark_{#type}_cover/retina/public/{#id}.jpg'
 
 # 源文件存储目录
 DATA_DIRS = '%s/data' %(os.path.abspath('.'))

@@ -42,22 +42,24 @@ class proc_helper:
         ## --page-breaks-before: XPath表达式，在指定元素前插入分页符
         ## 
         params = ['ebook-convert']
-        params.append(input_file_path)
-        params.append(out_file_path)
+        params.append(input_file_path.encode('utf8'))
+        params.append(out_file_path.encode('utf8'))
         if author:
             params.append('--authors')
-            params.append(author)
+            params.append(author.encode('utf8'))
         if cover:
             params.append('--cover')
-            params.append(cover)
+            params.append(cover.encode('utf8'))
         params.append('--language')
         params.append('zh')
         params.append('--input-encoding')
         params.append('UTF-8')
         params.append('--chapter-mark')
-        params.append('none')
+        params.append('"none"')
         params.append('--page-breaks-before')
-        params.append('//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT)
+        params.append('\'//*[@class="%s"]\'' %gk7.BOOK_PAGE_SPLIT)
+
+        
         ## 调用
         call(params)
         #call(['ebook-convert', input_file_path, out_file_path, '--authors', author, '--cover', cover, '--chapter-mark', 'none', '--page-breaks-before', '//*[@class="%s"]' %gk7.BOOK_PAGE_SPLIT])

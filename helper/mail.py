@@ -59,6 +59,6 @@ class SendMail:
             logger.info(u'发送邮件至%s完成', tomail)
         except Exception, err:
             logger.error(u'发送邮件至%s失败,%s', tomail, err)
-            raise Exception, '发送邮件至%s失败,%s' %(tomail, err)
+            raise Exception, err
         finally:
             self.close()
