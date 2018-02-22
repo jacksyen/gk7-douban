@@ -14,7 +14,7 @@ import json
 import urllib2
 
 from celery import Task
-from celery import Celery
+from celery import Celery,platforms
 
 from log import logger
 from util import ImageUtil
@@ -22,6 +22,9 @@ from helper.mail import SendMail
 from webglobal import celeryconfig
 from db.tbl_wait_emails import Tbl_Wait_Emails
 import webglobal.globals as gk7
+
+# 强制root执行
+platforms.C_FORCE_ROOT = True
 
 app = Celery()
 # 加载celery配置文件
