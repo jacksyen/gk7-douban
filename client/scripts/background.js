@@ -50,9 +50,9 @@ function set_icon(tab_id, icon) {
 **/
 function send(request, callback){
     $.ajax({
-      //url: 'http://gk7.pw:8000/send',
+      url: 'http://gk7.pw:8000/send',
 	//url: 'http://112.124.38.237:8000/send',
-      url: 'http://localhost:8080/send',
+      //url: 'http://localhost:8080/send',
         //url: 'http://192.168.1.108:8000/send',
 	data: {
           'tmplId': request.tmplId,
