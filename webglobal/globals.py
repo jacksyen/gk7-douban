@@ -54,7 +54,7 @@ EMAIL = {
     ## SMTP
     'smtp': 'smtp.gmail.com',
     ## 端口
-    'port': 25,
+    'port': 465,
     ## 发送方邮箱
     'user': '',
     ## 发送方密码

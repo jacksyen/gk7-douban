@@ -19,8 +19,8 @@ class SendMail:
 
     def __init__(self):
         # 邮件服务
-        self.server = smtplib.SMTP(gk7.EMAIL.get('smtp'), gk7.EMAIL.get('port'), timeout=gk7.EMAIL.get('timeout'))
-        self.server.starttls()
+        self.server = smtplib.SMTP_SSL(gk7.EMAIL.get('smtp'), gk7.EMAIL.get('port'), timeout=gk7.EMAIL.get('timeout'))
+        #self.server.starttls()
         self.server.login(gk7.EMAIL.get('user'), gk7.EMAIL.get('pwd'))
         self.from_mail = gk7.EMAIL.get('user')
         self.encode = gk7.EMAIL.get('encode')
