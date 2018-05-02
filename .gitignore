@@ -52,3 +52,6 @@ data/*
 out-data/*
 *.bak
 *.zip
+.DS_Store
+
+.idea/

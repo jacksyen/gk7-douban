@@ -1,93 +1,117 @@
 <!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
 <html lang="en">
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    <meta content="hyqiu.syen@gmail.com" name="author" />
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="hyqiu.syen@gmail.com" name="author"/>
     <title>gk7-豆瓣阅读推送设置</title>
+    <script src="scripts/vue.js"></script>
+    <script src="scripts/index.js"></script>
     <link rel="stylesheet" type="text/css" href="style/options.css">
-    <script src="scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
-    <script src="scripts/options.js" type="text/javascript"></script>
-  </head>
-  <body>
-    <!-- 最外层div 开始 -->
-    <div>
-      <!-- top 开始 -->
-      <div class="top">
-	<p class="title">
-	  推送设置<br/>
-	  
-	  豆瓣阅读推送至kindle
-	</p>
-      </div><!-- top 结束 -->
-      <!-- center 开始 -->
-      <div class="center">
-	<div class="list">
-	  1. 在 
-	  <a href="https://www.amazon.cn/gp/digital/fiona/manage?ie=UTF8&ref_=gno_yam_myk#pdocSettings" target="_blank">
-	    z.cn
-	  </a>
-	  或
-	  <a href="https://www.amazon.com/gp/digital/fiona/manage?ie=UTF8&ref_=gno_yam_myk#pdocSettings" target="_blank">
-	    amazon.com
-	  </a>
-	  中添加以下邮箱为信任邮箱
-	  <ul>
-	  <li>gk7.douban@gmail.com</li>
-	  <li>gk7.douban1@gmail.com</li>
-	  <li>gk7.douban2@gmail.com</li>
-	  </ul>
-	</div>
-	<div class="list">
-	  2. 设置您的kindle邮箱：
-	  <div class="email-div">
-	    kindle邮箱：<input type='text' id='userEmail'/>
-	    <span>@</span>
-	    <select id="emailDomain">
-              <option value="kindle.com" selected="selected">kindle.com</option>
-              <option value="free.kindle.com">free.kindle.com</option>
-              <option value="kindle.cn">kindle.cn</option>
-	      <option value="iduokan.com">iduokan.com</option>
-            </select>
+    <link rel="stylesheet" type="text/css" href="style/index.css">
+</head>
+<body>
+<div id="app">
+    <div class="title">
+        gk7-豆瓣阅读推送设置
+    </div>
+    <el-popover
+            ref="kindle-pop"
+            placement="right-start"
+            title="提示"
+            width="200"
+            trigger="hover"
+            content="由于亚马逊限制，导致可能收不到推送邮件，固默认不启用该设置，您可以点击开关手动打开">
+    </el-popover>
+    <el-form ref="setForm" :model="setForm" :rules="rules" label-width="100px">
+        <el-row :gutter="12">
+            <el-col :span="8">
+                <el-card shadow="hover">
+                    <div slot="header" class="clearfix">
+                        <span>个人邮箱</span>
+                        <!--<el-switch v-model="setForm.switchPerson" active-color="#13ce66" style="float: right;">-->
+                        <!--</el-switch>-->
+                    </div>
+                    <el-form-item label="邮箱地址：" prop="privateEmail">
+                        <el-input v-model="setForm.privateEmail" placeholder="请输入邮箱地址" autofocus="true">
+                        </el-input>
+                    </el-form-item>
+                </el-card>
+            </el-col>
+            <el-col :span="8">
+                <el-card shadow="hover" v-popover:kindle-pop>
+                    <div slot="header" class="clearfix">
+                        <span>Kindle邮箱</span>
+                        <el-switch v-model="setForm.switchKindle" @change="changeSwitchKindle()" active-color="#13ce66" style="float: right;">
+                        </el-switch>
+                    </div>
+                    <el-form-item label="邮箱地址：" prop="userEmail">
+                        <el-input v-model="setForm.userEmail" placeholder="请输入邮箱前缀" v-bind:disabled="this.setForm.kindleItemDisabled">
+                            <el-select v-model="setForm.emailDomain" slot="append" placeholder="请选择后缀">
+                                <el-option v-for="o in setForm.kindleEnd" :key="o" :value="o">
+                                </el-option>
+                            </el-select>
+                        </el-input>
+                    </el-form-item>
+                </el-card>
+            </el-col>
+        </el-row>
+        <el-row style="margin-top: 8px;">
+            <el-col :span="16">
+                <el-button type="primary" native-type='submit' plain @click.native.prevent="submitForm('setForm')" style="width:100%">保存</el-button>
 
-	  </div>
-	</div>
-	<div class="list">
-	  3. 设置您的个人邮箱：
-	  <div class="email-div">
-	    个人邮箱：<input type='text' id='privateEmail' />（<span class="option">可选，当填入会发送至您的个人邮箱，同时也会发送至kindle邮箱</span>）
-	  </div>
-	</div>
-	<div class="list">
-	  <div class="save">
-	      <a class="button" id="btn-save">
-		<span>保存</span>
-	      </a>
-	      <span class='msg'></span>
-	  </div>
-	</div>
-	<div class="list faq"> 	
-	  使用：打开豆瓣阅读(
-	  <a href="http://read.douban.com/reader/ebooks">
-	    http://read.douban.com/reader/ebooks
-	  </a>
-	  或者豆瓣阅读专栏(
-	  <a href="http://read.douban.com/reader/columns">
-	    http://read.douban.com/reader/columns
-	  </a>
-	  )，点击任何书籍，看到地址栏上的推送按钮，点击推送即可
-	</div>
-      </div><!-- center 结束 -->
+                <div class='msg'></div>
+            </el-col>
+        </el-row>
+        <el-row style="margin-top: 15px;">
+            <el-col :span="16">
+                <template>
+                    <el-alert
+                            title="kindle邮箱设置（只推送到个人邮箱无需设置）"
+                            type="info"
+                            :closable="false"
+                            show-icon>
+                        <div class="kindle-info">
+                            在
+                            <a href="https://www.amazon.cn/gp/digital/fiona/manage?ie=UTF8&ref_=gno_yam_myk#pdocSettings" target="_blank">
+                                z.cn
+                            </a>
+                            或
+                            <a href="https://www.amazon.com/gp/digital/fiona/manage?ie=UTF8&ref_=gno_yam_myk#pdocSettings" target="_blank">
+                                amazon.com
+                            </a>
+                            中添加以下邮箱为信任邮箱
+                            <div v-for="o in setForm.whiteMail" :key="o">
+                                {{ o }}
+                            </div>
+                        </div>
+                    </el-alert>
+                </template>
+            </el-col>
+        </el-row>
+    </el-form>
 
-      <div class="hr"></div>
-      <div class="bottom">
-	<div>* 有问题请发邮件至<a href="mailto:hyqiu.syen@gmail.com">hyqiu.syen@gmail.com</a>，欢迎给予意见!</div>
-	<div>* 加入豆瓣小组讨论：<a href="http://www.douban.com/group/544287/" target="_blank">http://www.douban.com/group/544287/</a></div>
-	<div class="donation">
-	  * 如果您觉得该插件帮助到了您，有意捐助的话，请扫一扫如下支付宝二维码，开发者在此表示衷心的感谢 ^_^
-	  <br/>
-	  <img src="https://coding.net/u/jacksyen/p/open/git/raw/master/images/donation.png" width="200" height="200" />
-	</div><!-- donation end -->
-      </div>
-    </div><!-- 最外层div 结束 -->
-  </body>
+    <div class="faq">
+        使用：打开豆瓣阅读(
+        <a href="http://read.douban.com/reader/ebooks">
+            http://read.douban.com/reader/ebooks
+        </a>
+        或者豆瓣阅读专栏(
+        <a href="http://read.douban.com/reader/columns">
+            http://read.douban.com/reader/columns
+        </a>
+        )，点击任何书籍，看到地址栏上的推送按钮，点击推送即可
+    </div>
+    <div class="hr"></div>
+    <div class="bottom">
+        <div>* 有问题请发邮件至<a href="mailto:hyqiu.syen@gmail.com">hyqiu.syen@gmail.com</a>，欢迎给予意见!</div>
+        <div>* 加入豆瓣小组讨论：<a href="http://www.douban.com/group/544287/" target="_blank">http://www.douban.com/group/544287/</a></div>
+        <div class="donation">
+            * 如果您觉得该插件帮助到了您，有意捐助的话，请扫一扫如下二维码，开发者在此表示由衷的感谢 ^_^
+            <br/>
+            <img src="https://coding.net/u/jacksyen/p/open/git/raw/master/images/donation.png" width="200" height="200"/>
+        </div><!-- donation end -->
+    </div>
+</div>
+<script src="scripts/options.js" type="text/javascript"></script>
+</body>
 </html>

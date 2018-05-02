@@ -1,50 +1,73 @@
-$(document).ready(function (){
-    var toEmail = localStorage.TO_MAIL;
-    if (toEmail){
-	var temp = toEmail.split('@');
-	if(temp.length > 1){
-	    $('#userEmail').val(temp[0]);
-	    $('#emailDomain').val(temp[1]);
+var Main = {
+	data() {
+		var validateUserEmail = (rule, value, callback) => {
+			if (this.setForm.switchKindle) {
+				if (value === '') {
+					callback(new Error('请输入邮箱前缀'));
+				}
+			}
+			callback();
+		};
+		return {
+			setForm: {
+				switchKindle: localStorage.SWITCH_KINDLE=='true'?true:false,
+                kindleItemDisabled: localStorage.SWITCH_KINDLE=='true'?false:true,
+				privateEmail: localStorage.TO_PRIVATE_MAIL,
+				userEmail: localStorage.TO_MAIL?localStorage.TO_MAIL.split('@')[0] : '',
+				emailDomain: localStorage.TO_MAIL?'@'+localStorage.TO_MAIL.split('@')[1] : '@kindle.com',
+				kindleEnd: [
+					'@kindle.com',
+					'@free.kindle.com',
+					'@kindle.cn',
+					'@iduokan.com'
+				],
+				whiteMail : [
+					'gk7.douban@gmail.com',
+					'gk7.douban1@gmail.com',
+					'gk7.douban2@gmail.com'
+				]
+			},
+			rules: {
+				privateEmail: [
+					{ required: true, message: '请输入邮箱地址', trigger: 'blur' },
+					{ type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+				],
+				userEmail: [
+					{ validator: validateUserEmail, trigger: 'blur' }
+				]
+
+			}
+		}
+	},
+	methods: {
+        changeSwitchKindle() {
+			this.setForm.kindleItemDisabled=!this.setForm.switchKindle;
+		},
+		submitForm(formName) {
+			this.$refs[formName].validate((valid) => {
+				if (valid) {
+					if (this.setForm.switchKindle===true) {
+						var kindleEmail = this.setForm.userEmail+this.setForm.emailDomain;
+						localStorage.TO_MAIL = kindleEmail;
+						localStorage.SWITCH_KINDLE = true;
+					} else {
+						localStorage.TO_MAIL = '';
+						localStorage.SWITCH_KINDLE = false;
+					}
+					localStorage.TO_PRIVATE_MAIL = this.setForm.privateEmail;
+					console.log('TO_MAIL:'+localStorage.TO_MAIL+",SWITCH_KINDLE:"+localStorage.SWITCH_KINDLE+",TO_PRIVATE_MAIL:"+localStorage.TO_PRIVATE_MAIL);
+                    this.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });
+					return;
+				}
+				return false;
+
+			});
+		}
 	}
-    }
-    var privateEmail = localStorage.TO_PRIVATE_MAIL;
-    if (privateEmail){
-	$('#privateEmail').val(privateEmail);
-    }
+};
+var Ctor = Vue.extend(Main);
+new Ctor().$mount('#app');
 
-    function validateEmail(email) { 
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return re.test(email);
-    }
-
-    function showMsg(msg) {
-	$('.msg').html(msg);
-	$('.msg').fadeTo(6000, 0.50, function (){
-	    $('.msg').html('');
-	});
-    }
-    
-    $('#btn-save').click(function (){
-	var email = $('#userEmail').val() + '@' + $('#emailDomain').val();
-	var privateEmail = $('#privateEmail');
-	if(!validateEmail(email)){
-	    showMsg('kindle邮箱格式不正确，请检查，注意，输入框内只需要填邮箱名，后缀点击选择框选择即可。');
-	    localStorage.TO_MAIL = '';
-	    return;
-	}
-	localStorage.TO_MAIL = email;
-
-	if (privateEmail.val()) {
-	    if (!validateEmail(privateEmail.val())){
-		showMsg('个人邮箱格式不正确，请检查');
-		localStorage.TO_PRIVATE_MAIL = '';
-		privateEmail.focus();
-		return;
-	    }
-	}
-	localStorage.TO_PRIVATE_MAIL = privateEmail.val();
-	showMsg('保存成功');
-    });
-
-
-});

@@ -1,77 +1,56 @@
-div{
-    font-size: 13px;
-    font-family: Helvetica, Arial, sans-serif;
-    line-height: 1.5em;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
+* {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
+
+.el-select .el-input {
+    width: 150px;
+}
+
+.kindle-info {
+    font-size: 13px;
+}
+
 a {
     color: #4183C4;
 }
-li {
-    list-style-type: circle;
-    list-style: inside;
-	line-height: 1.7em;
-}
-.option {
-    color: #666;
-}
-.top .title{
-    font-size:18px;
+
+.title {
+    font-size: 18px;
     line-height: 30px;
-}
-.center .list{
-    margin-bottom: 5px;
-}
-.center .email-div{
-    text-indent: 2em;
-}
-.center .save{
-    margin-top: 5px;
-    text-indent: 0px;
-    margin-left: 2em;
-}
-.center .button{
-    background-color: #60B044;
-    background-image: linear-gradient(#8ADD6D, #60B044);
-    background-repeat: repeat-x;
-    border-color: #5CA941;
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    line-height: 24px;
-    padding: 0 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 13px;
-    font-weight: bold;
-    position: relative;
+    color: #909399;
+    white-space: normal;
+    word-break: break-all;
+    overflow: hidden;
     vertical-align: middle;
-    white-space: nowrap;
-    text-decoration: none;
+    margin: 8px 0px;
 }
-.center .faq{
-    margin-top:15px;
+
+.faq {
+    margin: 10px 0;
     font-size: 14px;
     color: #5CA941;
 }
-.msg{
+
+.msg {
     margin-left: 18px;
     color: #789;
 }
-.bottom{
-    margin-top:20px;
+
+.bottom {
+    margin-top: 20px;
+    font-size: 13px;
 }
-.bottom div{
+
+.bottom div {
     margin: 3px 0px;
 }
-.bottom .donation{
+
+.bottom .donation {
     margin: 10px 0px;
     color: red;
 }
 
-.hr{
+.hr {
     border-top: 1px dashed #789;
     width: 60%;
 }

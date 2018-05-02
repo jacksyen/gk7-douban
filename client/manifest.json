@@ -13,12 +13,13 @@
         },
         "default_title": "推送豆瓣阅读服务"
     },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "options_page": "options.html",
     "update_url": "https://clients2.google.com/service/update2/crx",
     "permissions": [ "\u003Call_urls>", "tabs" ],
     "content_scripts":[{
         "matches":["https://read.douban.com/reader/ebook/*", "https://read.douban.com/reader/column/*", "http://read.douban.com/reader/ebook/*", "http://read.douban.com/reader/column/*"],
-	"css": [ "style/popup.css"],
+      "css": [ "style/popup.css"],
         "js":["scripts/jquery-1.8.3.min.js", "scripts/jquery.cookie.js", "scripts/content_script.js"]
     }]
 }

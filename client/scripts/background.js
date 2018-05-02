@@ -1,4 +1,4 @@
-﻿var version = '2.8';
+﻿var VERSION = '2.9';
 
 function checkForValidUrl(tabId, changeInfo, tab) {
     var regex = /.*\:\/\/read.douban.com\/reader\/ebook\/([^\/]*).*/;
@@ -14,9 +14,9 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
 chrome.pageAction.onClicked.addListener(function(tab) {
-    if(!localStorage.TO_MAIL){
-	chrome.tabs.create({ url: 'options.html' });
-	return;
+    if(!localStorage.TO_PRIVATE_MAIL){
+        chrome.tabs.create({ url: 'options.html' });
+        return;
     }
     //var request_id = new Date().getTime();
     chrome.tabs.sendMessage(tab.id, {status: 'BEGIN'}, function(response) {
@@ -50,21 +50,21 @@ function set_icon(tab_id, icon) {
 **/
 function send(request, callback){
     $.ajax({
-      url: 'http://gk7.pw:8000/send',
+      //url: 'http://gk7.pw:8000/send',
 	//url: 'http://112.124.38.237:8000/send',
-      //url: 'http://localhost:8000/send',
+      url: 'http://localhost:8080/send',
         //url: 'http://192.168.1.108:8000/send',
 	data: {
           'tmplId': request.tmplId,
           'denum': request.denum,
         'bookData': request.bookData,
         'bookTitle': request.title,
-        'toMail': localStorage.TO_MAIL,
+        'toMail': localStorage.TO_PRIVATE_MAIL,// 私人邮箱 for v2.9+
         'requestId': request.requestId,
 	    'ebookId': request.ebookId,
 	    'sendType': request.sendType,
-	    'toPrivateMail': localStorage.TO_PRIVATE_MAIL,
-	    'version': version
+	    'toPrivateMail': localStorage.TO_MAIL,// kindle邮箱 for v2.9+
+	    'version': VERSION
 	},
 	dataType: 'json',
 	type: 'POST',

@@ -10,12 +10,14 @@ import os
 # 环境(DEV,TEST,ONLINE)
 ENV = 'ONLINE'
 
+__VERSION__ = '2.9'
+
 DB_CONFIG = {
-    'host': '192.168.1.66',
-    'user': 'gk7',
-    'passwd': 'gk7',
-    'db': 'gk7_douban',
-    'port': 3305
+    'host': '127.0.0.1',
+    'user': 'root',
+    'passwd': 'admin',
+    'db': 'gk7',
+    'port': 3306
 }
 
 # 超时时间(s)
