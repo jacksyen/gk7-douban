@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import web
+import web,os
 import json
 import base64
 import uuid
