@@ -35,6 +35,11 @@ class Tbl_Books:
         self.cur.execute('''INSERT INTO gk7_douban_books(id, ebook_id, book_title, book_subtitle, book_author, book_size, book_cover_remote_path, addtime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)''', (book_id, ebook_id, book_title, book_subtitle, book_author, book_size, book_cover_remote_path, DateUtil.getDate(format='%Y-%m-%d %H:%M:%S')))
         self.conn.commit()
 
+    @aop.exec_time
+    def delete(self, book_id):
+        self.cur.execute('''DELETE FROM gk7_douban_books WHERE id = %s''', (book_id,))
+        self.conn.commit()
+
     '''
     根据书籍号码和书籍大小查询书籍信息
     ebook_id: 书籍号码(对应douban书籍ID)
