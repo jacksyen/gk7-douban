@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import web
+import web,os
 import json
 import base64
 import uuid
@@ -96,19 +96,23 @@ class Send:
             if book_info:
                 # 修改待发送邮件附件信息
                 attach_file = book_info['book_file_path']
-                # 如果不为空直接发送邮件
+                # 如果不为空并且文件存在则直接发送邮件
                 if attach_file:
-                    wait_emails.update_attach_file(email_id, attach_file)
-                    # 发送邮件
-                    isSend = Api.send_mail(email_id, attach_file, to_email, book_title, book_author)
-                    # 发送邮件至个人邮箱to_private_email
-                    if to_private_email:
-                        private_email_id = RandomUtil.random32Str()
-                        wait_emails.add_full(private_email_id, to_private_email, book_title, book_author, attach_file)
-                        MailTask.send.delay(private_email_id, attach_file, to_private_email, book_title, book_author)
-                    if isSend == False:
-                        return json.dumps({'status': 'FAIL', 'msg': u'推送失败，原因：发送邮件异常，请联系:hyqiu.syen@gmail.com...'})
-                    return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...'})
+                    if os.path.exists(attach_file):
+                        wait_emails.update_attach_file(email_id, attach_file)
+                        # 发送邮件
+                        isSend = Api.send_mail(email_id, attach_file, to_email, book_title, book_author)
+                        # 发送邮件至个人邮箱to_private_email
+                        if to_private_email:
+                            private_email_id = RandomUtil.random32Str()
+                            wait_emails.add_full(private_email_id, to_private_email, book_title, book_author, attach_file)
+                            MailTask.send.delay(private_email_id, attach_file, to_private_email, book_title, book_author)
+                        if isSend == False:
+                            return json.dumps({'status': 'FAIL', 'msg': u'推送失败，原因：发送邮件异常，请联系:hyqiu.syen@gmail.com...'})
+                        return json.dumps({'status': 'SUCCESS', 'msg': u'推送成功，请稍侯查看您的kindle...'})
+                    else:
+                        # 文件不存在,删除文件
+                        books.delete(book_info['id'])
 
             # 创建HTML
             # 源文件目录[绝对路径](格式：主目录/douban书籍ID/书籍大小)
