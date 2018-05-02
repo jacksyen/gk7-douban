@@ -56,7 +56,7 @@ class proc_helper:
         params.append('--input-encoding')
         params.append('UTF-8')
         params.append('--chapter-mark')
-        params.append('none')
+        params.append('pagebreak')
         params.append('--mobi-toc-at-start')
         params.append('--pretty-print')
         #params.append('--page-breaks-before')
