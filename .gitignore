@@ -18,8 +18,8 @@ data/*
 out-data/*
 .idea/
 env/
+gk7/logs/
 *.db
-*.sh
 *.out
 \#*
 *.pid
@@ -37,3 +37,5 @@ env/
 .Python
 *.bak
 gk7/globals.py
+docs/03.shell/publish.sh
+
