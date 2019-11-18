@@ -37,5 +37,5 @@ gk7/logs/
 .Python
 *.bak
 gk7/globals.py
-docs/03.shell/publish.sh
+docs/03.shell/*.publish.sh
 
