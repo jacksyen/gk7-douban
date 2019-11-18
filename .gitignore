@@ -36,3 +36,4 @@ env/
 *.so
 .Python
 *.bak
+gk7/globals.py

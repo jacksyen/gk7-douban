@@ -51,7 +51,7 @@ class SendMail:
         #msg["Accept-Charset"]="ISO-8859-1,utf-8"
         att = MIMEText(open(file_path, 'rb').read(), 'base64', self.encode)
         att["Content-Type"] = 'application/octet-stream'
-        att.add_header("Content-Disposition", "attachment", filename = file_name.encode('utf-8'))
+        att.add_header("Content-Disposition", "attachment", filename = str(file_name).encode('utf-8'))
         msg.attach(att)
         # 发送邮件
         try:
