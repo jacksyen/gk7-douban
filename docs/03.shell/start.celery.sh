@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ps -ef|grep celery | grep -v grep| awk '{print $2}'| xargs kill -9
+ps -ef|grep celery |grep -v grep |grep -v sh| awk '{print $2}'| xargs kill -9
 
 unset PYTHONPATH
 cd ../../gk7/
