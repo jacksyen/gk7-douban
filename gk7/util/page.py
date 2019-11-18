@@ -3,14 +3,15 @@
 import os
 import sys
 import time
-import tools.markup as markup
-import aop
-from log import logger
-import webglobal.globals as gk7
+import globals
+
+from MarkupPy import markup
+from util.log import logger
+import util.aop as aop
 
 # 设置系统编码
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 class HTML:
 
@@ -30,17 +31,17 @@ class HTML:
         # 创建HTML Page
         self.page = markup.page()
         # 初始化html
-        self.page.init(lang='zh', title='%s' %self.title, charset='UTF-8', encoding='UTF-8', author=self.author)
+        self.page.init(lang='zh', title=self.title, charset='UTF-8', encoding='UTF-8', metainfo={'author': self.author})
         # 图片类型
         self.cxt_pic_type = ['medium', 'large', 'orig', 'small', 'tiny', 'smallshow']
         # 代码样式
         self.style_code = 'padding: 8px 0 8px 16px; color: #333; white-space: pre-wrap; background: #ebeae0; display: block; font-size: 12px; line-height: 16px;'
         self.style_code_inline = 'margin: 0 2px; padding: 3px 6px 0; -moz-border-radius: 3px; border-radius: 3px; color: #333; background-color: #e5e4db; font-size: 12px; word-break: normal; white-space: pre-wrap;'
 
-        
+
     @aop.exec_out_time
     def create(self, send_type, book_posts):
-        if send_type == gk7.BOOK_TYPE['gallery']:
+        if send_type == globals.BOOK_TYPE['gallery']:
             return self.create_gallery(book_posts)
         # 默认
         return self.create_article(book_posts)
@@ -81,7 +82,7 @@ class HTML:
             else:
                 logger.unknown(u'未知的内容type，data内容：%s' %(str(page_data)))
             ## 添加分割页面段落
-            self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
+            self.page.p(('',), class_=globals.BOOK_PAGE_SPLIT)
         ## 片尾
         #self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
         # 写入文件
@@ -95,7 +96,7 @@ class HTML:
     '''
     def create_article(self, book_posts):
         book_images_remote_path = []
-        
+
         # 标题即是章节头标识
         title_class = 'bookTitle'
         if len(book_posts) > 1:
@@ -125,11 +126,11 @@ class HTML:
             #self.page.div(class_ = 'introduction')
             #self.page.p(intr_item, style='text-indent: 2em;')
             #self.page.div.close()
-            
+
             ## 加载文章主体内容，返回文章所有图片远程路径
             book_images_remote_path.extend(self.get_post_content(post.get('contents')))
             ## 添加分割页面段落
-            self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
+            self.page.p(('',), class_=globals.BOOK_PAGE_SPLIT)
 
         ## 片尾
         #self.page.p(('****本书由%s制作，如有问题，请发送邮件至 %s ****' %('jacksyen', 'hyqiu.syen@gmail.com'), ), style='font-size:13px; color:#333;')
@@ -151,7 +152,7 @@ class HTML:
             # 具体内容
             cxt_data = cxt.get('data')
             if cxt_type == 'pagebreak': ## 分页符号
-                self.page.p(('',), class_=gk7.BOOK_PAGE_SPLIT)
+                self.page.p(('',), class_=globals.BOOK_PAGE_SPLIT)
                 continue
             if cxt_type == 'illus': ## 图片页
                 # 获取图片信息
@@ -181,7 +182,7 @@ class HTML:
             else:
                 logger.unknown(u'未知的内容type，data内容：%s, 书籍名称:%s' %(str(cxt_data), self.title))
         return book_images_remote_path
-    
+
     """
     获取headerline或者段落内容字符串，如存在注释，则包含
     cxt_data_text: 待解析的内容
@@ -235,7 +236,7 @@ class HTML:
         # 添加图片备注
         legend = cxt_data.get('legend')
         legend_type = type(legend)
-        if legend_type == unicode:
+        if legend_type == str:
             self.page.label(str(legend), style='color:#555; font-size:.75em; line-height:1.5;')
         elif legend_type == dict:
             legend_data = legend.get('data')
@@ -261,7 +262,7 @@ class HTML:
                     logger.unknown(u'未知的内容:%s, 类型：%s' %(str(l_data), str(l_type)))
         self.page.div.close()
         return medium_src
-        
+
 
     '''
     获取图片备注
@@ -278,8 +279,8 @@ class HTML:
                 if l_text_kind == 'plaintext':
                     img_desc_text += str(l_text.get('content'))
         return img_desc_text
-    
-    
+
+
     '''
     获取<p>中的文字样式
     text_format: 豆瓣对应的文本格式
@@ -305,7 +306,7 @@ class HTML:
             pic_info = self.get_cxt_pic(cxt_data, pic_type_num=pic_type_num+1)
         return pic_info
 
-    
+
     '''
     将html写入本地文件
     '''

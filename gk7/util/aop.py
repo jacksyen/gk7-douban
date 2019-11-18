@@ -6,7 +6,8 @@ author by jacksyen[hyqiu.syen@gmail.com]
 切面帮助类
 """
 import time
-from log import logger
+from util.log import logger
+
 
 '''
 打印调用函数信息，包括参数，运行时间

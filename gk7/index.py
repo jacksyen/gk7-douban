@@ -1,33 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, sys
+import sys
 import web
 import json
-import base64
-import threading
 
-from helper.log import logger
-from helper.mail import SendMail
-from helper.page import HTML
-import webglobal.globals as gk7
-
-from trans.send import Send
-from trans.admin.login import Login
-
+from send import Send
+from util.log import logger
+from db.dbase import Database
 
 # 设置系统编码
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 
 urls = (
     '/','Index',
-    '/send', 'Send',
-    '/admin/login', 'Login',
+    '/send', 'Send'
 )
 #web.config.debug = False
-app = web.application(urls, globals())    
+app = web.application(urls, globals())
 
 class Index:
 
@@ -39,7 +31,7 @@ class Index:
 
 if __name__ == "__main__":
     logger.info(u'-----------系统启动-----------')
-
+    Database()
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()
 

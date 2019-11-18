@@ -9,7 +9,7 @@ from PIL import Image
 图片帮助类
 '''
 class ImageUtil:
-    
+
     '''
     压缩图片
     file_path: 文件路径
@@ -76,15 +76,3 @@ class DateUtil:
     def getDate(format='%Y%m'):
         t = time.localtime(time.time())
         return time.strftime(format, t)
-
-'''
-class JSONUtil:
-
-    @staticmethod
-    def toJson(json_str):
-        try:
-            return json.loads(json_str)
-        except e:
-            return None
-
-'''

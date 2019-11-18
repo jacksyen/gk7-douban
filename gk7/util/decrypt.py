@@ -9,8 +9,7 @@ i = 53092
 ---------------------------------------
 解密豆瓣阅读文章
 """
-import re
-import aop
+import util.aop as aop
 
 class decrypt:
 
@@ -30,7 +29,7 @@ class decrypt:
                 if i < len(a):
                     ll.append(256* c + a[i])
                 i = i + 1
-            return ''.join(map(unichr, ll))
+            return ''.join(map(chr, ll))
 
 
         def ioc(e):
@@ -61,19 +60,19 @@ class decrypt:
         i = c = 0
         while i<len(decrypt_str):
             n1 = n2 = n3 = n4 = 0
-            if n.has_key(decrypt_str[i]):
+            if decrypt_str[i] in n.keys():
                 n1 = n[decrypt_str[i]]
             i = i + 1
             if i <len(decrypt_str):
-                if n.has_key(decrypt_str[i]):
+                if decrypt_str[i] in n.keys():
                     n2 = n[decrypt_str[i]]
             i = i + 1
             if i <len(decrypt_str):
-                if n.has_key(decrypt_str[i]):
+                if decrypt_str[i] in n.keys():
                     n3 = n[decrypt_str[i]]
             i = i + 1
             if i <len(decrypt_str):
-                if n.has_key(decrypt_str[i]):
+                if decrypt_str[i] in n.keys():
                     n4 = n[decrypt_str[i]]
             i = i + 1
 

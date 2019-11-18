@@ -8,17 +8,20 @@ author by jacksyen[hyqiu.syen@gmail.com]
 import os
 
 # 环境(DEV,TEST,ONLINE)
-ENV = 'ONLINE'
+ENV="DEV"
 
 __VERSION__ = '2.9'
 
-DB_CONFIG = {
-    'host': '127.0.0.1',
-    'user': 'root',
-    'passwd': 'admin',
-    'db': 'gk7',
-    'port': 3306
-}
+BROKER_URL = ''
+# 任务结果超时时间(秒)
+CELERY_TASK_RESULT_EXPIRES = 24*60*60  # 24hours.
+
+
+DB_HOST = '127.0.0.1'
+DB_PORT = 3306
+DB_USER = ''
+DB_PASSWD = ''
+DB_NAME = 'gk7_douban'
 
 # 超时时间(s)
 HTTP_TIME_OUT = 60
@@ -50,20 +53,12 @@ BOOK_IMG_PATH_SPLIT = ';'
 BOOK_PAGE_SPLIT = 'pagebreak'
 
 # email配置
-EMAIL = {
-    ## SMTP
-    'smtp': 'smtp.gmail.com',
-    ## 端口
-    'port': 465,
-    ## 发送方邮箱
-    'user': '',
-    ## 发送方密码
-    'pwd': '',
-    ## 邮件编码
-    'encode': 'UTF-8',
-    ## 超时时间30秒
-    'timeout': 30
-}
+EMAIL_SMTP = ''
+EMAIL_PORT = 465
+EMAIL_USER = ''
+EMAIL_PWD  = ''
+EMAIL_ENCODE = 'UTF-8'
+EMAIL_TIMEOUT = 30
 
 '''
 全局状态
@@ -86,7 +81,7 @@ API_STATUS = {
 }
 
 API_URL = {
-    'mail': 'http://gk7.pw:8001/mail'
+    'mail': 'http://api.gk7.pw/mail'
 }
 
 ## 书籍类型

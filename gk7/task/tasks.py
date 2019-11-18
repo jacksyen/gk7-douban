@@ -4,31 +4,34 @@
 author by jacksyen[hyqiu.syen@gmail.com]
 ---------------------------------------
 celery异步任务
-server: 
+server:
     #[root用户运行]
     export C_FORCE_ROOT='true'
-    celery -A helper.tasks worker -l info
+    celery -A util.tasks worker -l info
 """
-import os
 import json
-import urllib2
+import requests
 
 from celery import Task
 from celery import Celery,platforms
 
-from log import logger
-from util import ImageUtil
-from helper.mail import SendMail
-from webglobal import celeryconfig
-from db.tbl_wait_emails import Tbl_Wait_Emails
-import webglobal.globals as gk7
+from util.log import logger
+from util.util import ImageUtil
+from util.mail import SendMail
+from db.dbase import Database
+import globals
 
 # 强制root执行
 platforms.C_FORCE_ROOT = True
 
 app = Celery()
 # 加载celery配置文件
-app.config_from_object(celeryconfig)
+app.conf.enable_utc = True
+app.conf.timezone = 'Asia/Shanghai'
+app.conf.broker_url = globals.BROKER_URL
+app.conf.result_backend = "amqp"
+app.conf.result_expires = globals.CELERY_TASK_RESULT_EXPIRES
+
 
 class BaseTask(Task):
 
@@ -40,8 +43,8 @@ class BaseTask(Task):
     def on_failure(self, exc, task_id, args, kwargs, einfo):
         try:
             logger.error(u'发送邮件失败，celery task id: %s, 参数:%s, 错误信息：%s' %(task_id, str(args), str(exc)))
-            wait_email = Tbl_Wait_Emails()
-            wait_email.update_status(str(args[0]), gk7.STATUS.get('error'))
+            db = Database()
+            db.email_update_status(str(args[0]), globals.STATUS.get('error'))
         except Exception as e:
             logger.error(u'更新发送邮件状态异常，错误:%s,参数:%s' %(str(e), str(args)))
 
@@ -52,8 +55,8 @@ class BaseTask(Task):
         try:
             logger.info(u'发送邮件成功，参数:%s' %str(args))
             # 更新发送邮件状态
-            wait_email = Tbl_Wait_Emails()
-            wait_email.update_status(str(args[0]), gk7.STATUS.get('complete'))
+            db = Database()
+            db.email_update_status(str(args[0]), globals.STATUS.get('complete'))
         except Exception as e:
             logger.error(u'更新发送邮件状态异常，错误:%s,参数:%s' %(str(e), str(args)))
 
@@ -81,16 +84,16 @@ class DownloadBaseTask(Task):
 调用API接口
 '''
 class ApiTask(object):
-    
+
     @app.task(base=ApiBaseTask, max_retries=5)
     def post(url, params):
         try:
-            result = urllib2.urlopen(url, params, timeout=gk7.HTTP_TIME_OUT).read()
+            result = requests.post(url, params, timeout=globals.HTTP_TIME_OUT)
             if not result:
                 ApiTask.post.retry(countdown=20, exc=e)
                 return
-            json_result = json.loads(result)
-            if str(json_result.get('status')) != gk7.API_STATUS.get('success'):
+            result = result.json
+            if str(json_result.get('status')) != globals.API_STATUS.get('success'):
                 ApiTask.post.retry(countdown=20, exc=e)
                 return
         except Exception as e:
@@ -103,7 +106,7 @@ class ApiTask(object):
 发送邮件任务
 '''
 class MailTask(object):
-    
+
     '''
     发送邮件,发送失败后间隔30秒重新发送
     重试次数：5
@@ -137,13 +140,13 @@ class DownloadTask(object):
     @app.task(base=DownloadBaseTask, max_retries=5)
     def get_image(url, file_dir):
         try:
-            data = urllib2.urlopen(url, timeout=gk7.HTTP_TIME_OUT).read()
+            data = requests.get(url, timeout=globals.HTTP_TIME_OUT)
             # 文件路径
             file_path = '%s/%s' %(file_dir, url[url.rfind('/')+1:])
-            with open(file_path, 'w') as f_data:
-                f_data.write(data)
+            with open(file_path, 'wb') as f_data:
+                f_data.write(data.content)
             # 压缩
-            ImageUtil.compress(file_path, gk7.PIC_MAX_WIDTH)
+            ImageUtil.compress(file_path, globals.PIC_MAX_WIDTH)
         except Exception as e:
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)

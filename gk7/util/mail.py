@@ -7,23 +7,24 @@ author by jacksyen[hyqiu.syen@gmail.com]
 """
 import smtplib
 
-from email.header import Header
-from email.MIMEText import MIMEText
-from email.MIMEMultipart import MIMEMultipart
+import globals
 
-from log import logger
-import helper.aop as aop
-import webglobal.globals as gk7
+from email.header import Header
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+from util.log import logger
+import util.aop as aop
 
 class SendMail:
 
     def __init__(self):
         # 邮件服务
-        self.server = smtplib.SMTP_SSL(gk7.EMAIL.get('smtp'), gk7.EMAIL.get('port'), timeout=gk7.EMAIL.get('timeout'))
+        self.server = smtplib.SMTP_SSL(globals.EMAIL_SMTP, globals.EMAIL_PORT, timeout=globals.EMAIL_TIMEOUT)
         #self.server.starttls()
-        self.server.login(gk7.EMAIL.get('user'), gk7.EMAIL.get('pwd'))
-        self.from_mail = gk7.EMAIL.get('user')
-        self.encode = gk7.EMAIL.get('encode')
+        self.server.login(globals.EMAIL_USER, globals.EMAIL_PWD)
+        self.from_mail = globals.EMAIL_USER
+        self.encode = globals.EMAIL_ENCODE
 
     @aop.exec_time
     def close(self):
@@ -57,8 +58,8 @@ class SendMail:
             logger.info(u'开始发送邮件至%s...', tomail)
             self.server.sendmail(msg['From'], tomail, msg.as_string())
             logger.info(u'发送邮件至%s完成', tomail)
-        except Exception, err:
+        except Exception as err:
             logger.error(u'发送邮件至%s失败,%s', tomail, err)
-            raise Exception, err
+            raise err
         finally:
             self.close()

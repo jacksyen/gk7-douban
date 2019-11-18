@@ -4,7 +4,7 @@ import time, datetime
 import logging
 import logging.handlers
 
-import webglobal.globals as gk7
+import globals as gk7
 
 '''
 自定义日志时间格式
@@ -68,4 +68,4 @@ class logger:
         logg.warn(msg, *args, **kwargs)
         hdr.flush()
         logg.removeHandler(hdr)
-        
+

@@ -6,11 +6,11 @@ author by jacksyen[hyqiu.syen@gmail.com]
 调用系统进程命令帮助
 """
 import os
-
-from log import logger
 import subprocess
-import helper.aop as aop
-import webglobal.globals as gk7
+
+from util.log import logger
+import util.aop as aop
+import globals as gk7
 
 class proc_helper:
 
@@ -34,14 +34,14 @@ class proc_helper:
         file_name = input_file_path.split('/')[-1]
         # 输出文件绝对路径
         out_file_path = '%s/%s.%s' %(out_file_dir, file_name[0: file_name.rfind('.')], gk7.OUT_FILE_FORMAT)
-        ## 
+        ##
         ## 说明：
         #'/opt/app/gk7-douban/data/39709928/26064/1519349229.html', u'/data/gk7-douban/mobi/39709928/26064', u'\u987d\u77f3', u'/opt/app/gk7-douban/data/cover/39709928.jpg')
         ## 调用系统命令：ebook-convert input_file out_file --authors <author> --cover <img> --language zh --chapter-mark "none" --page-breaks-before '//*[@class="pagebreak"]'
         ## --cover 书籍封面
         ## --chapter-mark 设置标注章节的模式，none：不会在章节前插入控制
         ## --page-breaks-before: XPath表达式，在指定元素前插入分页符
-        ## 
+        ##
         params = ['ebook-convert']
         params.append(input_file_path)
         params.append(out_file_path.encode('utf8'))
