@@ -5,7 +5,7 @@ import sys
 import web
 import json
 
-import globals
+import globals as gl
 from send import Send
 from util.log import logger
 from db.dbase import Database
@@ -20,7 +20,7 @@ urls = (
     '/send', 'Send'
 )
 
-if globals.ENV == 'ONLINE':
+if gl.ENV == 'ONLINE':
     web.config.debug = False
 app = web.application(urls, globals())
 
@@ -38,5 +38,5 @@ if __name__ == "__main__":
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)   ##这行是新增的
     app.run()
 
-if globals.ENV == 'ONLINE':
+if gl.ENV == 'ONLINE':
     application = app.wsgifunc()
