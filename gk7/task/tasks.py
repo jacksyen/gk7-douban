@@ -85,7 +85,7 @@ class DownloadBaseTask(Task):
 '''
 class ApiTask(object):
 
-    @app.task(base=ApiBaseTask, max_retries=5)
+    @app.task(base=ApiBaseTask, max_retries=3)
     def post(url, params):
         try:
             result = requests.post(url, params, timeout=globals.HTTP_TIME_OUT)
@@ -116,7 +116,7 @@ class MailTask(object):
     title: 邮件标题
     auth: 邮件作者
     '''
-    @app.task(base=BaseTask, max_retries=5)
+    @app.task(base=BaseTask, max_retries=3)
     def send(mail_id, attach_file, to_email, title, auth):
         try:
             mail = SendMail()
@@ -137,7 +137,7 @@ class DownloadTask(object):
     url: 下载URL
     file_dir: 文件本地存储目录
     '''
-    @app.task(base=DownloadBaseTask, max_retries=5)
+    @app.task(base=DownloadBaseTask, max_retries=3)
     def get_image(url, file_dir):
         try:
             data = requests.get(url, timeout=globals.HTTP_TIME_OUT)
