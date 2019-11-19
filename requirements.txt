@@ -4,4 +4,4 @@ PyMySQL>=0.9.3
 uwsgi>=2.0.18
 Pillow>=6.2.1
 requests>=2.22.0
-MarkupPy>==1.14
+MarkupPy>=1.14
