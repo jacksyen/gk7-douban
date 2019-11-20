@@ -71,7 +71,7 @@ class HTML:
                     paragraph_data_text = paragraph_data.get('text')
                     text_content = ''
                     for text in paragraph_data_text:
-                        if type(text) == unicode:
+                        if type(text) == str:
                             text_content += str(text)
                         else:
                             if text:
@@ -251,7 +251,7 @@ class HTML:
                 if l_type == 'paragraph':
                     desc_text = l_data.get('text')
                     desc_text_type = type(desc_text)
-                    if desc_text_type == unicode:
+                    if desc_text_type == str:
                         self.page.label(str(desc_text), style='color:#555; font-size:.75em; line-height:1.5;')
                     elif desc_text_type == list:
                         for desc_text_data in desc_text:
