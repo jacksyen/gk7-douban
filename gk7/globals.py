@@ -82,10 +82,6 @@ API_STATUS = {
     'abnormal': 'ABNORMAL'
 }
 
-API_URL = {
-    'mail': 'http://api.gk7.pw/mail'
-}
-
 ## 书籍类型
 BOOK_TYPE = {
     'gallery': 'gallery',
@@ -98,6 +94,3 @@ LOG_DIRS = '%s/logs' %(os.path.abspath('.'))
 
 ## 图片默认最大宽度
 PIC_MAX_WIDTH = 800
-
-## 发送邮件类型[local, api]
-SEND_MAIL_TYPE = 'local'
