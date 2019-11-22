@@ -31,6 +31,8 @@ BOOK_COVER_URL = 'https://img3.doubanio.com/view/ark_{#type}_cover/retina/public
 
 # 源文件存储目录
 DATA_DIRS = '%s/data' %(os.path.abspath('.'))
+if ENV == 'ONLINE':
+    DATA_DIRS = '/data/gk7-douban/data'
 
 BOOK_COVER_DIRS = '%s/cover' %(DATA_DIRS)
 # 初始化书籍封面目录

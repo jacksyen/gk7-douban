@@ -145,8 +145,9 @@ class DownloadTask(object):
             file_path = '%s/%s' %(file_dir, url[url.rfind('/')+1:])
             with open(file_path, 'wb') as f_data:
                 f_data.write(data.content)
-            # 压缩
-            ImageUtil.compress(file_path, globals.PIC_MAX_WIDTH)
+                f_data.close()
+                # 压缩
+                ImageUtil.compress(file_path, globals.PIC_MAX_WIDTH)
         except Exception as e:
             ## 延迟20s后重试
             DownloadTask.get_image.retry(countdown=20, exc=e)
