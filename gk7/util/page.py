@@ -316,6 +316,6 @@ class HTML:
             os.makedirs(self.file_dir)
         filename = '%s/%d.html' %(self.file_dir, int(time.time()))
         output = open(filename, 'w')
-        output.write(self.page)
+        output.write(str(self.page))
         output.close()
         return filename
