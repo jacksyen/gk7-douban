@@ -140,7 +140,7 @@ class DownloadTask(object):
     @app.task(base=DownloadBaseTask, max_retries=3)
     def get_image(url, file_dir):
         try:
-            data = requests.get(url, timeout=globals.HTTP_TIME_OUT)
+            data = requests.get(url, timeout=globals.HTTP_TIME_OUT, headers=globals.HEADERS)
             # 文件路径
             file_path = '%s/%s' %(file_dir, url[url.rfind('/')+1:])
             with open(file_path, 'wb') as f_data:

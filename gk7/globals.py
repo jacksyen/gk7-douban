@@ -16,6 +16,9 @@ BROKER_URL = ''
 # 任务结果超时时间(秒)
 CELERY_TASK_RESULT_EXPIRES = 24*60*60  # 24hours.
 
+HEADERS = {
+    "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+}
 
 DB_HOST = '127.0.0.1'
 DB_PORT = 3306
