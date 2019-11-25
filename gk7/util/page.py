@@ -190,7 +190,7 @@ class HTML:
     def get_head_or_para_text(self, cxt_data_text):
         # 单条内容，直接返回
         if isinstance(cxt_data_text, list) == False:
-            return str(cxt_data_text)
+            return cxt_data_text.encode("utf-8",errors='replace').decode('utf-8')
         # 多条内容，带注释
         plaintexts = []
         for text in cxt_data_text:
