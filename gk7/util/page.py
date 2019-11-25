@@ -315,7 +315,7 @@ class HTML:
         if not os.path.exists(self.file_dir):
             os.makedirs(self.file_dir)
         filename = '%s/%d.html' %(self.file_dir, int(time.time()))
-        output = open(filename, 'w')
+        output = open(filename, 'w', 'utf-8')
         output.write(str(self.page))
         output.close()
         return filename
