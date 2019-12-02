@@ -23,11 +23,10 @@ class ImageUtil:
             new_width = width
         ratio = 1.0 * height / width
         new_height = int(new_width * ratio)
-        new_size = (new_width, new_height)
         #插值缩放图像
-        out = im.resize(new_size, Image.ANTIALIAS)
+        out = im.thumbnail((new_width, new_height), Image.ANTIALIAS)
         # 保存并替换原图片
-        out.convert('RGB').save(file_path)
+        out.save(file_path, im.format)
 
 
 '''
