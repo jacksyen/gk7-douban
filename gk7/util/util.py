@@ -24,7 +24,7 @@ class ImageUtil:
         ratio = 1.0 * height / width
         new_height = int(new_width * ratio)
         #插值缩放图像
-        out = im.thumbnail((new_width, new_height), Image.ANTIALIAS)
+        out = im.thumbnail((new_width, new_height))
         # 保存并替换原图片
         out.save(file_path, im.format)
 
