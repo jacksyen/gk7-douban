@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "gk7-豆瓣阅读推送",
     "description": "豆瓣阅读推送kindle",
-    "version": "2.9",
+    "version": "2.9.1",
     "icons": {
         "48": "images/icon48.png"
     },
@@ -16,7 +16,7 @@
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "options_page": "options.html",
     "update_url": "https://clients2.google.com/service/update2/crx",
-    "permissions": [ "\u003Call_urls>", "tabs" ],
+    "permissions": [ "http://*/*", "https://*/*" ],
     "content_scripts":[{
         "matches":["https://read.douban.com/reader/ebook/*", "https://read.douban.com/reader/column/*", "http://read.douban.com/reader/ebook/*", "http://read.douban.com/reader/column/*"],
       "css": [ "style/popup.css"],
