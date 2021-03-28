@@ -9,6 +9,7 @@ server:
     export C_FORCE_ROOT='true'
     celery -A util.tasks worker -l info
 """
+import time
 import json
 import requests
 
@@ -140,6 +141,7 @@ class DownloadTask(object):
     @app.task(base=DownloadBaseTask, max_retries=3)
     def get_image(url, file_dir):
         try:
+            time.sleep(0.5)
             data = requests.get(url, timeout=globals.HTTP_TIME_OUT, headers=globals.HEADERS)
             # 文件路径
             file_path = '%s/%s' %(file_dir, url[url.rfind('/')+1:])
