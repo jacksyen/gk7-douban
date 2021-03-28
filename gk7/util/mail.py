@@ -44,7 +44,7 @@ class SendMail:
         file_name = file_path.split('/')[-1]
         # 构造附件
         msg = MIMEMultipart()
-        msg['From'] = ("%s <" + self.from_mail +">") %(Header(author, self.encode),)
+        msg['From'] = ("%s <" + self.from_mail +">") %(Header(author,'utf-8'),)
         msg['To'] = tomail
         msg['Subject'] = Header(title, self.encode)
         #msg["Accept-Language"]="zh-CN"
@@ -56,7 +56,7 @@ class SendMail:
         # 发送邮件
         try:
             logger.info(u'开始发送邮件至%s...', tomail)
-            self.server.sendmail(msg['From'], tomail, msg.as_string())
+            self.server.sendmail(self.from_mail, tomail, msg.as_string())
             logger.info(u'发送邮件至%s完成', tomail)
         except Exception as err:
             logger.error(u'发送邮件至%s失败,%s', tomail, err)

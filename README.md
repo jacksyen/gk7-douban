@@ -53,7 +53,7 @@ chrome插件及服务端
 
 ### <a name="依赖">依赖</a> ###
 
-+ `python` 2.6 or later(but not 3.x)
++ `python` 3.8
 + `web.py`
 + `celery`
 + `calibre`
