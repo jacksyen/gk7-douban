@@ -1,4 +1,4 @@
-﻿var VERSION = '2.9';
+﻿var VERSION = '2.9.1';
 
 function checkForValidUrl (tabId, changeInfo, tab) {
   var regex        = /.*\:\/\/read.douban.com\/reader\/ebook\/([^\/]*).*/;
@@ -50,7 +50,7 @@ function set_icon (tab_id, icon) {
  **/
 function send (request, callback) {
   $.ajax({
-    url: 'http://gk7.pw:8000/send',
+    url: 'https://gk7.pw/send',
     // url     : 'http://localhost:8080/send',
     //url: 'http://192.168.1.108:8000/send',
     data    : {
