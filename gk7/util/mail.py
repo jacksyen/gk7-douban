@@ -22,13 +22,14 @@ class SendMail:
         # 邮件服务
         self.server = smtplib.SMTP_SSL(globals.EMAIL_SMTP, globals.EMAIL_PORT, timeout=globals.EMAIL_TIMEOUT)
         #self.server.starttls()
+        self.server.ehlo()
         self.server.login(globals.EMAIL_USER, globals.EMAIL_PWD)
         self.from_mail = globals.EMAIL_USER
         self.encode = globals.EMAIL_ENCODE
 
     @aop.exec_time
     def close(self):
-        if not self.server:
+        if self.server:
             self.server.quit()
             self.server.close()
 
